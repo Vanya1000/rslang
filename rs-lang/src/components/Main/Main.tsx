@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import SignIn from '../Auth/SignIn'
 import SignUp from '../Auth/SignUp'
 import NotFound from '../Common/NotFound'
 import AboutPage from './AboutPage/AboutPage'
@@ -19,6 +20,7 @@ const Main = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<NotFound />}/>
         <Route path="/signup" element={<SignUp />}/>
+        <Route path="/signin" element={<SignIn />}/>
       </Routes>
     </>
     

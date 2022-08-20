@@ -14,8 +14,15 @@ import userSlice from './userSlice';
 import bookSlice from './bookSlice';
 import gameSlice from './gameSlice';
 
+
+const userPersistConfig = {
+  key: 'user',
+  storage,
+  whitelist: ['user'],
+}
+
 const rootReducer = combineReducers({
-  user: userSlice,
+  user: persistReducer(userPersistConfig, userSlice),
   book: bookSlice,
   game: gameSlice,
 });
@@ -23,7 +30,7 @@ const rootReducer = combineReducers({
 const persistConfig = { // Where wil be saved
   key: 'root', // key for creating more than one persist
   storage, // storage: storage
-  whitelist: [/* 'user' */], // what will be saved
+  whitelist: ['user'], // what will be saved
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -40,6 +47,7 @@ const store = configureStore({
 
 export const persistor = persistStore(store); // wrapper for store
 
+export type StoreType = typeof store;
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<

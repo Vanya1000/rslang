@@ -49,3 +49,13 @@ export type DataForRegistration = {
   email: string;
   password: string;
 }
+
+export type SignInFormType = {
+  email: string;
+  password: string;
+}
+
+export type UpdateTokenType = {
+  token: string;
+  refreshToken: string;
+}

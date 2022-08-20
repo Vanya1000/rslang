@@ -1,8 +1,7 @@
-import { DataForRegistration, RegistrationResponseType, userType } from './../types/type';
+import { DataForRegistration, RegistrationResponseType, SignInFormType, UpdateTokenType, userType } from './../types/type';
 import { createAsyncThunk, createSlice, Action, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import AuthService from '../api/auth';
-import { AxiosError } from 'axios';
 
 export type userState = {
   user: userType | null;
@@ -33,6 +32,39 @@ export const registration = createAsyncThunk<void, DataForRegistration, {state: 
   }
 );
 
+export const login = createAsyncThunk<void, SignInFormType, {state: RootState}>(
+  'user/login',
+  async (dataUser, {dispatch}) => {
+    try {
+      dispatch(setRegErrorMessage(''));
+      const {data, status} = await AuthService.login(dataUser.email, dataUser.password);
+      if (status === 200) {
+        dispatch(setUserData(data));
+      }
+    } catch (error) {
+      console.log(error.response.status)
+      if (error.response.status === 403) {
+        dispatch(setRegErrorMessage('Wrong email or password'));
+      } else {
+        dispatch(setRegErrorMessage(error.response?.data));
+      }
+    }
+  }
+)
+
+export const getUser = createAsyncThunk<void, void, {state: RootState}>(
+  'user/getUser',
+  async (_, {getState}) => {
+    try {
+      const {data} = await AuthService.getUser(getState().user.user!.userId);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)
+
+
 
 export const userSlice = createSlice({
   name: 'user',
@@ -40,10 +72,20 @@ export const userSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     setIsSuccessRegistration: (state, action: PayloadAction<boolean>) => {
-      state.isSuccessRegistration = true;
+      state.isSuccessRegistration = action.payload;
     },
     setRegErrorMessage: (state, action: PayloadAction<string>) => {
       state.regErrorMessage = action.payload;
+    },
+    setUserData: (state, action: PayloadAction<userType>) => {
+      state.user = action.payload;
+    },
+    logout: (state) => {
+      state.user = null;
+    },
+    updateToken: (state, action: PayloadAction<UpdateTokenType>) => {
+      state.user!.token = action.payload.token;
+      state.user!.refreshToken = action.payload.refreshToken;
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -54,6 +96,6 @@ export const userSlice = createSlice({
 });
 
 // below we export the actions
-export const { setIsSuccessRegistration, setRegErrorMessage } = userSlice.actions;
+export const { setIsSuccessRegistration, setRegErrorMessage, setUserData, logout, updateToken } = userSlice.actions;
 
 export default userSlice.reducer;
