@@ -55,14 +55,14 @@ const SignUp = () => {
 					<AppRegistrationIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					Регистрация
+				Sign up
 				</Typography>
 				{regErrorMessage && !isSuccessRegistration && <Stack sx={{ width: '100%' }} spacing={2}><Alert severity="error">{regErrorMessage}</Alert></Stack>}
 				{isSuccessRegistration  &&
 					<>
 						<Stack sx={{ width: '100%' }} spacing={2}>
-							<Alert severity="success">Пользователь успешно зарегистрирован! Пожалуйста, войдите в систему, чтобы продолжить.</Alert>
-							<Button component={RouterLink} to="/signin" variant="contained" color="success">Войти</Button>
+							<Alert severity="success">User has been successfully registered! Please Sign in to continue.</Alert>
+							<Button component={RouterLink} to="/signin" variant="contained" color="success">Sign in</Button>
 						</Stack>
 					</>}
 				{!isSuccessRegistration &&
@@ -126,13 +126,13 @@ const SignUp = () => {
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
 							>
-								Зарегистрироваться
+								Sign Up
 							</Button>
 						</form>
 						<Grid container>
 							<Grid item xs>
 								<Link component={RouterLink} to="/signin" variant="body2">
-									"У вас уже есть аккаунт? Войти"
+								"Already have an account? Sign in"
 								</Link>
 							</Grid>
 						</Grid>

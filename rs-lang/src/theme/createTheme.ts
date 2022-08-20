@@ -9,9 +9,6 @@ export const themeLight = createTheme({
     background: {
       default: '#f5f5f7',
     },
-    success: {
-      main: 'rgb(0,0,0,0.8)',
-    },
   },
 });
 
