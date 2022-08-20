@@ -11,7 +11,9 @@ import StatPage from './StatPage/StatPage'
 
 const Main = () => {
   return (
-    <>
+    <div style={{
+       minHeight: `calc(100vh - 109px)`
+    }}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/book" element={<BookPage />} />
@@ -22,8 +24,7 @@ const Main = () => {
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/signin" element={<SignIn />}/>
       </Routes>
-    </>
-    
+    </div>
   )
 }
 

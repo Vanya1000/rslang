@@ -1,0 +1,93 @@
+button {
+  cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.mainBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  height: 596px;
+  width: 596px;
+}
+.tittle {
+  font-size: 44px;
+  margin: 35px 0 150px 0;
+}
+
+.choseBtnWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.backBtn {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 3px 3px 15px rgb(196, 151, 255);
+  margin: 25px;
+  width: 60%;
+  height: 40px;
+  transition: ease-in-out 0.4s;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: white;
+  background-color: rgb(49, 49, 49);
+}
+
+.backBtn:hover {
+  transform: scale(1.2);
+}
+
+.description {
+  padding: 0 60px;
+  margin: 25px 0;
+  text-align: center;
+  font-size: 18px;
+}
+
+.gameTittle {
+  font-size: 46px;
+  color: rgb(95, 255, 255);
+}
+
+.gameImg {
+  width: 110px;
+  margin: 40px 0 0 0;
+}
+
+.selectLvlBtnWrapper {
+  padding: 40px 0;
+  margin: 50px 45px;
+  box-shadow: 2px 2px 5px rgba(48, 48, 48, 0.884);
+  border-radius: 5px;
+  background-color: aliceblue;
+}
+
+.selectLvlBtn {
+  margin: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(48, 48, 48, 0.884);
+  transition: ease-in-out 0.2s;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(49, 49, 49);
+}
+
+.selectLvlBtn:hover {
+  transform: scale(1.15);
+}
+
+.sprintBtn {
+  margin-top: 0;
+}
