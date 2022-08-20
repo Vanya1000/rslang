@@ -1,43 +1,85 @@
-import React from 'react'
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { AppBar, Box, Button, IconButton, Link, Toolbar, Typography } from '@mui/material'
+import { NavLink, Link as RLink, useNavigate } from 'react-router-dom'
+import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
+import DrawerLayout from './DrawerLayout';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { getUser, logout } from '../../store/userSlice';
 
-const linkColor = (isActive: any) => (isActive ? 'cyan' : 'white');
+
+const linkColor = (isActive: any) => (isActive ? '#FFFFFF' : '#b0b0b0');
+const underLine = (isActive: any) => (isActive ? 'underline' : 'none');
 
 const Header = () => {
+  const dispatch = useAppDispatch();
+  const redirect = useNavigate();
+  const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
+  const userName = useAppSelector(state => state.user?.user?.name);
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const logoutCb = () => {
+    dispatch(logout());
+  }
+
+  useEffect(() => {
+    if (isAuth) {
+      redirect('/');
+    }
+  }, [isAuth])
 
   return (
+    <>
     <AppBar position="static">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            RS Lang
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button  sx={{ color: '#fff' }}>
-            <NavLink to='/' style={({isActive}) => ({color: linkColor(isActive)})}>Главная</NavLink>
-          </Button>
-          <Button  sx={{ color: '#fff' }}>
-            <NavLink style={({isActive}) => ({color: linkColor(isActive)})} to='/book'>Учебник</NavLink>
-          </Button>
-          <Button  sx={{ color: '#fff' }}>
-            <NavLink style={({isActive}) => ({color: linkColor(isActive)})} to='/game'>Игры</NavLink>
-          </Button>
-          <Button  sx={{ color: '#fff' }}>
-            <NavLink style={({isActive}) => ({color: linkColor(isActive)})} to='/stat'>Статистика</NavLink>
-          </Button>
-          <Button  sx={{ color: '#fff' }}>
-            <NavLink style={({isActive}) => ({color: linkColor(isActive)})} to='/about'>О команде</NavLink>
-          </Button>
-          <Button  sx={{ color: '#fff' }}>
-            <NavLink style={({isActive}) => ({color: linkColor(isActive)})} to='/signup'>Регистрация</NavLink>
-          </Button>
-          </Box>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2, display: { xs: 'block', sm: 'none' } }}
+              
+              onClick={() => setMenuOpen(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+            >
+              RS Lang
+            </Typography>
+            <Box sx={{ 
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              typography: 'body1',
+              '& > :not(style) + :not(style)': {
+                ml: 2,
+              },
+              display: { xs: 'none', sm: 'flex' }}}  >
+                <NavLink to='/' style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})}>Main</NavLink>
+                <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive) })} to='/book'>Textbook</NavLink>
+                <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})} to='/game'>Mini games</NavLink>
+                <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})} to='/stat'>Statistics</NavLink>
+                <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})} to='/about'>About us</NavLink>
+            </Box>
+            {isAuth 
+            ? <span>
+              {userName}
+            <IconButton aria-label="delete" size="large" onClick={logoutCb}>
+            <LogoutIcon sx={{color: '#FFFFFF'}}/>
+          </IconButton>
+            </span>
+            : <Button color="inherit">
+            <RLink style={{ textDecoration: 'none', color: 'white' }} to='/signin'>Sign in</RLink>
+            </Button> 
+            }
+            
         </Toolbar>
       </AppBar>
+      <DrawerLayout menuOpen={menuOpen} closeMenu={() => setMenuOpen(false) }  />
+      </>
   )
 }
 
