@@ -7,17 +7,15 @@ const AboutPage = () => {
       <h4>Our Team</h4>
       <div className={s.teamMateWrapper}>
         <div className={`${s.teamMate} ${s.leftBlock}`}>
-          <a href="https://github.com/Vanya1000">
-            <div className={`${s.imgWrapperLeft} ${s.imgWrapper}`}>
-              <img src="img/vanya.jpeg" alt="" />
-            </div>
-          </a>
+          <div className={`${s.imgWrapperLeft} ${s.imgWrapper}`}>
+            <img src="img/vanya.jpeg" alt="" />
+          </div>
           <div className={s.info}>
             <div className={s.name}>
               <div>Vanya Zaharenko</div>
-              <div>
+              <a href="https://github.com/Vanya1000">
                 <img src="img/github.png" alt="" />
-              </div>
+              </a>
             </div>
             <div className={s.status}>Team leader, Full Stack developer</div>
             <div className={s.description}>
@@ -28,16 +26,14 @@ const AboutPage = () => {
           </div>
         </div>
         <div className={`${s.teamMate} ${s.rightBlock}`}>
-          <a href="https://github.com/sleepyMaryAlex">
-            <div className={`${s.imgWrapperRight}  ${s.imgWrapper}`}>
-              <img src="img/maria.png" alt="" />
-            </div>
-          </a>
+          <div className={`${s.imgWrapperRight}  ${s.imgWrapper}`}>
+            <img src="img/maria.png" alt="" />
+          </div>
           <div className={s.info}>
             <div className={`${s.name} ${s.nameReverse}`}>
-              <div>
+              <a href="https://github.com/sleepyMaryAlex">
                 <img src="img/github.png" alt="" />
-              </div>
+              </a>
               <div>Mary Huchkova</div>
             </div>
             <div className={s.status}>Frontend developer</div>
@@ -49,17 +45,15 @@ const AboutPage = () => {
           </div>
         </div>
         <div className={`${s.teamMate} ${s.leftBlock}`}>
-          <a href="https://github.com/kettl96">
-            <div className={`${s.imgWrapperLeft} ${s.imgWrapper}`}>
-              <img src="img/alex.jpeg" alt="" />
-            </div>
-          </a>
+          <div className={`${s.imgWrapperLeft} ${s.imgWrapper}`}>
+            <img src="img/alex.jpeg" alt="" />
+          </div>
           <div className={s.info}>
             <div className={s.name}>
               <div>Alexander Nechaenkov</div>
-              <div>
+              <a href="https://github.com/kettl96">
                 <img src="img/github.png" alt="" />
-              </div>
+              </a>
             </div>
             <div className={s.status}>Frontend developer</div>
             <div className={s.description}>
@@ -70,7 +64,7 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
-      
+
     </div>
   )
 }

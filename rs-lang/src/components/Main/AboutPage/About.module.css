@@ -36,6 +36,7 @@ h4 {
 .imgWrapper img {
   border-radius: 50%;
   width: 220px;
+  cursor: default;
 }
 
 .name {
@@ -47,6 +48,7 @@ h4 {
 
 .name div {
   font-size: 24px;
+  cursor: default;
 }
 
 .name img {
@@ -78,6 +80,10 @@ h4 {
   margin-bottom: 12px;
   align-items: center;
   color: rgb(129, 129, 129);
+  cursor: default;
+}
+.description {
+  cursor: default;
 }
 
 @media (max-width: 1050px) {
