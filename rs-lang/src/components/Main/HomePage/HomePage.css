@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.home-page {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero,
+.possibilities,
+.advantages {
+    height: 800px;
+    background-image: url(../../../assets/hero.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.possibilities {
+    background-image: url(../../../assets/posibilities.jpg);
+}
+
+.advantages {
+    background-image: url(../../../assets/advantages.jpg);
+}
+
+.hero__container {
+    position: absolute;
+    width: 700px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+}
+
+.hero__container p:first-child {
+    margin-bottom: 20px;
+}
+
+.hero-animation {
+    animation-name: slideIn;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+}
+
+.title-animation {
+    animation-name: title-animation;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+}
+
+.hero__title {
+    font-size: 100px;
+}
+
+.hero__subtitle {
+    font-size: 25px;
+    font-weight: 700;
+    text-shadow: #000000 1px 0 10px;
+}
+
+@keyframes slideIn {
+    0%   {top: 40%; left: 60%; letter-spacing: 2px; opacity: 0;}
+    50%  {top: 40%; left: 40%; letter-spacing: 2px; opacity: 0.5;}
+    100% {top: 40%; left: 50%; letter-spacing: 0.2px; opacity: 1;}
+}
+
+@keyframes title-animation {
+    0%   {top: 70px; left: 50%; letter-spacing: 0.2px; opacity: 0.5;}
+    50%  {top: 70px; left: 55%; letter-spacing: 2px; opacity: 0.7;}
+    100% {top: 70px; left: 50%; letter-spacing: 0.2px; opacity: 1;}
+}
+
+h2 {
+    font-size: 35px;
+    text-align: center;
+    width: 380px;
+    padding: 40px 0;
+    position: relative;
+    top: 70px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.possibilities {
+    color: rgb(29, 29, 76);
+}
+
+.possibilities__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, 300px);
+}
+
+.possibilities__item {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.possibilities__item h3 {
+    margin: 20px;
+}
+
+.possibilities__img {
+    width: 50px;
+}
+
+.advantages {
+    color: #ffffff;
+    text-shadow: #000000 1px 0 10px;
+}
+
+@media (max-width: 960px) {
+    .hero__title {
+        font-size: 80px;
+    }
+    
+    .hero__subtitle {
+        font-size: 20px;
+    }
+
+    .hero__container {
+        width: 600px;
+        top: 40%;
+        left: 60%;
+    }
+
+    @keyframes slideIn {
+        0%   {top: 40%; left: 60%; letter-spacing: 2px; opacity: 0;}
+        50%  {top: 40%; left: 40%; letter-spacing: 2px; opacity: 0.5;}
+        100% {top: 40%; left: 60%; letter-spacing: 0.2px; opacity: 1;}
+    }
+
+    .possibilities__container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 300px);
+    }
+
+    .possibilities {
+        height: 1400px;
+    }
+}
+
+@media (max-width: 862px) {
+    @keyframes slideIn {
+        0%   {top: 40%; left: 60%; letter-spacing: 2px; opacity: 0;}
+        50%  {top: 40%; left: 50%; letter-spacing: 2px; opacity: 0.5;}
+        100% {top: 40%; left: 60%; letter-spacing: 0.2px; opacity: 1;}
+    }
+}
+
+@media (max-width: 768px) {
+    .hero__title {
+        font-size: 60px;
+    }
+    
+    .hero__subtitle {
+        font-size: 17px;
+    }
+
+    .hero__container {
+        width: 500px;
+    }
+}
+
+@media (max-width: 630px) {
+    .hero__title {
+        font-size: 50px;
+    }
+    
+    .hero__subtitle {
+        font-size: 15px;
+    }
+
+    .hero__container {
+        width: 450px;
+        top: 40%;
+        left: 60%;
+    }
+
+    @keyframes slideIn {
+        0%   {top: 40%; left: 60%; letter-spacing: 2px; opacity: 0;}
+        50%  {top: 40%; left: 50%; letter-spacing: 2px; opacity: 0.5;}
+        100% {top: 40%; left: 60%; letter-spacing: 0.2px; opacity: 1;}
+    }
+}
+
+@media (max-width: 570px) {
+    .hero__title {
+        font-size: 50px;
+    }
+    
+    .hero__subtitle {
+        font-size: 15px;
+    }
+
+    .hero__container {
+        width: 300px;
+        left: 55%;
+    }
+
+    @keyframes slideIn {
+        0%   {top: 40%; left: 55%; letter-spacing: 0.2px; opacity: 0;}
+        50%  {top: 40%; left: 50%; letter-spacing: 0.2px; opacity: 0.5;}
+        100% {top: 40%; left: 55%; letter-spacing: 0.2px; opacity: 1;}
+    }
+
+    h2 {
+        font-size: 35px;
+        text-align: center;
+        width: 300px;
+        padding: 40px 0;
+        position: relative;
+        top: 70px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @keyframes title-animation {
+        0%   {top: 70px; left: 50%; letter-spacing: 0.2px; opacity: 0.5;}
+        50%  {top: 70px; left: 52%; letter-spacing: 0.2px; opacity: 0.7;}
+        100% {top: 70px; left: 50%; letter-spacing: 0.2px; opacity: 1;}
+    }
+}
+
+@media (max-width: 440px) {
+    .possibilities__item {
+        width: 290px;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero__title {
+        font-size: 50px;
+    }
+    
+    .hero__subtitle {
+        font-size: 15px;
+    }
+
+    .hero__container {
+        width: 250px;
+        left: 55%;
+    }
+
+    @keyframes slideIn {
+        0%   {top: 40%; left: 55%; letter-spacing: 0.2px; opacity: 0;}
+        50%  {top: 40%; left: 50%; letter-spacing: 0.2px; opacity: 0.5;}
+        100% {top: 40%; left: 55%; letter-spacing: 0.2px; opacity: 1;}
+    }
+}
