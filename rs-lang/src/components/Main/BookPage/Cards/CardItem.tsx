@@ -7,6 +7,7 @@ import HardwareIcon from '@mui/icons-material/Hardware';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import { useAppSelector } from '../../../../hooks/hooks';
+import PlayAudio from './PlayAudio';
 const baseUrl = process.env.REACT_APP_API_URL;
 const level: {[key: number]: string} = {
   0: '#ffef62',
@@ -41,6 +42,9 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
           <Chip label={`Lvl ${currentGroup + 1}`} sx={{ bgcolor: `${level[currentGroup]}`}}/>
           <Typography component="h5" variant="h5">
             {word.word} - {word.transcription}
+            <span>
+              <PlayAudio audioData={{word: baseUrl + word.audio, firstSent: baseUrl + word.audioMeaning, secondSent: baseUrl + word.audioExample}}/>
+            </span>
           </Typography>
           {isShowTranslate && <Typography variant="subtitle1"  color="textSecondary">
             {word.wordTranslate}
