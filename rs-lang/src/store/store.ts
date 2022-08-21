@@ -13,6 +13,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import userSlice from './userSlice';
 import bookSlice from './bookSlice';
 import gameSlice from './gameSlice';
+import settingsSlice from './settingsSlice';
 
 
 const userPersistConfig = {
@@ -25,12 +26,13 @@ const rootReducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   book: bookSlice,
   game: gameSlice,
+  settings: settingsSlice,
 });
 
 const persistConfig = { // Where wil be saved
   key: 'root', // key for creating more than one persist
   storage, // storage: storage
-  whitelist: ['user'], // what will be saved
+  whitelist: ['user', 'settings'], // what will be saved
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -6,6 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DrawerLayout from './DrawerLayout';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getUser, logout } from '../../store/userSlice';
+import Setting from '../Common/Setting';
 
 
 const linkColor = (isActive: any) => (isActive ? '#FFFFFF' : '#b0b0b0');
@@ -64,16 +65,23 @@ const Header = () => {
                 <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})} to='/stat'>Statistics</NavLink>
                 <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})} to='/about'>About us</NavLink>
             </Box>
+            
             {isAuth 
-            ? <span>
+            ? <Box>
+              <span>
               {userName}
+              <Setting />
             <IconButton aria-label="delete" size="large" onClick={logoutCb}>
             <LogoutIcon sx={{color: '#FFFFFF'}}/>
           </IconButton>
             </span>
-            : <Button color="inherit">
+            </Box>
+            : <Box>
+            <Setting />
+            <Button color="inherit">
             <RLink style={{ textDecoration: 'none', color: 'white' }} to='/signin'>Sign in</RLink>
             </Button> 
+            </Box>
             }
             
         </Toolbar>
