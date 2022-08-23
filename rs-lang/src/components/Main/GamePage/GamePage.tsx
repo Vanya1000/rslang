@@ -1,6 +1,10 @@
 import React from 'react'
 import s from './Game.module.css'
 import './cube.css';
+import gameBack from '../../../assets/gameImg/gameBack1.png';
+import sprintImg from '../../../assets/gameImg/sprint.png';
+import audioImg from '../../../assets/gameImg/audioGame.png';
+
 
 const GamePage = () => {
   const levelBtnColor = ['#FEFE41', '#94FE32', '#2DFE3E', '#44A4DE', '#3734DE', '#DE1600']
@@ -33,7 +37,7 @@ const GamePage = () => {
         <div className="cube">
           <div className="cube__face cube__face--front">
             <div className={s.tittle}>Chose Game</div>
-            <img src="img/gameBack1.png" alt="" className={s.mainBackground} />
+            <img src={gameBack} alt="" className={s.mainBackground} />
             <div>
               <button className={s.backBtn} onClick={() => changeSide('top')}>Sprint</button>
               <button className={s.backBtn} onClick={() => changeSide('bottom')}>Audio challenge</button>
@@ -51,7 +55,7 @@ const GamePage = () => {
             <button className={s.backBtn} onClick={() => changeSide('front')}>BACK TO GAMES</button>
           </div>
           <div className="cube__face cube__face--top">
-            <img src="img/sprint.png" alt="" className={s.gameImg} />
+            <img src={sprintImg} alt="" className={s.gameImg} />
             <div className={s.gameTittle}>Sprint</div>
             <div className={s.description}>
               Check how much points you can get in one minute,
@@ -63,7 +67,7 @@ const GamePage = () => {
             </div>
           </div>
           <div className="cube__face cube__face--bottom">
-            <img src="img/audioGame.png" alt="" className={s.gameImg} />
+            <img src={audioImg} alt="" className={s.gameImg} />
             <div className={s.gameTittle} style={{color: '#01DAFE'}}>Audio challenge</div>
             <div className={s.description} style={{color: '#313131'}}>
               Check your listening skills, trying to pick the right

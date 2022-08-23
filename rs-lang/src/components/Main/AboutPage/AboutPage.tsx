@@ -1,5 +1,9 @@
 import React from 'react'
 import s from './About.module.css'
+import vanyaImg from '../../../assets/aboutImg/vanya.jpeg';
+import mariaImg from '../../../assets/aboutImg/maria.png';
+import alexImg from '../../../assets/aboutImg/alex.jpeg';
+import gitHubImg from '../../../assets/footerImg/github.png';
 
 const AboutPage = () => {
   return (
@@ -8,13 +12,13 @@ const AboutPage = () => {
       <div className={s.teamMateWrapper}>
         <div className={`${s.teamMate} ${s.leftBlock}`}>
           <div className={`${s.imgWrapperLeft} ${s.imgWrapper}`}>
-            <img src="img/vanya.jpeg" alt="" />
+            <img src={vanyaImg} alt="" />
           </div>
           <div className={s.info}>
             <div className={s.name}>
               <div>Vanya Zaharenko</div>
               <a href="https://github.com/Vanya1000">
-                <img src="img/github.png" alt="" />
+                <img src={gitHubImg} alt="" />
               </a>
             </div>
             <div className={s.status}>Team leader, Full Stack developer</div>
@@ -27,12 +31,12 @@ const AboutPage = () => {
         </div>
         <div className={`${s.teamMate} ${s.rightBlock}`}>
           <div className={`${s.imgWrapperRight}  ${s.imgWrapper}`}>
-            <img src="img/maria.png" alt="" />
+            <img src={mariaImg} alt="" />
           </div>
           <div className={s.info}>
             <div className={`${s.name} ${s.nameReverse}`}>
               <a href="https://github.com/sleepyMaryAlex">
-                <img src="img/github.png" alt="" />
+                <img src={gitHubImg} alt="" />
               </a>
               <div>Mary Huchkova</div>
             </div>
@@ -46,13 +50,13 @@ const AboutPage = () => {
         </div>
         <div className={`${s.teamMate} ${s.leftBlock}`}>
           <div className={`${s.imgWrapperLeft} ${s.imgWrapper}`}>
-            <img src="img/alex.jpeg" alt="" />
+            <img src={alexImg} alt="" />
           </div>
           <div className={s.info}>
             <div className={s.name}>
               <div>Alexander Nechaenkov</div>
               <a href="https://github.com/kettl96">
-                <img src="img/github.png" alt="" />
+                <img src={gitHubImg} alt="" />
               </a>
             </div>
             <div className={s.status}>Frontend developer</div>

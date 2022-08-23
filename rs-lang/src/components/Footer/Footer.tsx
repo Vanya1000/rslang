@@ -1,6 +1,9 @@
 import { Container } from '@mui/system'
 import React from 'react'
 import s from './Footer.module.css'
+import gitHub from '../../assets/footerImg/github.png';
+import rsImg from '../../assets/footerImg/rs_school_js.svg';
+
 
 
 const Footer = () => {
@@ -8,7 +11,7 @@ const Footer = () => {
     <div className={s.wrapper}>
       <div className={s.linkWrapper}>
         <div className={s.imgGit}>
-          <img src="img/github.png" alt="github" />
+          <img src={gitHub} alt="github" />
         </div>
         <a href="https://github.com/Vanya1000" className={s.github}>
           <div>Vanya1000</div>
@@ -22,7 +25,7 @@ const Footer = () => {
       </div>
       <div className={s.date}>2022</div>
       <a href="https://rs.school/js/">
-        <img src="img/rs_school_js.svg" alt="rs_course" className={s.rs} />
+        <img src={rsImg} alt="rs_course" className={s.rs} />
       </a>
     </div>
   )
