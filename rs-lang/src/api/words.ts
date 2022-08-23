@@ -1,12 +1,31 @@
 import { AxiosResponse } from 'axios';
-import { WordType } from "../types/type";
+import { CreateUserWordType, ResponseWordTypeWithAuth, UserWordType, WordType } from "../types/type";
 import instance from "./api";
 
 
 
 export default class wordsAPI {
-  static async getWords(group: number, page: number): Promise<AxiosResponse<WordType[]>> {
+  static async getWordsNoAuth(group: number, page: number): Promise<AxiosResponse<WordType[]>> {
     return instance.get<WordType[]>(`words?group=${group}&page=${page}&wordsPerPage=20`);
+  }
+
+  static async getWordsAuth(group: number, page: number, id: string): Promise<AxiosResponse<ResponseWordTypeWithAuth>> {
+    return instance.get<ResponseWordTypeWithAuth>(`users/${id}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=20`);
+  }
+
+  static async getHardWords(id: string): Promise<AxiosResponse<ResponseWordTypeWithAuth>> {
+    const hardWords = {"userWord.difficulty":"difficult"};
+    return instance.get<ResponseWordTypeWithAuth>(`users/${id}/aggregatedWords?&wordsPerPage=999`, {
+      params: {filter: hardWords},
+    });
+  }
+
+  static async createUserWord(userId: string, wordId: string, payload: UserWordType): Promise<AxiosResponse<CreateUserWordType>> {
+    return instance.post<CreateUserWordType>(`users/${userId}/words/${wordId}`, payload);
+  }
+
+  static async updateExistUserWord(userId: string, wordId: string, payload: UserWordType): Promise<AxiosResponse<CreateUserWordType>> {
+    return instance.put<CreateUserWordType>(`users/${userId}/words/${wordId}`, payload);
   }
 
   static async getWordsByGroup(id: string): Promise<AxiosResponse<WordType>> {
