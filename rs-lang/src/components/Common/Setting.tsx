@@ -14,15 +14,19 @@ const Setting = () => {
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    console.log('1');
   };
   const changeCheck = () => {
     dispatch(setIsShowTranslation(!isShowTranslate));
   }
   const handleClose = () => {
     setAnchorEl(null);
-    changeCheck();
   };
   
+  const handleClosePressMenu = () => {
+    changeCheck();
+    setAnchorEl(null);
+  };
   
 
   return (
@@ -45,7 +49,7 @@ const Setting = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClosePressMenu}>
         <Checkbox  checked={isShowTranslate} />
         Display the translation of words
         </MenuItem>

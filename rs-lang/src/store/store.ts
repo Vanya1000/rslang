@@ -22,9 +22,15 @@ const userPersistConfig = {
   whitelist: ['user'],
 }
 
+const bookPersistConfig = {
+  key: 'book',
+  storage,
+  whitelist: ['currentGroup', 'currentPage'],
+}
+
 const rootReducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
-  book: bookSlice,
+  book: persistReducer(bookPersistConfig, bookSlice),
   game: gameSlice,
   settings: settingsSlice,
 });

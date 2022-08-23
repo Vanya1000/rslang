@@ -7,6 +7,7 @@ import DrawerLayout from './DrawerLayout';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getUser, logout } from '../../store/userSlice';
 import Setting from '../Common/Setting';
+import { setCurrentGroup, setCurrentPage } from '../../store/bookSlice';
 
 
 const linkColor = (isActive: any) => (isActive ? '#FFFFFF' : '#b0b0b0');
@@ -22,6 +23,8 @@ const Header = () => {
 
   const logoutCb = () => {
     dispatch(logout());
+    dispatch(setCurrentPage(0))
+    dispatch(setCurrentGroup(0))
   }
 
   useEffect(() => {

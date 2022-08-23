@@ -7,7 +7,8 @@ export type userType = {
 }
 
 export type WordType = {
-  id: string;
+  _id?: string;
+  id?: string;
   group: number;
   page: number;
   word: string;
@@ -21,7 +22,15 @@ export type WordType = {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  userWord?: UserWordType;
 }
+
+export type ResponseWordTypeWithAuth = [
+  {
+    paginatedResults: WordType[];
+    totalCount: [number];
+  }
+]
 
 export type LoginResponseType = {
   message: string;
@@ -58,4 +67,27 @@ export type SignInFormType = {
 export type UpdateTokenType = {
   token: string;
   refreshToken: string;
+}
+
+export type UserWordType ={
+  difficulty?: 'learned' | 'difficult' | 'none';
+  id?: string;
+  wordId?: string
+  optional?: {
+    game?: {
+      audioCall?: {
+        right?: number;
+        wrong?: number;
+      },
+      sprint?: {
+        right?: number;
+        wrong?: number;
+      }
+    }
+  }
+}
+
+export type CreateUserWordType = UserWordType & {
+  id: string;
+  wordId: string;
 }

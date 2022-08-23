@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import Controls from "./Controls/Controls";
 import Cards from "./Cards/Cards";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { fetchWordsNoAuthAsync } from "../../../store/bookSlice";
+import { fetchHardWords, fetchWords } from "../../../store/bookSlice";
 
 const BookPage = () => {
   const isAuth = useAppSelector((state) => !!state.user.user?.userId);
@@ -11,7 +11,11 @@ const BookPage = () => {
   const currentPage = useAppSelector(state => state.book.currentPage);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchWordsNoAuthAsync({ group: currentGroup, page: currentPage }));
+    if (currentGroup !== 6) {
+      dispatch(fetchWords({ group: currentGroup, page: currentPage }));
+    } else {
+      dispatch(fetchHardWords());
+    }
   }, [currentGroup, currentPage, dispatch]);
   
   return (

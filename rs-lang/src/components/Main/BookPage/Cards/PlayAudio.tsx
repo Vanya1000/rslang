@@ -55,7 +55,7 @@ useEffect(() => {
 
   return (
     <span>
-      <span onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? <StopCircleIcon fontSize='large' sx={{mb: -1, ml:1}} /> : <PlayCircleOutlineIcon sx={{mb: -1, ml:1}} fontSize='large'/>}</span>
+      <span onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? <StopCircleIcon  fontSize='large' sx={{mb: -1, ml:1, cursor: 'pointer'}} /> : <PlayCircleOutlineIcon sx={{mb: -1, ml:1, cursor: 'pointer'}} fontSize='large'/>}</span>
     </span>
   );
 };

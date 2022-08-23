@@ -3,7 +3,7 @@ import { Button, Card, Grid, Pagination, ToggleButton, ToggleButtonGroup, Toolti
 import AudiotrackIcon from "@mui/icons-material/Audiotrack";
 import GrassIcon from "@mui/icons-material/Grass";
 import { useAppDispatch } from '../../../../hooks/hooks';
-import { setCurrentGroup, setCurrentPage } from '../../../../store/bookSlice';
+import { fetchHardWords, setCurrentGroup, setCurrentPage } from '../../../../store/bookSlice';
 
 
 type ControlsPropsType = {
@@ -20,16 +20,14 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
       dispatch(setCurrentPage(0))
       dispatch(setCurrentGroup(+newAlignment));
     } else if (newAlignment === '6') {
-      //dispatch(setCurrentPage(0))
-      // select hard words
+      dispatch(setCurrentPage(0))
+      dispatch(setCurrentGroup(+newAlignment));
+      dispatch(fetchHardWords());
     }
   };
 
   const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
-    if (value !== currentPage - 1) {
       dispatch(setCurrentPage(value - 1))
-    }
-    
   }
 
   return (
@@ -71,12 +69,12 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
               <ToggleButton sx={{ backgroundColor: '#33ab9f', '&:hover': { background: '#00695f'}}} value="3">Lvl 4</ToggleButton>
               <ToggleButton sx={{ backgroundColor: '#6573c3', '&:hover': { background: '#2c387e'}}} value="4">Lvl 5</ToggleButton>
               <ToggleButton sx={{ backgroundColor: '#af52bf', '&:hover': { background: '#6d1b7b'}}} value="5">Lvl 6</ToggleButton>
-              {isAuth && <ToggleButton sx={{ backgroundColor: '#f6685e', '&:hover': { background: '#aa2e25'}}} value="6">Hard words</ToggleButton>}
+              {isAuth && <ToggleButton sx={{ backgroundColor: '#f6685e', '&:hover': { background: '#aa2e25'}}} value="6">difficult words</ToggleButton>}
             </ToggleButtonGroup>
           </Card>
         </Grid>
         <Grid item xs={12} sx={{mt: 1, mb: 1}}>
-        <Pagination /* color='secondary' */ onChange={changePage} page={currentPage + 1} size='large' count={30}  boundaryCount={2} />
+        {currentGroup !== 6 &&<Pagination /* color='secondary' */ onChange={changePage} page={currentPage + 1} size='large' count={30}  boundaryCount={2} />}
         </Grid>
       </Grid>
   )

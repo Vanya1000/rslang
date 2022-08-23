@@ -1,18 +1,14 @@
-import { Box, CircularProgress, Grid, LinearProgress, Skeleton } from "@mui/material";
+import { Grid } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../../../hooks/hooks";
+import EmptySection from "../../../Common/EmptySection";
 import CardItem from "./CardItem";
 import CardSceleton from "./CardSceleton";
 
 type CardsPropsType = {
   isAuth: boolean;
 };
-{/* <Grid item xs={12} sx={{display: "flex", alignItems: 'center', justifyContent: 'center', height: '50vh'}}>
-          <Box sx={{ width: '100%' }}>
-            <LinearProgress />
-          </Box>
-        </Grid> */}
-        
+
 const Cards: React.FC<CardsPropsType> = ({ isAuth }) => {
   const words = useAppSelector((state) => state.book.words);
   const isShowTranslate = useAppSelector(
@@ -20,7 +16,11 @@ const Cards: React.FC<CardsPropsType> = ({ isAuth }) => {
   );
   const currentGroup = useAppSelector((state) => state.book.currentGroup);
   const isFetching = useAppSelector((state) => state.book.isFetching);
+  const isSend = useAppSelector((state) => state.book.isSend);
+
   return (
+    <>
+    {currentGroup === 6 && words.length === 0 && <EmptySection/>}
     <Grid
       container
       sx={{ mb: 2 }}
@@ -31,17 +31,19 @@ const Cards: React.FC<CardsPropsType> = ({ isAuth }) => {
           <CardSceleton key={index}/>
         ))
       ) : (
-        words.map((item, index) => (
+        words.map((item) => (
           <CardItem
             isShowTranslate={isShowTranslate}
             currentGroup={currentGroup}
             isAuth={isAuth}
             word={item}
-            key={item.id}
+            key={item.id || item._id}
+            isSend={isSend}
           />
         ))
       )}
     </Grid>
+    </>
   );
 };
 
