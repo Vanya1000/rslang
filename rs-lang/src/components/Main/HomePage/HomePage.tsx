@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import textbook from '../../../assets/textbook.png';
-import dictionary from '../../../assets/english.png';
-import games from '../../../assets/puzzle.png';
-import statistics from '../../../assets/analysis.png';
 import './HomePage.css';
+import textbook from '../../../assets/textbook.png';
+import dictionary from '../../../assets/dictionary.png';
+import games from '../../../assets/games.png';
+import statistics from '../../../assets/statistics.png';
+import Advantage from './Advantage';
 
 const HomePage = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -12,6 +13,15 @@ const HomePage = () => {
   const [isHeroVisible, setIsHeroVisible] = useState(false);
   const [isPossibilitiesVisible, setIsPossibilitiesVisible] = useState(false);
   const [isAdvantagesVisible, setIsAdvantagesVisible] = useState(false);
+
+  const advantages = [
+    {id: 1, title: 'learn anytime'},
+    {id: 2, title: 'learn from anywhere'},
+    {id: 3, title: 'study at your own pace'},
+    {id: 4, title: 'enjoy the learning experience'},
+    {id: 5, title: 'speak from beginning'},
+    {id: 6, title: 'easy access'},
+    {id: 7, title: 'RS Lang is incredibly versatile'},];
 
   const setHeroVisibility = (entries: IntersectionObserverEntry[]) => {
     const [entry] = entries;
@@ -29,40 +39,46 @@ const HomePage = () => {
   }
 
   useEffect(() => {
+    let observerRefValue: HTMLDivElement | null = null;
     const observer = new IntersectionObserver(setHeroVisibility);
     if (heroRef.current) {
       observer.observe(heroRef.current);
+      observerRefValue = heroRef.current;
     }
 
     return () => {
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current);
+      if (observerRefValue) {
+        observer.unobserve(observerRefValue);
       }
     }
   }, [heroRef]);
 
   useEffect(() => {
+    let observerRefValue: HTMLDivElement | null = null;
     const observer = new IntersectionObserver(setPossibilitiesVisibility);
     if (possibilitiesRef.current) {
       observer.observe(possibilitiesRef.current);
+      observerRefValue = possibilitiesRef.current;
     }
 
     return () => {
-      if (possibilitiesRef.current) {
-        observer.unobserve(possibilitiesRef.current);
+      if (observerRefValue) {
+        observer.unobserve(observerRefValue);
       }
     }
   }, [possibilitiesRef]);
 
   useEffect(() => {
+    let observerRefValue: HTMLDivElement | null = null;
     const observer = new IntersectionObserver(setAdvantagesVisibility);
     if (advantagesRef.current) {
       observer.observe(advantagesRef.current);
+      observerRefValue = advantagesRef.current;
     }
 
     return () => {
-      if (advantagesRef.current) {
-        observer.unobserve(advantagesRef.current);
+      if (observerRefValue) {
+        observer.unobserve(observerRefValue);
       }
     }
   }, [advantagesRef]);
@@ -85,7 +101,7 @@ const HomePage = () => {
 
         <div className='possibilities__container'>
           <div className='possibilities__item'>
-            <img src={textbook} className='possibilities__img'/>
+            <img src={textbook} className='possibilities__img' alt='textbook'/>
               <h3>TEXTBOOK</h3>
               <p>
                   The electronic textbook consists of six sections. Each section has 30 pages of 20 words.
@@ -94,7 +110,7 @@ const HomePage = () => {
           </div>
 
           <div className='possibilities__item'>
-            <img src={dictionary} className='possibilities__img'/>
+            <img src={dictionary} className='possibilities__img' alt='dictionary'/>
               <h3>DICTIONARY</h3>
               <p>
                   The dictionary contains lists of studied words, words that do not need to be learned, as well as those that cause difficulties.
@@ -103,7 +119,7 @@ const HomePage = () => {
           </div>
 
           <div className='possibilities__item'>
-              <img src={games} className='possibilities__img'/>
+              <img src={games} className='possibilities__img' alt='games'/>
               <h3>GAMES</h3>
               <p>
                 For learning words and reinforcing memorization, 
@@ -112,7 +128,7 @@ const HomePage = () => {
           </div>
 
           <div className='possibilities__item'>
-              <img src={statistics} className='possibilities__img'/>
+              <img src={statistics} className='possibilities__img' alt='statistics'/>
               <h3>STATISTICS</h3>
               <p>
                 All the progress of training can be viewed in statistics, where data for the current day,
@@ -126,6 +142,11 @@ const HomePage = () => {
 
       <div className='advantages' ref={advantagesRef}>
         <h2 className={`${isAdvantagesVisible ? ' title-animation' : ''}`}>ADVANTAGES</h2>
+        <div className='advantages__container'>
+          {advantages.map((item) => (
+            <Advantage id={item.id} title={item.title}/>
+          ))}
+        </div>
       </div>
 
     </div>
