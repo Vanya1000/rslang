@@ -13,6 +13,7 @@ const initialState: userState = {
   user: null,
   isSuccessRegistration: false,
   regErrorMessage: '',
+  
 };
 
 // below we write asynchronism
