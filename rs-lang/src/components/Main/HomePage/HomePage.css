@@ -87,14 +87,13 @@
     100% {letter-spacing: 0.2px;}
 }
 
-h1, 
-h2,
-h3,
+.title,
 .hero__subtitle p:first-child {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-h2 {
+.possibilities__title,
+.advantages__title {
     font-size: 35px;
     text-align: center;
     width: 380px;
@@ -105,21 +104,23 @@ h2 {
     transform: translate(-50%, -50%);
 }
 
-h2::after,
-h1::after {
+.possibilities__title::after,
+.advantages__title::after,
+.hero__title::after {
     content: "";
     display: block;
     position: relative;
     padding-top: 3px;
 }
 
-h2::after {
+.possibilities__title::after,
+.advantages__title::after {
     left: calc(50% - 20px);
     width: 40px;
     border-bottom: 4px solid #3b89ba;
 }
 
-h1::after {
+.hero__title::after {
     left: calc(25% - 30px);
     width: 60px;
     border-bottom: 7px solid #3b89ba;
@@ -301,7 +302,7 @@ h1::after {
         height: 1300px;
     }
 
-    h1::after {
+    .hero__title::after {
         margin-top: -15px;
     }
 }
@@ -327,7 +328,7 @@ h1::after {
         width: 500px;
     }
 
-    h1::after {
+    .hero__title::after {
         margin-top: -5px;
         margin-bottom: 10px;
         left: calc(22% - 30px);
@@ -390,7 +391,7 @@ h1::after {
         left: 50%;
     }
 
-    h1::after {
+    .hero__title::after {
         left: calc(50% - 30px);
         width: 60px;
         border-bottom: 7px solid #3b89ba;
@@ -404,7 +405,8 @@ h1::after {
         100% {left: 50%; letter-spacing: 0.15px; opacity: 1;}
     }
 
-    h2 {
+    .possibilities__title,
+    .advantages__title {
         font-size: 35px;
         text-align: center;
         width: 320px;
@@ -459,7 +461,8 @@ h1::after {
         left: 50%;
     }
 
-    h2 {
+    .possibilities__title,
+    .advantages__title {
         width: 270px;
     }
 
