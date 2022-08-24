@@ -144,7 +144,7 @@ const HomePage = () => {
         <h2 className={`${isAdvantagesVisible ? ' title-animation' : ''}`}>ADVANTAGES</h2>
         <div className='advantages__container'>
           {advantages.map((item) => (
-            <Advantage id={item.id} title={item.title}/>
+            <Advantage id={item.id} title={item.title} key={item.id}/>
           ))}
         </div>
       </div>
