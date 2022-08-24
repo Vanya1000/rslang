@@ -72,16 +72,17 @@ export type UpdateTokenType = {
 export type UserWordType ={
   difficulty?: 'learned' | 'difficult' | 'none';
   id?: string;
-  wordId?: string
+  wordId?: string;
   optional?: {
+    isNew?: string;
     game?: {
       audioCall?: {
-        right?: number;
-        wrong?: number;
+        right?: string;
+        wrong?: string;
       },
       sprint?: {
-        right?: number;
-        wrong?: number;
+        right?: string;
+        wrong?: string;
       }
     }
   }

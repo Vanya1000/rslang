@@ -16,7 +16,7 @@ const BookPage = () => {
     } else {
       dispatch(fetchHardWords());
     }
-  }, [currentGroup, currentPage, dispatch]);
+  }, [currentGroup, currentPage, isAuth, dispatch]);
   
   return (
     <Container maxWidth={"xl"}>

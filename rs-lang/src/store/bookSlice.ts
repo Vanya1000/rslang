@@ -25,7 +25,7 @@ export const fetchWords = createAsyncThunk<WordType[] | undefined, {group: numbe
   async ({group, page}, { getState }) => {
     const { user } = getState().user;
     try {
-      if (user) {
+      if (user?.message) {
         const response = await wordsAPI.getWordsAuth(group, page, user.userId);
         return response.data[0].paginatedResults;
       }
