@@ -87,7 +87,7 @@ const HomePage = () => {
     <div className='home-page'>
       <div className='hero' ref={heroRef}>
         <div className={`hero__container${isHeroVisible ? ' hero-animation' : ''}`}>
-          <h1 className='hero__title'>RS LANG</h1>
+          <h1 className='hero__title title'>RS LANG</h1>
           <div className='hero__subtitle'>
             <p>LEARNING ENGLISH HAS NEVER BEEN SO EASY!</p>
             <p>Play games, listen to pronunciation,</p>
@@ -97,12 +97,12 @@ const HomePage = () => {
         </div>
       </div>
       <div className='possibilities' ref={possibilitiesRef}>
-        <h2 className={`${isPossibilitiesVisible ? ' title-animation' : ''}`}>ALL POSSIBILITIES</h2>
+        <h2 className={`title possibilities__title${isPossibilitiesVisible ? ' title-animation' : ''}`}>ALL POSSIBILITIES</h2>
 
         <div className='possibilities__container'>
           <div className='possibilities__item'>
             <img src={textbook} className='possibilities__img' alt='textbook'/>
-              <h3>TEXTBOOK</h3>
+              <h3 className='title'>TEXTBOOK</h3>
               <p>
                   The electronic textbook consists of six sections. Each section has 30 pages of 20 words.
                   The translation of the word, the thematic image, as well as the pronunciation of both the word separately and as part of the phrase are presented.
@@ -111,7 +111,7 @@ const HomePage = () => {
 
           <div className='possibilities__item'>
             <img src={dictionary} className='possibilities__img' alt='dictionary'/>
-              <h3>DICTIONARY</h3>
+              <h3 className='title'>DICTIONARY</h3>
               <p>
                   The dictionary contains lists of studied words, words that do not need to be learned, as well as those that cause difficulties.
                   The dictionary reflects statistics for each section and student progress.
@@ -120,7 +120,7 @@ const HomePage = () => {
 
           <div className='possibilities__item'>
               <img src={games} className='possibilities__img' alt='games'/>
-              <h3>GAMES</h3>
+              <h3 className='title'>GAMES</h3>
               <p>
                 For learning words and reinforcing memorization, 
                 the application has 2 games: Savannah and Audio challenge, which will help you to "pump" your vocabulary in a playful way.
@@ -129,7 +129,7 @@ const HomePage = () => {
 
           <div className='possibilities__item'>
               <img src={statistics} className='possibilities__img' alt='statistics'/>
-              <h3>STATISTICS</h3>
+              <h3 className='title'>STATISTICS</h3>
               <p>
                 All the progress of training can be viewed in statistics, where data for the current day,
                 as well as for the entire training period, are presented.
@@ -141,10 +141,10 @@ const HomePage = () => {
       </div>
 
       <div className='advantages' ref={advantagesRef}>
-        <h2 className={`${isAdvantagesVisible ? ' title-animation' : ''}`}>ADVANTAGES</h2>
+        <h2 className={`title advantages__title${isAdvantagesVisible ? ' title-animation' : ''}`}>ADVANTAGES</h2>
         <div className='advantages__container'>
           {advantages.map((item) => (
-            <Advantage id={item.id} title={item.title}/>
+            <Advantage id={item.id} title={item.title} key={item.id}/>
           ))}
         </div>
       </div>
