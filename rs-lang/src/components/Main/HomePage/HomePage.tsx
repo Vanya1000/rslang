@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import './HomePage.css';
-import textbook from '../../../assets/textbook.png';
-import dictionary from '../../../assets/dictionary.png';
-import games from '../../../assets/games.png';
-import statistics from '../../../assets/statistics.png';
+import textbook from '../../../assets/images/textbook.png';
+import dictionary from '../../../assets/images/dictionary.png';
+import games from '../../../assets/images/games.png';
+import statistics from '../../../assets/images/statistics.png';
 import Advantage from './Advantage';
 
 const HomePage = () => {
