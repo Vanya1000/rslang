@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+.audio-challenge {
+    width: 100%;
+    height: calc(100vh - 64px);
+    font-family: 'Work Sans', sans-serif;
+    background: rgb(0,21,36);
+    background: linear-gradient(0deg, rgba(0,21,36,1) 0%, rgba(0,66,101,0.8627160336790967) 39%, rgba(0,106,129,0.526581579897584) 100%, rgba(0,180,255,0.33610538942139356) 100%);
+}
+
+.diagram {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f5f5f77b;
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    overflow: hidden;
+}
+
+.diagram::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border-radius: 50%;
+    background: #F5F5F7;
+    z-index: 3;
+    opacity: 1;
+}
+
+.diagram .piece {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    position: absolute;
+}
+.diagram .piece::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+}
+
+.diagram .piece.left {
+    transform: rotate(0deg);
+    z-index: 2;
+    border-radius: 50%;
+}
+
+.diagram.over_50 .piece.left {
+    transform: rotate(180deg);
+}
+
+.diagram .piece.right {
+    transform: rotate(180deg);
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.diagram.over_50 .piece.right {
+    transform: rotate(360deg);
+}
+
+.diagram .left::before {
+    background: rgb(0, 66, 101) 39%;
+}
+
+.diagram.over_50 .left::before {
+    background: #f5f5f77b;
+}
+
+.diagram .right::before {
+    background: rgb(0, 66, 101) 39%;
+}
+
+.diagram .text {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diagram .text b {
+    font-size: 20px;
+}
+
+.diagram .text span {
+    font-size: 15px;
+    display: block;
+}
+
+.audio-challenge__header {
+    position: relative;
+    height: 140px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__title {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.audio-challenge__content {
+    width: 80%;
+    height: 60vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.content__image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.content__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content__volume {
+    width: 60px;
+    background-color: #f5f5f77b;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+.content__word {
+    font-size: 30px;
+    padding: 0 10px;
+}
+
+.content__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.list__item {
+    list-style: none;
+    background-color: #f5f5f77b;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+.list__item:hover,
+.content__button:hover,
+.content__volume:hover {
+    background-color: #F5F5F7;
+}
+
+.content__button {
+    width: 150px;
+    height: 40px;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #f5f5f77b;
+    border: 3px solid #F5F5F7;
+    transition: background-color 0.5s;
+}
+
+.content__button {
+    letter-spacing: 2px;
+    overflow: hidden;
+    position: relative;
+}
+  
+.content__button:focus {
+    outline: none;
+}
+  
+.content__button .circle {
+    position: absolute;
+    background-color: #306884;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: scale 0.5s ease-out;
+}
+  
+@keyframes scale {
+    to {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
