@@ -21,11 +21,12 @@ const initialState: GameState = {
   isFetching: false,
 };
 
-export const fetchWords = createAsyncThunk<WordType[] | undefined, { group: number; page: number }, { state: RootState }>(
-  "game/fetchWords",
-  async ({ group, page }) => {
+export const fetchGameWords = createAsyncThunk<WordType[] | undefined, void, { state: RootState }>(
+  "game/fetchGameWords",
+  async (_, { getState }) => {
     try {
-      const { status, data } = await wordsAPI.getWordsNoAuth(group, page);
+      const { currentGroup, currentPage } = getState().game;
+      const { status, data } = await wordsAPI.getWordsNoAuth(currentGroup, currentPage);
       if (status === 200) {
         return data;
       }
@@ -38,6 +39,7 @@ export const fetchWords = createAsyncThunk<WordType[] | undefined, { group: numb
 export const gameSlice = createSlice({
   name: 'game',
   initialState,
+
   reducers: {
     setCurrentGame(state, action: PayloadAction<GameType>) {
       state.currentGame = action.payload;
@@ -46,15 +48,16 @@ export const gameSlice = createSlice({
       state.currentGroup = action.payload;
     },
     setCurrentPage(state, action: PayloadAction<number>) {
-      state.currentGroup = action.payload;
+      state.currentPage = action.payload;
     },
   },
+
   extraReducers: (builder) => {
     builder
-      .addCase(fetchWords.pending, (state) => {
+      .addCase(fetchGameWords.pending, (state) => {
         state.isFetching = true;
       })
-      .addCase(fetchWords.fulfilled, (state, action) => {
+      .addCase(fetchGameWords.fulfilled, (state, action) => {
         state.words = action.payload!;
         state.isFetching = false;
       });
@@ -64,3 +67,11 @@ export const gameSlice = createSlice({
 export const { setCurrentGame, setCurrentGroup, setCurrentPage } = gameSlice.actions;
 
 export default gameSlice.reducer;
+
+export const selectGameWords = (state: RootState) => state.game.words;
+
+export const selectCurrentGroup = (state: RootState) => state.game.currentGroup;
+
+export const selectCurrentPage = (state: RootState) => state.game.currentPage;
+
+export const selectCurrentGame = (state: RootState) => state.game.currentGame;

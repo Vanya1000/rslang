@@ -1,24 +1,42 @@
 import './AudioChallenge.css';
-import volume from '../../../../assets/volume.png';
-import img from '../../../../assets/lights.jpg';
+import volume from '../../../../assets/images/volume.png';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
+import { selectGameWords } from '../../../../store/gameSlice';
+import React, { useState } from 'react';
+import { WordType } from '../../../../types/type';
+const baseUrl = process.env.REACT_APP_API_URL;
+
 
 const AudioChallenge = () => {
-    const data = {
-        "id": "5e9f5ee35eb9e72bc21b006f",
-        "group": 5,
-        "page": 1,
-        "word": "attain",
-        "image": "files/02_3024.jpg",
-        "audio": "files/02_3024.mp3",
-        "audioMeaning": "files/02_3024_meaning.mp3",
-        "audioExample": "files/02_3024_example.mp3",
-        "textMeaning": "To <i>attain</i> something is to succeed at something or to get something you want.",
-        "textExample": "If you want to <b>attain</b> a healthy body, you must exercise every day.",
-        "transcription": "[ətéin]",
-        "textExampleTranslate": "Если вы хотите достичь здорового тела, вы должны заниматься каждый день",
-        "textMeaningTranslate": "Достигнуть чего-либо - значит добиться успеха в чем-то или получить то, что вы хотите",
-        "wordTranslate": "достичь"
+  const words = useAppSelector(selectGameWords);
+  const [isAnswered, setIsAnswered] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
+  const shuffle = (array: WordType[] | string[]) => {
+    array.sort(() => Math.random() - 0.5);
+    return array;
+  }
+
+  const getOptions = () => {
+    const array: string[] = [];
+    array.push(words[currentWordIndex].wordTranslate);
+    while (array.length < 4 ) {
+      const ind = Math.floor(Math.random() * 20);
+      if (!array.includes(words[ind].wordTranslate)) {
+        array.push(words[ind].wordTranslate);
       };
+    }
+    shuffle(array);
+    return array;
+  }
+
+  let options = getOptions();
+
+  React.useEffect(() => {
+    options = getOptions();
+  }, [currentWordIndex]);
+
+  const dispatch = useAppDispatch();
 
     const progressView = () => {
         const diagramBox = document.querySelector('.diagram') as HTMLDivElement;
@@ -56,7 +74,7 @@ const AudioChallenge = () => {
         <div className='audio-challenge'>
             <div className='audio-challenge__header'>
 
-                <div className="diagram progress" data-percent="0">
+                <div className="diagram progress" data-percent={currentWordIndex * 6}>
                     <div className="piece left"></div>
                     <div className="piece right"></div>
                     <div className="text">
@@ -72,18 +90,26 @@ const AudioChallenge = () => {
 
             <div className='audio-challenge__main'>
                 <div className='audio-challenge__content'>
-                    <img className='content__image' src={img} alt='image'/>
+                    <img className='content__image' src={`${baseUrl}${words[currentWordIndex].image}`} alt=''/>
                     <div className='content__wrapper'>
-                        <img className='content__volume' src={volume} alt='volume'/>
-                        <span className='content__word'>{data.word}</span>
+                        <img className='content__volume' src={volume} alt=''/>
+                        <span className='content__word'>{words[currentWordIndex].word}</span>
                     </div>
                     <ul className='content__list'>
-                        <li className='list__item'>{data.wordTranslate}</li>
-                        <li className='list__item'>обитать</li>
-                        <li className='list__item'>обогатить</li>
-                        <li className='list__item'>процветать</li>
+                        <li className='list__item'>{options[0]}</li>
+                        <li className='list__item'>{options[1]}</li>
+                        <li className='list__item'>{options[2]}</li>
+                        <li className='list__item'>{options[3]}</li>
                     </ul>
-                    <button className='content__button' onClick={(e) => animate(e)}>NEXT</button>
+                    <button className={`content__button${isAnswered ? ' invisible' : ''}`} onClick={(e) => {
+                      animate(e);
+                      setIsAnswered(true);
+                      }}>I DON'T KNOW</button>
+                    <button className={`content__button${isAnswered ? '' : ' invisible'}`} onClick={(e) => {
+                      animate(e);
+                      setIsAnswered(false);
+                      setCurrentWordIndex((prev) => prev + 1);
+                      }}>NEXT</button>
                 </div>
             </div>
 

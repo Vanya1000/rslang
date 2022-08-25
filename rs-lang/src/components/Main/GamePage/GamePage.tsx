@@ -1,80 +1,122 @@
-import React from 'react'
-import s from './Game.module.css'
+import gameStyles from './Game.module.css';
 import './cube.css';
+import { fetchGameWords, selectCurrentGame, setCurrentGame, setCurrentGroup, setCurrentPage } from '../../../store/gameSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+
 
 const GamePage = () => {
-  const levelBtnColor = ['#FEFE41', '#94FE32', '#2DFE3E', '#44A4DE', '#3734DE', '#DE1600']
-  const buttonNumber = [1, 2, 3, 4, 5, 6]
+  const levelButtonColors = ['#ffef62', '#ffcd38', '#a2cf6e', '#33ab9f', '#6573c3', '#af52bf'];
 
+  const cubeRef = useRef<HTMLDivElement>(null);
+  const prevCubeSide = useRef('');
+  const [cubeSide, setCubeSide] = useState('');
 
-  let prevClass = ''
-  function changeSide(rotation: string) {
-    let cube = document.querySelector('.cube');
-    if (prevClass) {
-      cube!.classList.remove(prevClass);
+  const currentGame = useAppSelector(selectCurrentGame);
+
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const cube = cubeRef.current!;
+    if (prevCubeSide.current) {
+      cube!.classList.remove(`show-${prevCubeSide.current}`);
     }
-    cube!.classList.add(`show-${rotation}`)
-    prevClass = `show-${rotation}`
-  }
+    cube!.classList.add(`show-${cubeSide}`);
+    prevCubeSide.current = cubeSide;
+  }, [cubeSide]);
+
   const renderSelectLevel = () => {
     return (
-      <div className={s.selectLvlBtnWrapper}>
-        {buttonNumber.map((btn, i) => {
+      <div className={gameStyles.selectLvlBtnWrapper}>
+        {levelButtonColors.map((color, index) => {
           return (
-            <button className={s.selectLvlBtn} style={{ backgroundColor: `${levelBtnColor[i]}` }}>{btn}</button>
-          )
+            <button className={gameStyles.selectLvlBtn} style={{ backgroundColor: `${levelButtonColors[index]}`}}
+            onClick={() => {
+              dispatch(setCurrentGroup(index));
+              startGame();
+            }} key={color}>{index + 1}</button>
+          );
         })}
       </div>
-    )
+    );
   }
+
+  const startGame = () => {
+    const page = Math.floor(Math.random() * 30);
+    dispatch(setCurrentPage(page));
+    dispatch(fetchGameWords());
+    
+    if (currentGame === 'sprint') {
+      navigate('/sprint');
+    } else if (currentGame === 'audioChallenge'){
+      navigate('/audio-challenge');
+    }
+  }
+
   return (
-    <div className={s.wrapper}>
+    <div className={gameStyles.wrapper}>
       <div className="scene">
-        <div className="cube">
+        <div className="cube" ref={cubeRef}>
+
           <div className="cube__face cube__face--front">
-            <div className={s.tittle}>Chose Game</div>
-            <img src="img/gameBack1.png" alt="" className={s.mainBackground} />
+            <div className={gameStyles.tittle}>Choose Game</div>
+            <img src="img/gameBack1.png" alt="" className={gameStyles.mainBackground} />
             <div>
-              <button className={s.backBtn} onClick={() => changeSide('top')}>Sprint</button>
-              <button className={s.backBtn} onClick={() => changeSide('bottom')}>Audio challenge</button>
+              <button className={gameStyles.backBtn} onClick={() => {
+                setCubeSide('top');
+                dispatch(setCurrentGame('sprint'));
+                }}>Sprint</button>
+              <button className={gameStyles.backBtn} onClick={() => {
+                setCubeSide('bottom');
+                dispatch(setCurrentGame('audioChallenge'));
+                }}>Audio challenge</button>
             </div>
           </div>
+
           <div className="cube__face cube__face--back">back</div>
+
           <div className="cube__face cube__face--right">
-            <div className={s.tittle}>Select the Level</div>
+            <div className={gameStyles.tittle}>Select the Level</div>
             {renderSelectLevel()}
-            <button className={s.backBtn} onClick={() => changeSide('front')}>BACK TO GAMES</button>
+            <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
           </div>
+
           <div className="cube__face cube__face--left">
-            <div className={s.tittle}>Select the Level</div>
+            <div className={gameStyles.tittle}>Select the Level</div>
             {renderSelectLevel()}
-            <button className={s.backBtn} onClick={() => changeSide('front')}>BACK TO GAMES</button>
+            <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
           </div>
+
           <div className="cube__face cube__face--top">
-            <img src="img/sprint.png" alt="" className={s.gameImg} />
-            <div className={s.gameTittle}>Sprint</div>
-            <div className={s.description}>
+            <img src="img/sprint.png" alt="" className={gameStyles.gameImg} />
+            <div className={gameStyles.gameTittle}>Sprint</div>
+            <div className={gameStyles.description}>
               Check how much points you can get in one minute,
               making educated guesses about what is right and what is wrong.
             </div>
-            <div className={s.sprintBtn}>
-              <button className={s.backBtn} onClick={() => changeSide('right')}>Select the level</button>
-              <button className={s.backBtn} onClick={() => changeSide('front')}>BACK TO GAMES</button>
+            <div className={gameStyles.sprintBtn}>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('right')}>Select the level</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
             </div>
           </div>
+
           <div className="cube__face cube__face--bottom">
-            <img src="img/audioGame.png" alt="" className={s.gameImg} />
-            <div className={s.gameTittle} style={{color: '#01DAFE'}}>Audio challenge</div>
-            <div className={s.description} style={{color: '#313131'}}>
+            <img src="img/audioGame.png" alt="" className={gameStyles.gameImg} />
+            <div className={gameStyles.gameTittle} style={{color: '#01DAFE'}}>Audio challenge</div>
+            <div className={gameStyles.description} style={{color: '#313131'}}>
               Check your listening skills, trying to pick the right
               meaning after hearing a word.
               Be careful, as you just have one guess.
             </div>
-            <div className={s.sprintBtn}>
-              <button className={s.backBtn} onClick={() => changeSide('left')}>Select the level</button>
-              <button className={s.backBtn} onClick={() => changeSide('front')}>BACK TO GAMES</button>
+            <div className={gameStyles.sprintBtn}>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('left')}>Select the level</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
             </div>
           </div>
+
         </div>
       </div>
     </div>

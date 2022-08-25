@@ -176,7 +176,7 @@
 }
 
 .content__button {
-    width: 150px;
+    width: 180px;
     height: 40px;
     outline: none;
     border: none;
@@ -213,4 +213,8 @@
         transform: translate(-50%, -50%) scale(3);
         opacity: 0;
     }
+}
+
+.invisible {
+    display: none;
 }
