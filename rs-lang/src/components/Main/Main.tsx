@@ -5,6 +5,7 @@ import SignUp from '../Auth/SignUp'
 import NotFound from '../Common/NotFound'
 import AboutPage from './AboutPage/AboutPage'
 import BookPage from './BookPage/BookPage'
+import AudioChallenge from './GamePage/AudioChallenge/AudioChallenge'
 import GamePage from './GamePage/GamePage'
 import HomePage from './HomePage/HomePage'
 import StatPage from './StatPage/StatPage'
@@ -18,6 +19,8 @@ const Main = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/book" element={<BookPage />} />
         <Route path="/game" element={<GamePage />} />
+        {/* <Route path="/sprint" element={<Sprint />} /> */}
+        <Route path="/audio-challenge" element={<AudioChallenge />} />
         <Route path="/stat" element={<StatPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<NotFound />}/>
