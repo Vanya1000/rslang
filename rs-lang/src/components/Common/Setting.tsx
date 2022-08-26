@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Checkbox } from '@mui/material';
+import { Checkbox, IconButton } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { setIsShowTranslation } from '../../store/settingsSlice';
 
@@ -31,15 +31,14 @@ const Setting = () => {
 
   return (
     <>
-      <Button
-        id="basic-button"
+      <IconButton
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
         <SettingsIcon color='info' />
-      </Button>
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

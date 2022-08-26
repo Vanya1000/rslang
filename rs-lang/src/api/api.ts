@@ -32,7 +32,8 @@ instance.interceptors.response.use(
             Authorization: `Bearer ${store.getState().user.user?.refreshToken}`,
           }
         });
-        await store.dispatch(updateToken(rs.data));
+        console.log(rs.data);
+        store.dispatch(updateToken(rs.data));
         return instance.request(originalRequest);
       } catch (e) {
         console.log('user is not authorized');

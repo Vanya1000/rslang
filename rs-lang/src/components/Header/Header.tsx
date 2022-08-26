@@ -42,8 +42,7 @@ const Header = () => {
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2, display: { xs: 'block', sm: 'none' } }}
-              
+              sx={{ mr: 2, display: { xs: 'block',md: 'none' } }}
               onClick={() => setMenuOpen(true)}
             >
               <MenuIcon />
@@ -51,6 +50,7 @@ const Header = () => {
             <Typography
               variant="h6"
               component="div"
+              sx={{ flexGrow: {xs: '1', md:'0'}  }}
             >
               RS Lang
             </Typography>
@@ -61,7 +61,7 @@ const Header = () => {
               '& > :not(style) + :not(style)': {
                 ml: 2,
               },
-              display: { xs: 'none', sm: 'flex' }}}  >
+              display: { xs: 'none', md: 'flex' }}}  >
                 <NavLink to='/' style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})}>Main</NavLink>
                 <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive) })} to='/book'>Textbook</NavLink>
                 <NavLink style={({isActive}) => ({color: linkColor(isActive), textDecoration: underLine(isActive)})} to='/game'>Mini games</NavLink>

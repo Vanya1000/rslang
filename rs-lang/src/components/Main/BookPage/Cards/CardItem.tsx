@@ -10,6 +10,7 @@ import PlayAudio from './PlayAudio';
 import StatisticOneWord from '../StatisticOneWord';
 import { useAppDispatch } from '../../../../hooks/hooks';
 import { createUserWord, deleteDifficultUserWord, updateExistUserWord } from '../../../../store/bookSlice';
+import { addOneWordAsLearnedOrNew, deleteOneWordAsLearned } from '../../../../store/statisticsSlice';
 const baseUrl = process.env.REACT_APP_API_URL;
 const level: {[key: number]: string} = {
   0: '#ffef62',
@@ -23,6 +24,17 @@ const level: {[key: number]: string} = {
 
 const lightGreen = '#00ff000e';
 const lightRed = '#ff00000e';
+
+const gameStat = 
+{
+  "optional": {
+    "isNew": "false",
+  "game": {
+    "audioCall": {
+      "wrong": "2"
+    }
+  }
+}}
 
 type CardItemProps = {
   word: WordType;
@@ -38,24 +50,42 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
     const isDifficult = word.userWord?.difficulty === 'difficult'
     const isLearned = word.userWord?.difficulty === 'learned';
     const isDifficultGroup = currentGroup === 6;
-    const bgColor = isDifficult ? lightRed : isLearned ? lightGreen : 'transparent' ;
+    const bgColor = isDifficult ? lightRed : isLearned ? lightGreen : 'white' ;
+    const isStatistics = word.userWord?.optional?.isNew === 'false';
 
     const handleToDifficult = () => {
       if (!isSend) {
         if (word.userWord) {
           if (isDifficult) {
-            dispatch(deleteDifficultUserWord({wordId: word._id!, payload: {"difficulty": "none"}}))
+            dispatch(deleteDifficultUserWord({wordId: word._id!, payload: {"difficulty": "none"}}));
           } else {
-            dispatch(updateExistUserWord({wordId: word._id!, payload: {"difficulty": "difficult"}}))
+            dispatch(updateExistUserWord({wordId: word._id!, payload: {"difficulty": "difficult"}}));
+            dispatch(deleteOneWordAsLearned());
           }
         } else {
-          dispatch(createUserWord({wordId: word._id!, payload: {"difficulty": "difficult"}}))
+          dispatch(createUserWord({wordId: word._id!, payload: {"difficulty": "difficult"}}));
+          dispatch(deleteOneWordAsLearned());
         }
       }
     }
 
+    const handleToStat = () => {
+      if (word.userWord) {
+        if (word.userWord?.optional?.isNew === "true" || word.userWord?.optional?.isNew === undefined) {
+          dispatch(updateExistUserWord({wordId: word._id!, payload: gameStat}));
+          //dispatch(someStat(...));
+        } else {
+          // читаем поле и суммируем
+          dispatch(updateExistUserWord({wordId: word._id!, payload: gameStat}));
+        }
+      } else {
+        dispatch(createUserWord({wordId: word._id!, payload: gameStat}));
+      }
+  }
+
     const handleToLearn = () => {
       if (!isSend) {
+        dispatch(addOneWordAsLearnedOrNew('learned'));
         if (word.userWord) {
           dispatch(updateExistUserWord({wordId: word._id!, payload: {"difficulty": "learned"}}));
         } else {
@@ -66,11 +96,11 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
 
   return (
     <>
-    <Grid item xs={12} /* sm={6} */ >
-      <Card sx={{ display: 'flex', p:1, backgroundColor: `${bgColor}` }}>
+    <Grid item xs={12}>
+      <Card sx={{ display: 'flex', p:1, backgroundColor: `${bgColor}`, flexDirection:{xs: 'column', md: 'row'} }}>
       <CardMedia
         component="img"
-        sx={{ width: 300, minHeight: 250,}}
+        sx={{ width: {xs: '100%', md: 300}, height: {xs: 350, md: 250}, objectFit: 'cover' }}
         image={`${baseUrl}${word.image}`}
         alt="Live from space album cover"
       />
@@ -103,7 +133,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
         </CardContent>
       </Box>
 
-      {isAuth && <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', mr: 2 }}>
+      {isAuth && <Box sx={{ display: 'flex', flexDirection:{xs: 'row', md: 'column'}, justifyContent: 'center', mr: 2 }}>
         {!isDifficultGroup && <Tooltip sx={{mb: 1}} arrow placement="left" title={isLearned ? 'Delete from Learned' : 'Mark as Learned'}>
             <IconButton disabled={isLearned && true} component="span" onClick={handleToLearn}>
             {isLearned ? <TaskAltIcon color='success' /> : <AddTaskIcon />}
@@ -117,15 +147,15 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
             }
           </IconButton>
         </Tooltip>
-        <Tooltip arrow placement="left" title="View statistics">
-          <IconButton color="default" component="span" onClick={() => setIsOpenStatistic(true)}>
+        <Tooltip sx={{mb: {xs: 1, md: 0}}} arrow placement="left" title="View statistics">
+          <IconButton color={isStatistics ? 'info' : 'default' } component="span" onClick={() => setIsOpenStatistic(true)}>
             <LeaderboardIcon />
           </IconButton>
         </Tooltip>
       </Box>}
     </Card>
     </Grid>
-    <StatisticOneWord isOpenStatistic={isOpenStatistic} setIsOpenStatistic={setIsOpenStatistic} wordName={word.word} />
+    <StatisticOneWord isOpenStatistic={isOpenStatistic} setIsOpenStatistic={setIsOpenStatistic} word={word} />
     </>
   )
 }
