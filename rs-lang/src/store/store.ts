@@ -14,6 +14,7 @@ import userSlice from './userSlice';
 import bookSlice from './bookSlice';
 import gameSlice from './gameSlice';
 import settingsSlice from './settingsSlice';
+import statisticsSlice from './statisticsSlice';
 
 
 const userPersistConfig = {
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   book: persistReducer(bookPersistConfig, bookSlice),
   game: gameSlice,
   settings: settingsSlice,
+  statistics: statisticsSlice,
 });
 
 const persistConfig = { // Where wil be saved

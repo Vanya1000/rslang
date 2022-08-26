@@ -46,12 +46,12 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
               variant="outlined"
               startIcon={<AudiotrackIcon />}
             >
-              Audio call
+              Audio challenge
             </Button>
             </Tooltip>
             <Tooltip title="Start game" arrow placement="right">
             <Button variant="outlined" size='large' startIcon={<GrassIcon />}>
-              Savannah
+              Sprint
             </Button>
             </Tooltip>
           </Card>

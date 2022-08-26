@@ -92,3 +92,34 @@ export type CreateUserWordType = UserWordType & {
   id: string;
   wordId: string;
 }
+
+export type StatisticsType = {
+  id?: string;
+  learnedWords?: string;
+  optional?: {
+    wordStatistics?: {
+      countNewWords?: {
+        [key: string]: string;
+      },
+      countLearnedWords?: {
+        [key: string]: string;
+      }
+    },
+    gamesStatistics?: {
+      audioChallenge?: {
+        lastChanged?: string;
+        countNewWords?: string;
+        right?: string;
+        wrong?: string;
+        longestSeries?: string;
+      },
+      sprint?: {
+        lastChanged?: string;
+        countNewWords?: string;
+        right?: string;
+        wrong?: string;
+        longestSeries?: string;
+      },
+    }
+  }
+}

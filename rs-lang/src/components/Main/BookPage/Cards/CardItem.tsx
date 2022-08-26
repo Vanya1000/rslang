@@ -10,6 +10,7 @@ import PlayAudio from './PlayAudio';
 import StatisticOneWord from '../StatisticOneWord';
 import { useAppDispatch } from '../../../../hooks/hooks';
 import { createUserWord, deleteDifficultUserWord, updateExistUserWord } from '../../../../store/bookSlice';
+import { addLearnedWord } from '../../../../store/statisticsSlice';
 const baseUrl = process.env.REACT_APP_API_URL;
 const level: {[key: number]: string} = {
   0: '#ffef62',
@@ -51,7 +52,6 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
     const isDifficultGroup = currentGroup === 6;
     const bgColor = isDifficult ? lightRed : isLearned ? lightGreen : 'transparent' ;
     const isStatistics = word.userWord?.optional?.isNew === 'false';
-    console.log(isStatistics);
 
     const handleToDifficult = () => {
       if (!isSend) {
@@ -83,6 +83,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
 
     const handleToLearn = () => {
       if (!isSend) {
+        dispatch(addLearnedWord());
         if (word.userWord) {
           dispatch(updateExistUserWord({wordId: word._id!, payload: {"difficulty": "learned"}}));
         } else {
@@ -93,11 +94,11 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
 
   return (
     <>
-    <Grid item xs={12} /* sm={6} */ >
-      <Card sx={{ display: 'flex', p:1, backgroundColor: `${bgColor}` }}>
+    <Grid item xs={12}>
+      <Card sx={{ display: 'flex', p:1,  flexDirection:{xs: 'column', md: 'row'} }}>
       <CardMedia
         component="img"
-        sx={{ width: 300, minHeight: 250,}}
+        sx={{ width: {xs: '100%', md: 300}, height: {xs: 350, md: 250}, objectFit: 'cover' }}
         image={`${baseUrl}${word.image}`}
         alt="Live from space album cover"
       />
@@ -130,7 +131,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
         </CardContent>
       </Box>
 
-      {isAuth && <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', mr: 2 }}>
+      {isAuth && <Box sx={{ display: 'flex', flexDirection:{xs: 'row', md: 'column'}, justifyContent: 'center', mr: 2 }}>
         {!isDifficultGroup && <Tooltip sx={{mb: 1}} arrow placement="left" title={isLearned ? 'Delete from Learned' : 'Mark as Learned'}>
             <IconButton disabled={isLearned && true} component="span" onClick={handleToLearn}>
             {isLearned ? <TaskAltIcon color='success' /> : <AddTaskIcon />}
@@ -144,7 +145,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
             }
           </IconButton>
         </Tooltip>
-        <Tooltip arrow placement="left" title="View statistics">
+        <Tooltip sx={{mb: {xs: 1, md: 0}}} arrow placement="left" title="View statistics">
           <IconButton color={isStatistics ? 'info' : 'default' } component="span" onClick={() => setIsOpenStatistic(true)}>
             <LeaderboardIcon />
           </IconButton>
