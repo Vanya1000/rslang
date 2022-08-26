@@ -43,7 +43,6 @@ const Header = () => {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2, display: { xs: 'block',md: 'none' } }}
-              
               onClick={() => setMenuOpen(true)}
             >
               <MenuIcon />
@@ -51,6 +50,7 @@ const Header = () => {
             <Typography
               variant="h6"
               component="div"
+              sx={{ flexGrow: {xs: '1', md:'0'}  }}
             >
               RS Lang
             </Typography>

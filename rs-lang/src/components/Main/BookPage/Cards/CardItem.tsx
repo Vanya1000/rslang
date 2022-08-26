@@ -10,7 +10,7 @@ import PlayAudio from './PlayAudio';
 import StatisticOneWord from '../StatisticOneWord';
 import { useAppDispatch } from '../../../../hooks/hooks';
 import { createUserWord, deleteDifficultUserWord, updateExistUserWord } from '../../../../store/bookSlice';
-import { addLearnedWord } from '../../../../store/statisticsSlice';
+import { addOneWordAsLearnedOrNew, deleteOneWordAsLearned } from '../../../../store/statisticsSlice';
 const baseUrl = process.env.REACT_APP_API_URL;
 const level: {[key: number]: string} = {
   0: '#ffef62',
@@ -50,7 +50,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
     const isDifficult = word.userWord?.difficulty === 'difficult'
     const isLearned = word.userWord?.difficulty === 'learned';
     const isDifficultGroup = currentGroup === 6;
-    const bgColor = isDifficult ? lightRed : isLearned ? lightGreen : 'transparent' ;
+    const bgColor = isDifficult ? lightRed : isLearned ? lightGreen : 'white' ;
     const isStatistics = word.userWord?.optional?.isNew === 'false';
 
     const handleToDifficult = () => {
@@ -60,9 +60,11 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
             dispatch(deleteDifficultUserWord({wordId: word._id!, payload: {"difficulty": "none"}}));
           } else {
             dispatch(updateExistUserWord({wordId: word._id!, payload: {"difficulty": "difficult"}}));
+            dispatch(deleteOneWordAsLearned());
           }
         } else {
           dispatch(createUserWord({wordId: word._id!, payload: {"difficulty": "difficult"}}));
+          dispatch(deleteOneWordAsLearned());
         }
       }
     }
@@ -83,7 +85,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
 
     const handleToLearn = () => {
       if (!isSend) {
-        dispatch(addLearnedWord());
+        dispatch(addOneWordAsLearnedOrNew('learned'));
         if (word.userWord) {
           dispatch(updateExistUserWord({wordId: word._id!, payload: {"difficulty": "learned"}}));
         } else {
@@ -95,7 +97,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
   return (
     <>
     <Grid item xs={12}>
-      <Card sx={{ display: 'flex', p:1,  flexDirection:{xs: 'column', md: 'row'} }}>
+      <Card sx={{ display: 'flex', p:1, backgroundColor: `${bgColor}`, flexDirection:{xs: 'column', md: 'row'} }}>
       <CardMedia
         component="img"
         sx={{ width: {xs: '100%', md: 300}, height: {xs: 350, md: 250}, objectFit: 'cover' }}

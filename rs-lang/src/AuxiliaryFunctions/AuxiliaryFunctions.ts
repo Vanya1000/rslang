@@ -17,3 +17,41 @@ export const IncreaseStat = (data: Array<string>): Array<string> => {
   })
   return result.res;
 }
+
+export const ExempleStat = {
+  learnedWords: '0',
+  optional: {
+    wordStatistics: {
+      countNewWords: {
+        '2022.8.21': '2',
+        '2022.8.22': '7',
+        '2022.8.23': '6',
+        '2022.8.24': '9',
+        '2022.8.25': '12',
+      },
+      countLearnedWords: {
+        '2022.8.21': '2',
+        '2022.8.22': '3',
+        '2022.8.23': '4',
+        '2022.8.24': '3',
+        '2022.8.25': '5',
+      }
+    },
+    gamesStatistics: {
+      audioChallenge: {
+        lastChanged: '2022.8.26',
+        countNewWords: '12',
+        right: '4',
+        wrong: '3',
+        longestSeries: '5',
+      },
+      sprint: {
+        lastChanged: '2022.8.26',
+        countNewWords: '5',
+        right: '6',
+        wrong: '2',
+        longestSeries: '10',
+      }
+    }
+  }
+}

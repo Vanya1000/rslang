@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import { Alert, Button, Grid, Paper, Typography } from "@mui/material";
+import { Alert, Grid, Paper, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import GraphStat from "./GraphStat/GraphStat";
 import TableStat from "./TableStat/TableStat";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { fetchStatistics } from "../../../store/statisticsSlice";
 import { getCurrentDate } from "../../../AuxiliaryFunctions/AuxiliaryFunctions";
+import NoAuth from "../../Common/NoAuth";
 
 const StatPage = () => {
   const dataStatistics = useAppSelector(state => state.statistics.data);
+  const isAuth = useAppSelector(state => state.user?.user?.message === "Authenticated");
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchStatistics());
@@ -52,6 +54,7 @@ const StatPage = () => {
 
   return (
     <Container>
+      {isAuth ? (
       <Grid
         container
         direction="column"
@@ -130,7 +133,10 @@ const StatPage = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Grid>)
+      : (
+        <NoAuth/>
+      )}
     </Container>
   );
 };
