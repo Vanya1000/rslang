@@ -21,15 +21,15 @@
 }
 
 .hero {
-    background-image: url(../../../assets/laptop.jpg);
+    background-image: url(../../../assets/images/laptop.jpg);
 }
 
 .possibilities {
-    background-image: url(../../../assets/curvy-lines.png);
+    background-image: url(../../../assets/images/curvy-lines.png);
 }
 
 .advantages {
-    background-image: url(../../../assets/curvy-lines.png);
+    background-image: url(../../../assets/images/curvy-lines.png);
     background-color: #d8d8d8;
 }
 
@@ -231,37 +231,37 @@
 }
 
 .item_1 {
-    background-image: url(../../../assets/forest.jpg);
+    background-image: url(../../../assets/images/forest.jpg);
     grid-area: item_1;
 }
 
 .item_2 {
-    background-image: url(../../../assets/room.jpg);
+    background-image: url(../../../assets/images/room.jpg);
     grid-area: item_2;
 }
 
 .item_3 {
-    background-image: url(../../../assets/city.jpg);
+    background-image: url(../../../assets/images/city.jpg);
     grid-area: item_3;
 }
 
 .item_4 {
-    background-image: url(../../../assets/cathedral.jpg);
+    background-image: url(../../../assets/images/cathedral.jpg);
     grid-area: item_4;
 }
 
 .item_5 {
-    background-image: url(../../../assets/lights.jpg);
+    background-image: url(../../../assets/images/lights.jpg);
     grid-area: item_5;
 }
 
 .item_6 {
-    background-image: url(../../../assets/learning.jpeg);
+    background-image: url(../../../assets/images/learning.jpeg);
     grid-area: item_6;
 }
 
 .item_7 {
-    background-image: url(../../../assets/light.jpg);
+    background-image: url(../../../assets/images/light.jpg);
     grid-area: item_7;
 }
 
