@@ -70,6 +70,8 @@ export default gameSlice.reducer;
 
 export const selectGameWords = (state: RootState) => state.game.words;
 
+export const selectIsFetching = (state: RootState) => state.game.isFetching;
+
 export const selectCurrentGroup = (state: RootState) => state.game.currentGroup;
 
 export const selectCurrentPage = (state: RootState) => state.game.currentPage;
