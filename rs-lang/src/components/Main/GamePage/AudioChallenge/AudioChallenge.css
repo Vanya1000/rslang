@@ -9,99 +9,33 @@
     background: linear-gradient(0deg, rgba(0,21,36,1) 0%, rgba(0,66,101,0.8627160336790967) 39%, rgba(0,106,129,0.526581579897584) 100%, rgba(0,180,255,0.33610538942139356) 100%);
 }
 
-.diagram {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #f5f5f77b;
+.audio-challenge__progress {
     position: absolute;
+    left: calc(50% - 20px);
+    top: calc(50% - 20px);
+    color: #313131;
+}
+
+.diagram {
+    position: absolute;
+    display: inline-flex;
     top: 20px;
     left: 30px;
-    overflow: hidden;
 }
 
-.diagram::before {
-    content: '';
-    display: block;
+.process {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    border-radius: 50%;
-    background: #F5F5F7;
-    z-index: 3;
-    opacity: 1;
-}
-
-.diagram .piece {
-    width: 100%;
-    height: 100%;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-    position: absolute;
-}
-.diagram .piece::before {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 50%;
-    height: 100%;
-}
-
-.diagram .piece.left {
-    transform: rotate(0deg);
-    z-index: 2;
-    border-radius: 50%;
-}
-
-.diagram.over_50 .piece.left {
-    transform: rotate(180deg);
-}
-
-.diagram .piece.right {
-    transform: rotate(180deg);
-    z-index: 1;
-    border-radius: 50%;
-}
-
-.diagram.over_50 .piece.right {
-    transform: rotate(360deg);
-}
-
-.diagram .left::before {
-    background: rgb(0, 66, 101) 39%;
-}
-
-.diagram.over_50 .left::before {
-    background: #f5f5f77b;
-}
-
-.diagram .right::before {
-    background: rgb(0, 66, 101) 39%;
-}
-
-.diagram .text {
-    position: absolute;
-    z-index: 3;
     top: 0;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     right: 0;
-    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.diagram .text b {
-    font-size: 20px;
-}
-
-.diagram .text span {
-    font-size: 15px;
-    display: block;
+.process p {
+    font-size: 13px;
 }
 
 .audio-challenge__header {
@@ -127,9 +61,17 @@
     justify-content: space-around;
 }
 
+.content__container {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .content__image {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 140px;
     border-radius: 50%;
 }
 
@@ -146,7 +88,11 @@
     padding: 5px;
     margin: 0 10px;
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: all 0.4s;
+}
+
+.content__volume_active {
+    width: 100px;
 }
 
 .content__word {
@@ -164,15 +110,29 @@
 .list__item {
     list-style: none;
     background-color: #f5f5f77b;
-    padding: 10px;
+    padding: 15px;
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: background-color 0.2s;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
 }
 
-.list__item:hover,
 .content__button:hover,
 .content__volume:hover {
     background-color: #F5F5F7;
+}
+
+.list__item_red {
+    background-color: #844230;
+}
+
+.list__item_green {
+    background-color: #30843d;
+}
+
+.list__item_inactive {
+    cursor: auto;
 }
 
 .content__button {
@@ -186,9 +146,6 @@
     background-color: #f5f5f77b;
     border: 3px solid #F5F5F7;
     transition: background-color 0.5s;
-}
-
-.content__button {
     letter-spacing: 2px;
     overflow: hidden;
     position: relative;
@@ -196,23 +153,6 @@
   
 .content__button:focus {
     outline: none;
-}
-  
-.content__button .circle {
-    position: absolute;
-    background-color: #306884;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    animation: scale 0.5s ease-out;
-}
-  
-@keyframes scale {
-    to {
-        transform: translate(-50%, -50%) scale(3);
-        opacity: 0;
-    }
 }
 
 .invisible {
