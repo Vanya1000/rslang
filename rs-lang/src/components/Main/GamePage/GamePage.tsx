@@ -1,9 +1,16 @@
 import gameStyles from './Game.module.css';
 import './cube.css';
+
 import { fetchGameWords, selectCurrentGame, setCurrentGame, setCurrentGroup, setCurrentPage } from '../../../store/gameSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+
+import gameBack from '../../../assets/gameImg/gameBack1.png';
+import sprintImg from '../../../assets/gameImg/sprint.png';
+import audioImg from '../../../assets/gameImg/audioGame.png';
+import { Link } from 'react-router-dom';
+
 
 
 const GamePage = () => {
@@ -39,6 +46,11 @@ const GamePage = () => {
               startGame();
             }} key={color}>{index + 1}</button>
           );
+<!--             <Link to='/game/sprint'>
+              <button className={s.selectLvlBtn} style={{ backgroundColor: `${levelBtnColor[index]}` }}>{btn}</button>
+            </Link> -->
+          )
+
         })}
       </div>
     );
@@ -63,7 +75,7 @@ const GamePage = () => {
 
           <div className="cube__face cube__face--front">
             <div className={gameStyles.tittle}>Choose Game</div>
-            <img src="img/gameBack1.png" alt="" className={gameStyles.mainBackground} />
+            <img src={gameBack} alt="" className={gameStyles.mainBackground} />
             <div>
               <button className={gameStyles.backBtn} onClick={() => {
                 setCubeSide('top');
@@ -91,7 +103,7 @@ const GamePage = () => {
           </div>
 
           <div className="cube__face cube__face--top">
-            <img src="img/sprint.png" alt="" className={gameStyles.gameImg} />
+            <img src={sprintImg} alt="" className={gameStyles.gameImg} />
             <div className={gameStyles.gameTittle}>Sprint</div>
             <div className={gameStyles.description}>
               Check how much points you can get in one minute,
@@ -104,7 +116,7 @@ const GamePage = () => {
           </div>
 
           <div className="cube__face cube__face--bottom">
-            <img src="img/audioGame.png" alt="" className={gameStyles.gameImg} />
+            <img src={audioImg} alt="" className={s.gameImg} />
             <div className={gameStyles.gameTittle} style={{color: '#01DAFE'}}>Audio challenge</div>
             <div className={gameStyles.description} style={{color: '#313131'}}>
               Check your listening skills, trying to pick the right
