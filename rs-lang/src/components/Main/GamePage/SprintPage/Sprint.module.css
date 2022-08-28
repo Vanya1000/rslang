@@ -18,3 +18,15 @@
   border: 1px solid black;
   border-radius: 5px;
 }
+.loadingWrapper {
+  width: 100%;
+  height: calc(100vh - 64px);
+  background: rgb(0,21,36);
+  background: linear-gradient(0deg, rgba(0,21,36,1) 0%, rgba(0,66,101,0.8627160336790967) 39%, rgba(0,106,129,0.526581579897584) 100%, rgba(0,180,255,0.33610538942139356) 100%);
+}
+.loadingWrapper__progress {
+  position: absolute;
+  left: calc(50% - 20px);
+  top: calc(50% - 20px);
+  color: #313131;
+}
