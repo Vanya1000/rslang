@@ -1,7 +1,8 @@
-import { DataForRegistration, RegistrationResponseType, SignInFormType, UpdateTokenType, userType } from './../types/type';
-import { createAsyncThunk, createSlice, Action, PayloadAction } from '@reduxjs/toolkit';
+import { DataForRegistration, SignInFormType, UpdateTokenType, userType } from './../types/type';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import AuthService from '../api/auth';
+import { createStatistics } from './statisticsSlice';
 
 export type userState = {
   user: userType | null;
@@ -23,7 +24,7 @@ export const registration = createAsyncThunk<void, DataForRegistration, {state: 
   async (dataUser, {dispatch}) => {
     try {
       dispatch(setRegErrorMessage(''));
-      const {status, data} = await AuthService.registration(dataUser.name, dataUser.email, dataUser.password);
+      const {status} = await AuthService.registration(dataUser.name, dataUser.email, dataUser.password);
       if (status === 200) {
         dispatch(setIsSuccessRegistration(true));
       }
@@ -41,6 +42,7 @@ export const login = createAsyncThunk<void, SignInFormType, {state: RootState}>(
       const {data, status} = await AuthService.login(dataUser.email, dataUser.password);
       if (status === 200) {
         dispatch(setUserData(data));
+        dispatch(createStatistics());
       }
     } catch (error) {
       console.log(error.response.status)

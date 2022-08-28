@@ -13,7 +13,9 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import userSlice from './userSlice';
 import bookSlice from './bookSlice';
 import gameSlice from './gameSlice';
+import audioChallengeSlice from './audioChallengeSlice';
 import settingsSlice from './settingsSlice';
+import statisticsSlice from './statisticsSlice';
 
 
 const userPersistConfig = {
@@ -32,7 +34,9 @@ const rootReducer = combineReducers({
   user: persistReducer(userPersistConfig, userSlice),
   book: persistReducer(bookPersistConfig, bookSlice),
   game: gameSlice,
+  audioChallenge: audioChallengeSlice,
   settings: settingsSlice,
+  statistics: statisticsSlice,
 });
 
 const persistConfig = { // Where wil be saved

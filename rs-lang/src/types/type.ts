@@ -32,6 +32,26 @@ export type ResponseWordTypeWithAuth = [
   }
 ]
 
+export type ResponseOneAggregatedWord = [
+  {
+  _id: string;
+  group: number;
+  page: number;
+  word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
+  wordTranslate: string;
+  textMeaningTranslate: string;
+  textExampleTranslate: string;
+  userWord?: UserWordType;
+  }
+]
+
 export type LoginResponseType = {
   message: string;
   token: string;
@@ -72,16 +92,18 @@ export type UpdateTokenType = {
 export type UserWordType ={
   difficulty?: 'learned' | 'difficult' | 'none';
   id?: string;
-  wordId?: string
+  wordId?: string;
   optional?: {
+    countRightAnswers?: string;
+    isNew?: string;
     game?: {
-      audioCall?: {
-        right?: number;
-        wrong?: number;
+      audioChallenge?: {
+        right?: string;
+        wrong?: string;
       },
       sprint?: {
-        right?: number;
-        wrong?: number;
+        right?: string;
+        wrong?: string;
       }
     }
   }
@@ -90,4 +112,35 @@ export type UserWordType ={
 export type CreateUserWordType = UserWordType & {
   id: string;
   wordId: string;
+}
+
+export type StatisticsType = {
+  id?: string;
+  learnedWords: number;
+  optional: {
+    wordStatistics: {
+      countNewWords: {
+        [key: string]: string;
+      } | null,
+      countLearnedWords: {
+        [key: string]: string;
+      } | null
+    },
+    gamesStatistics: {
+      audioChallenge: {
+        lastChanged: string | null;
+        countNewWords: number | null;
+        right: number | null;
+        wrong: number | null;
+        longestSeries: number | null;
+      },
+      sprint?: {
+        lastChanged: string | null;
+        countNewWords: number | null;
+        right: number | null;
+        wrong: number | null;
+        longestSeries: number | null;
+      },
+    }
+  }
 }
