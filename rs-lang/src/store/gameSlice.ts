@@ -50,6 +50,9 @@ export const gameSlice = createSlice({
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
+    setWords(state, action: PayloadAction<WordType[]>) {
+      state.words = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -64,7 +67,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setCurrentGame, setCurrentGroup, setCurrentPage } = gameSlice.actions;
+export const { setCurrentGame, setCurrentGroup, setCurrentPage, setWords } = gameSlice.actions;
 
 export default gameSlice.reducer;
 
