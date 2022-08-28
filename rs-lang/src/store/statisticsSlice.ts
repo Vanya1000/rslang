@@ -28,9 +28,7 @@ export const fetchStatistics = createAsyncThunk<void,  void , {state: RootState}
         }
       }
     } catch (error) {
-      if (error.response.status === 404) {
-        dispatch(upsertStatistics(initialStatistics))
-      }
+      console.log(error);
     }
   }
 );
@@ -45,6 +43,22 @@ export const upsertStatistics = createAsyncThunk<void,  StatisticsType , {state:
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+);
+
+export const createStatistics = createAsyncThunk<void,  void , {state: RootState}>(
+  'statistics/upsertStatistics',
+  async (_, { getState, dispatch }) => {
+    const { user } = getState().user;
+    try {
+      if (user) {
+        await StatisticsAPI.getStatistics(user.userId);
+      }
+    } catch (error) {
+      if (error.response.status === 404) {
+        dispatch(upsertStatistics(initialStatistics));
+      }
     }
   }
 );
