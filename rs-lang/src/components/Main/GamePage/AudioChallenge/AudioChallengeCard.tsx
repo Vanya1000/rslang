@@ -2,24 +2,24 @@ import { WordType } from "../../../../types/type";
 import volume from "../../../../assets/images/volume.png";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { selectCurrentWordIndex, selectProgress, setCurrentWordIndex, setProgress } from "../../../../store/audioChallengeSlice";
+import { selectCurrentWordIndex, setCurrentWordIndex, addAnswer } from "../../../../store/audioChallengeSlice";
 import { selectGameWords } from "../../../../store/gameSlice";
 import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
 import successAudioPath from '../../../../assets/audio/success.mp3';
+import AudioChallengeResults from "./AudioChallengeResults";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
 const AudioChallengeCard = () => {
-  const [canGoNext, setCanGoNext] = useState(false);
   const [isAnswered, setIsAnswered] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
   const [rightAnswer, setRightAnswer] = useState<number | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<number | null>(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const words = useAppSelector(selectGameWords);
   const currentWordIndex = useAppSelector(selectCurrentWordIndex);
-  const progress = useAppSelector(selectProgress);
 
   const dispatch = useAppDispatch();
 
@@ -34,18 +34,18 @@ const AudioChallengeCard = () => {
   }
 
   const checkAnswer = (optionIndex: number) => {
-    if (!canGoNext) {
+    if (!isAnswered) {
       if (words[currentWordIndex].wordTranslate === options[optionIndex]) {
         setRightAnswer(optionIndex);
+        dispatch(addAnswer({wordId: words[currentWordIndex].id, status: 'right'}));
         playAudio(rightAudioPath);
       } else {
-        playAudio(mistakeAudioPath);
         setWrongAnswer(optionIndex);
+        dispatch(addAnswer({wordId: words[currentWordIndex].id, status: 'wrong'}));
         displayRightAnswer();
+        playAudio(mistakeAudioPath);
       }
-      dispatch(setProgress(progress + 5));
       setIsAnswered(true);
-      setCanGoNext(true);
     }
   }
 
@@ -54,8 +54,13 @@ const AudioChallengeCard = () => {
     audio.play();
   }
 
-  useEffect(() => {
+  const playWordAudio = () => {
     playAudio(`${baseUrl}${words[currentWordIndex].audio}`);
+  }
+
+  useEffect(() => {
+    playWordAudio();
+
     const array: string[] = [];
     array.push(words[currentWordIndex].wordTranslate);
     while (array.length < 4) {
@@ -65,16 +70,19 @@ const AudioChallengeCard = () => {
       }
     }
     shuffle(array);
+
     setOptions(array);
   }, [currentWordIndex]);
 
   const displayNextWord = () => {
     if (currentWordIndex < 19) {
-      dispatch(setCurrentWordIndex(currentWordIndex + 1));
-      setCanGoNext(false);
+      dispatch(setCurrentWordIndex());
       setIsAnswered(false);
       setRightAnswer(null);
       setWrongAnswer(null);
+    } else {
+      playAudio(successAudioPath);
+      setOpenModal(true);
     }
   }
 
@@ -87,7 +95,7 @@ const AudioChallengeCard = () => {
           alt=""
         />
         <div className="content__wrapper">
-          <img className={`content__volume${isAnswered ? '' : ' content__volume_active'}`} src={volume} alt="" onClick={() => playAudio(`${baseUrl}${words[currentWordIndex].audio}`)}/>
+          <img className={`content__volume${isAnswered ? '' : ' content__volume_active'}`} src={volume} alt="" onClick={() => playWordAudio()}/>
           <span className={`content__word${isAnswered ? '' : ' invisible'}`}>{words[currentWordIndex].word}</span>
         </div>
       </div>
@@ -107,23 +115,22 @@ const AudioChallengeCard = () => {
           } onClick={() => checkAnswer(3)}>{options[3]}</li>
       </ul>
       <button
-        className={`content__button${canGoNext ? " invisible" : ""}`}
+        className={`content__button${isAnswered ? ' invisible' : ''}`}
         onClick={() => {
           displayRightAnswer();
           setIsAnswered(true);
-          setCanGoNext(true);
-          playAudio(mistakeAudioPath);
-          dispatch(setProgress(progress + 5));
+          dispatch(addAnswer({wordId: words[currentWordIndex].id, status: 'skipped'}));
         }}
       >
         I DON'T KNOW
       </button>
       <button
-        className={`content__button${canGoNext ? "" : " invisible"}`}
+        className={`content__button${isAnswered ? '' : ' invisible'}`}
         onClick={() => displayNextWord()}
       >
         NEXT
       </button>
+      <AudioChallengeResults open={openModal} setOpenModal={setOpenModal}/>
     </div>
   );
 };
