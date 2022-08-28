@@ -31,7 +31,7 @@ type GraphStatPropsType = {
   color: string;
   dataForGraph: {
     [key: string]: string;
-  } | undefined;
+  } | null;
 }
 
 

@@ -19,22 +19,23 @@ const StatPage = () => {
   const optional = dataStatistics?.optional
   const dataForTableLearned = optional?.wordStatistics?.countLearnedWords;
   const dataForTableNewWords = optional?.wordStatistics?.countNewWords;
-  const newWordsDaily = optional?.wordStatistics?.countNewWords![getCurrentDate()];
-  const learnedWordsDaily = optional?.wordStatistics?.countLearnedWords![getCurrentDate()];
+  const newWordsDaily = optional?.wordStatistics?.countNewWords ? optional?.wordStatistics?.countNewWords?.[getCurrentDate()] : null;
+  const learnedWordsDaily = optional?.wordStatistics?.countLearnedWords ? optional?.wordStatistics?.countLearnedWords?.[getCurrentDate()] : null;
+
   const isChangeTodayAudioChall = optional?.gamesStatistics?.audioChallenge?.lastChanged === getCurrentDate();
   const isChangeTodaySprint = optional?.gamesStatistics?.sprint?.lastChanged === getCurrentDate();
   const avgGameCoorectAnswers = () => {
     let avgAudioChall = '-';
     if (isChangeTodayAudioChall) {
-      const right = optional?.gamesStatistics?.audioChallenge?.right || '0';
-      const wrong = optional?.gamesStatistics?.audioChallenge?.wrong || '0';
-      avgAudioChall = ((parseInt(right) / (parseInt(right) + parseInt(wrong))) * 100).toFixed(0)
+      const right = optional?.gamesStatistics?.audioChallenge?.right || 0;
+      const wrong = optional?.gamesStatistics?.audioChallenge?.wrong || 0;
+      avgAudioChall = ((right / (right + wrong)) * 100).toFixed(0);
     }
     let avgSprint = '-';
     if (isChangeTodaySprint) {
-      const right = optional?.gamesStatistics?.sprint?.right || '0';
-      const wrong = optional?.gamesStatistics?.sprint?.wrong || '0';
-      avgSprint = ((parseInt(right) / (parseInt(right) + parseInt(wrong))) * 100).toFixed(0)
+      const right = optional?.gamesStatistics?.sprint?.right || 0;
+      const wrong = optional?.gamesStatistics?.sprint?.wrong || 0;
+      avgSprint = ((right / (right + wrong)) * 100).toFixed(0);
     }
     let avgAll = '-';
     if (isChangeTodayAudioChall && isChangeTodaySprint) {

@@ -35,8 +35,8 @@ const StatisticOneWord: React.FC<StatisticOneWordPropsType> = ({isOpenStatistic,
               <TableCell component="th" scope="row">
                 Audio call
               </TableCell>
-              <TableCell align="right">{word.userWord?.optional?.game?.audioCall?.right || '-'}</TableCell>
-              <TableCell align="right">{word.userWord?.optional?.game?.audioCall?.wrong || '-'}</TableCell>
+              <TableCell align="right">{word.userWord?.optional?.game?.audioChallenge?.right || '-'}</TableCell>
+              <TableCell align="right">{word.userWord?.optional?.game?.audioChallenge?.wrong || '-'}</TableCell>
             </TableRow>
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

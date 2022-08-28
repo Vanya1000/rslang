@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { CreateUserWordType, ResponseWordTypeWithAuth, UserWordType, WordType } from "../types/type";
+import { CreateUserWordType, ResponseOneAggregatedWord, ResponseWordTypeWithAuth, UserWordType, WordType } from "../types/type";
 import instance from "./api";
 
 
@@ -30,5 +30,9 @@ export default class wordsAPI {
 
   static async getWordsByGroup(id: string): Promise<AxiosResponse<WordType>> {
     return instance.get<WordType>(`words/${id}`);
+  }
+
+  static async getUserWordById(userId: string, wordId: string): Promise<AxiosResponse<ResponseOneAggregatedWord>> {
+    return instance.get<ResponseOneAggregatedWord>(`users/${userId}/aggregatedWords/${wordId}`);
   }
 }

@@ -32,6 +32,26 @@ export type ResponseWordTypeWithAuth = [
   }
 ]
 
+export type ResponseOneAggregatedWord = [
+  {
+  _id: string;
+  group: number;
+  page: number;
+  word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
+  wordTranslate: string;
+  textMeaningTranslate: string;
+  textExampleTranslate: string;
+  userWord?: UserWordType;
+  }
+]
+
 export type LoginResponseType = {
   message: string;
   token: string;
@@ -74,9 +94,10 @@ export type UserWordType ={
   id?: string;
   wordId?: string;
   optional?: {
+    countRightAnswers?: string;
     isNew?: string;
     game?: {
-      audioCall?: {
+      audioChallenge?: {
         right?: string;
         wrong?: string;
       },
@@ -95,30 +116,30 @@ export type CreateUserWordType = UserWordType & {
 
 export type StatisticsType = {
   id?: string;
-  learnedWords?: string;
-  optional?: {
-    wordStatistics?: {
-      countNewWords?: {
+  learnedWords: number;
+  optional: {
+    wordStatistics: {
+      countNewWords: {
         [key: string]: string;
-      },
-      countLearnedWords?: {
+      } | null,
+      countLearnedWords: {
         [key: string]: string;
-      }
+      } | null
     },
-    gamesStatistics?: {
-      audioChallenge?: {
-        lastChanged?: string;
-        countNewWords?: string;
-        right?: string;
-        wrong?: string;
-        longestSeries?: string;
+    gamesStatistics: {
+      audioChallenge: {
+        lastChanged: string | null;
+        countNewWords: number | null;
+        right: number | null;
+        wrong: number | null;
+        longestSeries: number | null;
       },
       sprint?: {
-        lastChanged?: string;
-        countNewWords?: string;
-        right?: string;
-        wrong?: string;
-        longestSeries?: string;
+        lastChanged: string | null;
+        countNewWords: number | null;
+        right: number | null;
+        wrong: number | null;
+        longestSeries: number | null;
       },
     }
   }
