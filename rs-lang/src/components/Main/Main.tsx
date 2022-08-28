@@ -8,6 +8,7 @@ import BookPage from './BookPage/BookPage'
 import GamePage from './GamePage/GamePage'
 import HomePage from './HomePage/HomePage'
 import StatPage from './StatPage/StatPage'
+import Sprint from './GamePage/SprintPage/Sprint';
 
 const Main = () => {
   return (
@@ -23,6 +24,7 @@ const Main = () => {
         <Route path="*" element={<NotFound />}/>
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/signin" element={<SignIn />}/>
+        <Route path="/game/sprint" element={<Sprint/> }/>
       </Routes>
     </div>
   )

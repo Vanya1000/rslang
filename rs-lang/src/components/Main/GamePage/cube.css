@@ -32,15 +32,9 @@
   text-align: center;
   backface-visibility: hidden;
   box-shadow: 2px 2px 10px black;
-
 }
 
-.cube__face--front  { 
-  /* overflow: hidden; */
-  /* background-image: url('gameBack.jpeg');
-  background-size: cover; */
-
-}
+.cube__face--front  {}
 .cube__face--right  { background: rgba(165, 229, 255, 0.7); }
 .cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
 .cube__face--left   { background: hsla(41, 100%, 65%, 0.7); }

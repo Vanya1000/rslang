@@ -4,6 +4,7 @@ import './cube.css';
 import gameBack from '../../../assets/gameImg/gameBack1.png';
 import sprintImg from '../../../assets/gameImg/sprint.png';
 import audioImg from '../../../assets/gameImg/audioGame.png';
+import { Link } from 'react-router-dom';
 
 
 const GamePage = () => {
@@ -25,7 +26,9 @@ const GamePage = () => {
       <div className={s.selectLvlBtnWrapper}>
         {buttonNumber.map((btn, i) => {
           return (
-            <button className={s.selectLvlBtn} style={{ backgroundColor: `${levelBtnColor[i]}` }}>{btn}</button>
+            <Link to='/game/sprint'>
+              <button className={s.selectLvlBtn} style={{ backgroundColor: `${levelBtnColor[i]}` }}>{btn}</button>
+            </Link>
           )
         })}
       </div>
@@ -68,8 +71,8 @@ const GamePage = () => {
           </div>
           <div className="cube__face cube__face--bottom">
             <img src={audioImg} alt="" className={s.gameImg} />
-            <div className={s.gameTittle} style={{color: '#01DAFE'}}>Audio challenge</div>
-            <div className={s.description} style={{color: '#313131'}}>
+            <div className={s.gameTittle} style={{ color: '#01DAFE' }}>Audio challenge</div>
+            <div className={s.description} style={{ color: '#313131' }}>
               Check your listening skills, trying to pick the right
               meaning after hearing a word.
               Be careful, as you just have one guess.
