@@ -12,7 +12,7 @@ export type StatisticsType = {
   rightAnswersInRow: number;
 }
 
-const AudioChallengeResults = (props: {open: boolean, setOpenModal: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
 
@@ -52,19 +52,19 @@ const AudioChallengeResults = (props: {open: boolean, setOpenModal: React.Dispat
   }
 
   const playAgain = () => {
-    props.setOpenModal(false);
+    props.setEnd(false);
     dispatch(resetGame());
     dispatch(setWords(shuffle(words)));
   }
 
   const backToGames = () => {
-    props.setOpenModal(false);
+    props.setEnd(false);
     dispatch(resetGame());
     navigate('/game');
   }
 
   const backToTextbook = () => {
-    props.setOpenModal(false);
+    props.setEnd(false);
     dispatch(resetGame());
     navigate('/book');
   }

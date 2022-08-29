@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WORDS_PER_GAME } from "../constants/constants";
 import { RootState } from "./store";
 
-export type answerStatus = 'right' | 'wrong' | 'skipped';
+export type answerStatus = 'right' | 'wrong';
 
 export type answer = {
   wordId: string | undefined;
