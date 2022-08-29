@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { WORDS_PER_GAME } from "../constants/constants";
 import { RootState } from "./store";
 
 export type answerStatus = 'right' | 'wrong' | 'skipped';
@@ -28,7 +29,7 @@ export const audioChallengeSlice = createSlice({
       state.currentWordIndex++;
     },
     addAnswer(state, action: PayloadAction<answer>) {
-      state.progress += 5;
+      state.progress += 100 / WORDS_PER_GAME;
       state.answers.push(action.payload);
     },
     resetGame(state) {

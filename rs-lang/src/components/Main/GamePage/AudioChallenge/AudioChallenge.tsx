@@ -12,7 +12,7 @@ const AudioChallenge = () => {
 
   if (isFetching) {
     return <div className="audio-challenge">
-      <CircularProgress className="audio-challenge__progress" color="inherit"/>
+      <CircularProgress size="4rem" className="audio-challenge__progress" color="info"/>
     </div>;
   } else {
     return (

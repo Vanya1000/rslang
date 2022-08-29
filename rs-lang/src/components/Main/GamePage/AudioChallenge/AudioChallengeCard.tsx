@@ -23,6 +23,25 @@ const AudioChallengeCard = () => {
 
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    playWordAudio();
+
+    const array: string[] = [];
+    array.push(words[currentWordIndex].wordTranslate);
+    while (array.length < 4) {
+      const index = Math.floor(Math.random() * 20);
+      if (!array.includes(words[index].wordTranslate)) {
+        array.push(words[index].wordTranslate);
+      }
+    }
+    shuffle(array);
+
+    setOptions(array);
+    setIsAnswered(false);
+    setRightAnswer(null);
+    setWrongAnswer(null);
+  }, [currentWordIndex]);
+
   const shuffle = (array: WordType[] | string[]) => {
     array.sort(() => Math.random() - 0.5);
     return array;
@@ -49,6 +68,13 @@ const AudioChallengeCard = () => {
     }
   }
 
+  const skipAnswer = () => {
+    displayRightAnswer();
+    setIsAnswered(true);
+    dispatch(addAnswer({wordId: words[currentWordIndex].id, status: 'wrong'}));
+    playAudio(mistakeAudioPath);
+  }
+
   const playAudio = (path: string) => {
     const audio = new Audio(path);
     audio.play();
@@ -58,28 +84,9 @@ const AudioChallengeCard = () => {
     playAudio(`${baseUrl}${words[currentWordIndex].audio}`);
   }
 
-  useEffect(() => {
-    playWordAudio();
-
-    const array: string[] = [];
-    array.push(words[currentWordIndex].wordTranslate);
-    while (array.length < 4) {
-      const index = Math.floor(Math.random() * 20);
-      if (!array.includes(words[index].wordTranslate)) {
-        array.push(words[index].wordTranslate);
-      }
-    }
-    shuffle(array);
-
-    setOptions(array);
-  }, [currentWordIndex]);
-
   const displayNextWord = () => {
-    if (currentWordIndex < 19) {
+    if (currentWordIndex < words.length - 1) {
       dispatch(setCurrentWordIndex());
-      setIsAnswered(false);
-      setRightAnswer(null);
-      setWrongAnswer(null);
     } else {
       playAudio(successAudioPath);
       setOpenModal(true);
@@ -116,11 +123,7 @@ const AudioChallengeCard = () => {
       </ul>
       <button
         className={`content__button${isAnswered ? ' invisible' : ''}`}
-        onClick={() => {
-          displayRightAnswer();
-          setIsAnswered(true);
-          dispatch(addAnswer({wordId: words[currentWordIndex].id, status: 'skipped'}));
-        }}
+        onClick={() => skipAnswer()}
       >
         I DON'T KNOW
       </button>

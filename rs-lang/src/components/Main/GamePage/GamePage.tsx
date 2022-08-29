@@ -102,7 +102,7 @@ const GamePage = () => {
               making educated guesses about what is right and what is wrong.
             </div>
             <div className={gameStyles.sprintBtn}>
-              <button className={gameStyles.backBtn} onClick={() => setCubeSide('right')}>Select the level</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('right')}>SELECT THE LEVEL</button>
               <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
             </div>
           </div>
@@ -116,7 +116,7 @@ const GamePage = () => {
               Be careful, as you just have one guess.
             </div>
             <div className={gameStyles.sprintBtn}>
-              <button className={gameStyles.backBtn} onClick={() => setCubeSide('left')}>Select the level</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('left')}>SELECT THE LEVEL</button>
               <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
             </div>
           </div>
