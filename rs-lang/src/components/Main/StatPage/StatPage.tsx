@@ -11,6 +11,7 @@ import NoAuth from "../../Common/NoAuth";
 const StatPage = () => {
   const dataStatistics = useAppSelector(state => state.statistics.data);
   const isAuth = useAppSelector(state => state.user?.user?.message === "Authenticated");
+  const isFetching = useAppSelector(state => state.statistics.isFetching);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchStatistics());
@@ -66,7 +67,7 @@ const StatPage = () => {
         <Grid sx={{ p: 2 }} container direction="column" component={Paper}>
           <Grid item>
             <Typography variant="h6">Daily statistics on mini-games</Typography>
-            {!isChangeTodaySprint && !isChangeTodayAudioChall  && <Alert severity="info">You haven't played a single game today</Alert>}
+            {!isChangeTodaySprint && !isChangeTodayAudioChall  && !isFetching && <Alert severity="info">You haven't played a single game today</Alert>}
           </Grid>
           <Grid item sx={{ pl: 2, pr: 2 }}>
             <TableStat 
@@ -78,7 +79,7 @@ const StatPage = () => {
           </Grid>
           <Grid sx={{ pt: 1 }} item>
             <Typography variant="h6">Daily statistics by words</Typography>
-            {!learnedWordsDaily && !newWordsDaily  &&  !isChangeTodaySprint && !isChangeTodayAudioChall && <Alert severity="info">There were no such activities today</Alert>}
+            {!learnedWordsDaily && !newWordsDaily  &&  !isChangeTodaySprint && !isChangeTodayAudioChall && !isFetching && <Alert severity="info">There were no such activities today</Alert>}
           </Grid>
           <Grid
             container
@@ -127,10 +128,10 @@ const StatPage = () => {
           </Box>
           <Grid sx={{ pl: 4, pr: 4, pb: 2 }} spacing={3} container justifyContent="space-between" alignItems='center'>
             <Grid item xs={12} md={6} >
-              <GraphStat title={'New words'} color={'#f50057'} dataForGraph={dataForTableNewWords} />
+              <GraphStat title={'New words'} color={'#f50057'} dataForGraph={dataForTableNewWords} isFetching={isFetching} />
             </Grid>
             <Grid item xs={12 } md={6}>
-              <GraphStat title={'Increase learned words'} color={'#0288d1'} dataForGraph={dataForTableLearned}/>
+              <GraphStat title={'Increase learned words'} color={'#0288d1'} dataForGraph={dataForTableLearned} isFetching={isFetching}/>
             </Grid>
           </Grid>
         </Grid>

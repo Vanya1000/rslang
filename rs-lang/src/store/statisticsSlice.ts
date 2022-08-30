@@ -115,7 +115,7 @@ export const sendAllStatistics = createAsyncThunk<void,  {type: 'learned' | 'new
             if (type === 'learned') {
               data.learnedWords ? data.learnedWords = data.learnedWords + 1 : data.learnedWords = 1;
             }
-            if (data.optional?.wordStatistics?.[path]?.[dateNow]) {
+            if (data.optional?.wordStatistics?.[path]) {
               data.optional!.wordStatistics[path]![dateNow] = String(Number(data.optional?.wordStatistics?.[path]![dateNow]) + 1);
             } else {
               data.optional!.wordStatistics![path] = {[dateNow]: '1'};
@@ -247,9 +247,18 @@ export const statisticsSlice = createSlice({
       state.data = action.payload;
     }
   },
-  /* extraReducers: (builder) => {
+  extraReducers: (builder) => {
     builder
-  }, */
+    .addCase(fetchStatistics.pending, (state) => {
+      state.isFetching = true;
+    })
+    .addCase(fetchStatistics.fulfilled, (state) => {
+      state.isFetching = false;
+    })
+    .addCase(fetchStatistics.rejected, (state) => {
+      state.isFetching = false;
+    })
+  },
 });
 
 export const { setStatistics } = statisticsSlice.actions;

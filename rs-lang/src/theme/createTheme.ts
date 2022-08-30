@@ -7,7 +7,7 @@ export const themeLight = createTheme({
       main: 'rgb(0,0,0,0.8)',
     },
     secondary: {
-      main: '#4caf50',
+      main: '#a2cf6e',
     },
     background: {
       default: '#f5f5f7',

@@ -111,7 +111,6 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
           {isShowTranslate &&<Typography variant="subtitle1" color="textSecondary">
             {word.textExampleTranslate}
           </Typography>}
-          {/*<Button onClick={() => dispatch(sendStatistics({type:'right', wordId: word._id!, game: 'audioChallenge', series: 5}))}>send statistics</Button> */}
         </CardContent>
       </Box>
 
