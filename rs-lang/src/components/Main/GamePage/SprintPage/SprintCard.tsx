@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { addAnswer, selectCurrentWordIndex, setCurrentWordIndex } from "../../../../store/sprintSlice";
-import { selectGameWords } from "../../../../store/gameSlice";
+import { addAnswer, selectCurrentWordIndex, setCurrentWordIndex } from "../../../../store/gameSlice";
+import { fetchGameWords, selectCurrentPage, selectGameWords, setCurrentPage } from "../../../../store/gameSlice";
+import GameResults from "../GameResults";
 import { WordType } from "../../../../types/type";
 import rightAudioPath from "../../../../assets/audio/right.mp3";
 import mistakeAudioPath from "../../../../assets/audio/mistake.mp3";
@@ -10,7 +11,7 @@ import volume from "../../../../assets/images/volume.png";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-const SprintCard = (props: { isEnd: boolean }) => {
+const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, setTimer: React.Dispatch<React.SetStateAction<number>> }) => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [option, setOption] = useState<string>('');
   const [isRightAnswer, setIsRightAnswer] = useState<boolean | null>(null);
@@ -20,6 +21,7 @@ const SprintCard = (props: { isEnd: boolean }) => {
 
   const words = useAppSelector(selectGameWords);
   const currentWordIndex = useAppSelector(selectCurrentWordIndex);
+  const currentPage = useAppSelector(selectCurrentPage);
 
   const dispatch = useAppDispatch();
 
@@ -59,7 +61,7 @@ const SprintCard = (props: { isEnd: boolean }) => {
       words[currentWordIndex].wordTranslate !== option && button === 'wrong') {
         setIsRightAnswer(true);
         dispatch(
-          addAnswer({ wordId: words[currentWordIndex].id, status: "right" })
+          addAnswer({ wordId: words[currentWordIndex].id!, status: "right" })
         );
         playAudio(rightAudioPath);
         setPoints((prev) => prev + bonus);
@@ -71,7 +73,7 @@ const SprintCard = (props: { isEnd: boolean }) => {
       } else {
         setIsRightAnswer(false);
         dispatch(
-          addAnswer({ wordId: words[currentWordIndex].id, status: "wrong" })
+          addAnswer({ wordId: words[currentWordIndex].id!, status: "wrong" })
         );
         playAudio(mistakeAudioPath);
         setBonus(10);
@@ -79,10 +81,18 @@ const SprintCard = (props: { isEnd: boolean }) => {
       }
       setIsAnswered(true);
       if (currentWordIndex === 19) {
-        // words = shuffle(words) as WordType[];
-        // dispatch(setCurrentWordIndex(0));
+        const page = Math.floor(Math.random() * 30);
+        let isNewPage = false;
+        while (!isNewPage) {
+          if (page !== currentPage) {
+            dispatch(setCurrentPage(page));
+            dispatch(fetchGameWords());
+            isNewPage = true;
+          }
+        }
+        dispatch(setCurrentWordIndex());
       } else {
-        dispatch(setCurrentWordIndex(currentWordIndex + 1));
+        dispatch(setCurrentWordIndex());
       }
     }
   };
@@ -110,6 +120,7 @@ const SprintCard = (props: { isEnd: boolean }) => {
           <button className="sprint__button_wrong" onClick={() => checkAnswer('wrong')}>WRONG</button>
         </div>
       </div>
+      <GameResults open={props.isEnd} setEnd={props.setEnd} setTimer={props.setTimer}/>
     </div>
   );
 };

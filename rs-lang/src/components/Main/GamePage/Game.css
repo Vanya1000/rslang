@@ -3,10 +3,12 @@
 
 .game {
     width: 100%;
-    height: calc(100vh - 64px);
+    min-height: calc(100vh - 64px);
     font-family: 'Work Sans', sans-serif;
-    background: rgb(0,21,36);
-    background: linear-gradient(0deg, rgba(0,21,36,1) 0%, rgba(0,66,101,0.8627160336790967) 39%, rgba(0,106,129,0.526581579897584) 100%, rgba(0,180,255,0.33610538942139356) 100%);
+    background-image: url(../../../assets/gameImg/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px 0;
 }
 
 .game__progress {
@@ -60,14 +62,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    position: relative;
+    width: 650px;
+    border: 2px solid #6573c3;
+    border-radius: 7px;
+    padding: 20px 0;
+    background-color: #f5f5f74c;
+    margin-bottom: 20px;
 }
 
 .sprint__content {
-    position: relative;
     width: 500px;
-    border: 2px solid rgb(27, 140, 181);
-    border-radius: 5px;
-    padding: 10px;
 }
 
 .sprint__points {
@@ -77,7 +82,7 @@
 }
 
 .sprint__bonus {
-    color:#844230;
+    color:#ff000097;
     margin: 10px;
 }
 
@@ -105,7 +110,7 @@
     width: 60px;
     background-color: #f5f5f77b;
     border-radius: 50%;
-    padding: 5px;
+    padding: 7px;
     margin: 0 10px;
     cursor: pointer;
     transition: all 0.4s;
@@ -113,6 +118,7 @@
 
 .content__volume_active {
     width: 100px;
+    background-color: #5c6dcfc5;
 }
 
 .content__word,
@@ -152,11 +158,11 @@
 }
 
 .list__item_red {
-    background-color: #844230;
+    background-color: #ff000097;
 }
 
 .list__item_green {
-    background-color: #30843d;
+    background-color: #00ff0089;
 }
 
 .list__item_inactive {
@@ -189,11 +195,11 @@
 }
 
 .sprint__button_right {
-    background-color: #30843d;
+    background-color: #00ff0089;
 }
 
 .sprint__button_wrong {
-    background-color: #844230;
+    background-color: #ff000097;
 }
 
 .sprint__translation {
@@ -216,7 +222,7 @@
 }
 
 .sprint__circle_active {
-    background-color: #844230;
+    background-color: #ff000097;
 }
 
 .content__button {
@@ -232,12 +238,13 @@
 .statistics {
     width: 600px;
     height: 500px;
-    background-color: #F5F5F7;
+    background-color: #f5f5f7a4;
     position: absolute;
     overflow-y: auto;
     top: calc(50% - 240px);
     left: calc(50% - 300px);
-    border-radius: 2px;
+    border-radius: 5px;
+    border: 2px solid #6573c3;
 }
 
 .statistics > * {
@@ -261,19 +268,20 @@
 
 .statistics__button {
     outline: none;
-    border: 1px solid #6573c3;
+    border: 1px solid #F5F5F7;
+    font-size: 16px;
     height: 35px;
     padding: 0 20px;
-    color: #6573c3;
+    color: #F5F5F7;
     position: relative;
-    left: calc(50% - 225px);
+    left: calc(50% - 243px);
     font-family: inherit;
-    background-color: transparent;
+    background-color: #5c6dcf;
     transition: background-color 0.4s;
 }
 
 .statistics__button:hover {
-    background-color: #e0e0ebd4;
+    background-color: #6573c3;
 }
 
 .statistics__wrapper {
@@ -311,8 +319,8 @@
 
 .statistics__answers li::before {
     content: "";
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -333,7 +341,7 @@
 
 .statistics__answers_wrong,
 .statistics__item_wrong::before {
-    background-color: #844230;
+    background-color: #ff000097;
 }
 
 .statistics__answers_skipped,
@@ -376,16 +384,47 @@
     margin-right: 5px;
 }
 
-.statistics__word .word {
-    color: #6573c3;
-}
-
 .statistics__word .word-translate {
     color:rgba(0, 0, 0, 0.632);
 }
 
 .statistics__words p {
     text-align: center;
+}
+
+.background_green {
+    animation: animate-green 0.2s ease-in-out;
+}
+
+.background_red {
+    animation: animate-red 0.2s ease-in-out;
+}
+
+@keyframes animate-red {
+    0% {background-color: #ff00000e;}
+    30% {background-color: #f5f5f74c;}
+    60% {background-color: #ff00000e;}
+    75% {background-color: #f5f5f74c;}
+    90% {background-color: #ff00000e;}
+}
+
+@keyframes animate-green {
+    0% {background-color: #00ff000e;}
+    30% {background-color: #f5f5f74c;}
+    60% {background-color: #00ff000e;}
+    75% {background-color: #f5f5f74c;}
+    90% {background-color: #00ff000e;}
+}
+
+@media(max-width: 680px) {
+    .game__content {
+        width: 300px;
+    }
+
+    .content__list {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 @media(max-width: 640px) {

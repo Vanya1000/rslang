@@ -1,12 +1,12 @@
 import gameStyles from './Game.module.css';
 import './cube.css';
 
-import { fetchGameWords, selectCurrentGame, setCurrentGame, setCurrentGroup, setCurrentPage } from '../../../store/gameSlice';
+import { fetchGameWords, resetGame, selectCurrentGame, setCurrentGame, setCurrentGroup, setCurrentPage } from '../../../store/gameSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
-import gameBack from '../../../assets/gameImg/gameBack1.png';
+import gameBack from '../../../assets/gameImg/background.jpg';
 import sprintImg from '../../../assets/gameImg/sprint.png';
 import audioImg from '../../../assets/gameImg/audioGame.png';
 
@@ -49,13 +49,16 @@ const GamePage = () => {
   }
 
   const startGame = () => {
+    dispatch(resetGame());
     const page = Math.floor(Math.random() * 30);
     dispatch(setCurrentPage(page));
     dispatch(fetchGameWords());
     
     if (currentGame === 'sprint') {
+      dispatch(setCurrentGame('sprint'));
       navigate('/sprint');
-    } else if (currentGame === 'audioChallenge'){
+    } else if (currentGame === 'audioChallenge') {
+      dispatch(setCurrentGame('audioChallenge'));
       navigate('/audio-challenge');
     }
   }
@@ -127,4 +130,4 @@ const GamePage = () => {
   )
 }
 
-export default GamePage
+export default GamePage;
