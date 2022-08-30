@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
 button {
   cursor: pointer;
+  font-family: inherit;
 }
 
 .wrapper {
@@ -7,7 +11,11 @@ button {
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 64px);
+  font-family: 'Work Sans', sans-serif;
 }
+
 .mainBackground {
   position: absolute;
   top: 0;
@@ -16,32 +24,29 @@ button {
   height: 596px;
   width: 596px;
 }
-.tittle {
+
+.title {
+  font-family: 'Roboto Condensed', sans-serif;
   font-size: 44px;
   margin: 35px 0 150px 0;
 }
 
-.choseBtnWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 150px;
-}
-
-.backBtn {
+.backBtn,
+.gameBtn {
   border: none;
   border-radius: 5px;
   box-shadow: 3px 3px 15px rgb(196, 151, 255);
   margin: 25px;
   width: 60%;
   height: 40px;
-  transition: ease-in-out 0.4s;
+  transition: transform 0.4s ease-in-out;
   font-size: 20px;
   letter-spacing: 2px;
   color: white;
   background-color: rgb(49, 49, 49);
 }
 
+.gameBtn:hover,
 .backBtn:hover {
   transform: scale(1.2);
 }
@@ -53,7 +58,7 @@ button {
   font-size: 18px;
 }
 
-.gameTittle {
+.gameTitle {
   font-size: 46px;
   color: rgb(95, 255, 255);
 }
@@ -78,7 +83,7 @@ button {
   border-radius: 50%;
   border: none;
   box-shadow: 2px 2px 5px rgba(48, 48, 48, 0.884);
-  transition: ease-in-out 0.2s;
+  transition: transform 0.4s ease-in-out;
   font-size: 20px;
   font-weight: 600;
   color: rgb(49, 49, 49);
@@ -90,4 +95,70 @@ button {
 
 .sprintBtn {
   margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .mainBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 296px;
+    width: 296px;
+  }
+
+  .title {
+    font-size: 30px;
+    margin: 25px 0 15px 0;
+  }
+
+  .backBtn,
+  .gameBtn {
+    width: 70%;
+    font-size: 18px;
+    margin: 10px;
+    height: 30px;
+  }
+
+  .gameBtn {
+    margin: 25px;
+  }
+
+  .description {
+    padding: 0 10px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  .gameTitle {
+    font-size: 27px;
+  }
+
+  .gameImg {
+    width: 50px;
+    margin-top: 10px;
+  }
+
+  .backBtn:hover {
+    transform: scale(1.05);
+  }
+
+  .selectLvlBtn {
+    margin: 15px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(49, 49, 49);
+  }
+  
+  .selectLvlBtn:hover {
+    transform: scale(1.05);
+  }
+  
+  .selectLvlBtnWrapper {
+    padding: 5px 0;
+    margin: 10px 45px;
+  }
 }
