@@ -5,16 +5,20 @@ import { themeDark, themeLight } from './theme/createTheme';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Footer from './components/Footer/Footer';
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
-
   return (
     <ThemeProvider theme={false ? themeDark : themeLight}>
       <CssBaseline />
       <Header/>
       <Main/>
-      <Footer/>
+      <Routes>
+        <Route path='/game' />
+        <Route path='/audio-challenge' />
+        <Route path='/sprint' />
+        <Route path='*' element={<Footer />} />
+      </Routes>
     </ThemeProvider>
   );
 }
