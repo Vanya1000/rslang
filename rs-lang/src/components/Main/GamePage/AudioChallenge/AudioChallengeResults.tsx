@@ -3,31 +3,32 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { resetGame, selectAnswers } from "../../../../store/audioChallengeSlice";
 import { selectGameWords, setWords } from "../../../../store/gameSlice";
 import { WordType } from "../../../../types/type";
+import { useNavigate } from 'react-router-dom';
 import AudioChallengeWord from "./AudioChallengeWord";
 
 export type StatisticsType = {
   rightAnswers: WordType[];
   wrongAnswers: WordType[];
-  skippedAnswers: WordType[];
   rightAnswersInRow: number;
 }
 
-const AudioChallengeResults = (props: {open: boolean, setOpenModal: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
 
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   const shuffle = (array: WordType[]) => {
-    array.sort(() => Math.random() - 0.5);
-    return array;
+    const shuffled = array.slice().sort(() => Math.random() - 0.5);
+    return shuffled;
   };
 
   const calculateStatistics = () => {
     const statistics: StatisticsType = {
       rightAnswers: [],
       wrongAnswers: [],
-      skippedAnswers: [],
       rightAnswersInRow: 0,
     };
 
@@ -45,20 +46,28 @@ const AudioChallengeResults = (props: {open: boolean, setOpenModal: React.Dispat
           statistics.wrongAnswers.push(word);
           rightAnswersInRow = 0;
           break;
-        case 'skipped':
-          statistics.skippedAnswers.push(word);
-          rightAnswersInRow = 0;
-          break;
       }
     }
     return statistics;
   }
 
-  // const playAgain = () => {
-  //   props.setOpenModal(false);
-  //   dispatch(resetGame());
-  //   dispatch(setWords(shuffle(words)));
-  // }
+  const playAgain = () => {
+    props.setEnd(false);
+    dispatch(resetGame());
+    dispatch(setWords(shuffle(words)));
+  }
+
+  const backToGames = () => {
+    props.setEnd(false);
+    dispatch(resetGame());
+    navigate('/game');
+  }
+
+  const backToTextbook = () => {
+    props.setEnd(false);
+    dispatch(resetGame());
+    navigate('/book');
+  }
 
   const statistics = calculateStatistics();
 
@@ -69,16 +78,15 @@ const AudioChallengeResults = (props: {open: boolean, setOpenModal: React.Dispat
             <h2 className="statistics__title">RESULTS</h2>
 
             <div className="statistics__buttons">
-              <button className="statistics__button">PLAY AGAIN</button>
-              <button className="statistics__button">BACK TO GAMES</button>
-              <button className="statistics__button">BACK TO TEXTBOOK</button>
+              <button className="statistics__button" onClick={() => playAgain()}>PLAY AGAIN</button>
+              <button className="statistics__button" onClick={() => backToGames()}>BACK TO GAMES</button>
+              <button className="statistics__button" onClick={() => backToTextbook()}>BACK TO TEXTBOOK</button>
             </div>
 
             <div className="statistics__wrapper">
               <ul className="statistics__answers">
                 <li className="statistics__item_right"><p>RIGHT ANSWERS:</p><span className="statistics__answers_right">{statistics.rightAnswers.length}</span></li>
                 <li className="statistics__item_wrong"><p>WRONG ANSWERS:</p><span className="statistics__answers_wrong">{statistics.wrongAnswers.length}</span></li>
-                <li className="statistics__item_skipped"><p>SKIPPED ANSWERS:</p><span className="statistics__answers_skipped">{statistics.skippedAnswers.length}</span></li>
                 <li className="statistics__item_row"><p>IN A ROW:</p><span className="statistics__answers_row">{statistics.rightAnswersInRow}</span></li>
               </ul>
 
@@ -94,9 +102,6 @@ const AudioChallengeResults = (props: {open: boolean, setOpenModal: React.Dispat
 
                <h3>{statistics.wrongAnswers.length === 0 ? '' : 'WRONG ANSWERS'}</h3>
               {statistics.wrongAnswers.map((answer) => <AudioChallengeWord answer={answer} />)}
-
-              <h3>{statistics.skippedAnswers.length === 0 ? '' : 'SKIPPED ANSWERS'}</h3>
-              {statistics.skippedAnswers.map((answer) => <AudioChallengeWord answer={answer} />)}
             </div>
 
           </div>

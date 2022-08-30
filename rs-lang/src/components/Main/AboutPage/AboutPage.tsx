@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './About.module.css'
 import vanyaImg from '../../../assets/aboutImg/vanya.jpeg';
-import mariaImg from '../../../assets/aboutImg/maria.png';
+import mariaImg from '../../../assets/aboutImg/maria.jpg';
 import alexImg from '../../../assets/aboutImg/alex.jpeg';
 import gitHubImg from '../../../assets/footerImg/github.png';
 

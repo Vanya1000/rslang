@@ -16,6 +16,7 @@ import gameSlice from './gameSlice';
 import audioChallengeSlice from './audioChallengeSlice';
 import settingsSlice from './settingsSlice';
 import statisticsSlice from './statisticsSlice';
+import sprintSlice from './sprintSlice';
 
 
 const userPersistConfig = {
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   book: persistReducer(bookPersistConfig, bookSlice),
   game: gameSlice,
   audioChallenge: audioChallengeSlice,
+  sprint: sprintSlice,
   settings: settingsSlice,
   statistics: statisticsSlice,
 });
