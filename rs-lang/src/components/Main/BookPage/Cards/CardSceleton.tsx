@@ -3,9 +3,9 @@ import React from "react";
 
 const CardSceleton = () => {
   return (
-    <Grid item xs={12} /* sm={6} */>
-      <Card sx={{ display: 'flex', p:1}}>
-      <Skeleton variant="rectangular" width={300} height={250} />
+    <Grid item xs={12}>
+      <Card sx={{ display: 'flex', p:1, flexDirection:{xs: 'column', md: 'row'}}}>
+      <Skeleton variant="rectangular" sx={{width: {xs: '100%', md:300}, height: {xs: 350, md:250}}}/>
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', ml: 2 }}>
         <Box maxWidth={50}>
           <Skeleton height={50} />

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Card, Grid, Pagination, ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
+import { Button, Card, Grid, Pagination, ToggleButton, ToggleButtonGroup, Tooltip, useMediaQuery } from "@mui/material";
 import AudiotrackIcon from "@mui/icons-material/Audiotrack";
 import GrassIcon from "@mui/icons-material/Grass";
-import { useAppDispatch } from '../../../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { fetchHardWords, setCurrentGroup, setCurrentPage } from '../../../../store/bookSlice';
 
 
@@ -13,7 +13,13 @@ type ControlsPropsType = {
 }
 
 const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPage}) => {
+  const isLearnedPage = useAppSelector(state => state.book.words).filter(word => word.userWord?.difficulty === 'learned' || word.userWord?.difficulty === 'difficult').length === 20;
+  const isFetching = useAppSelector(state => state.book.isFetching);
+
   const dispatch = useAppDispatch();
+
+  const matches540 = useMediaQuery('(max-width:540px)');
+  const matches370 = useMediaQuery('(max-width:370px)');
 
   const handleChange = ( event: React.MouseEvent<HTMLElement>, newAlignment: string ) => {
     if (newAlignment <= '5' ) {
@@ -38,30 +44,34 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
         alignItems="center"
       >
         <Grid item xs={12}>
-          <Card sx={{ p: 1, m: 1 }}>
+          <Card sx={{ p: 1, mt: 1, mb: 1, display: 'flex', }}>
           <Tooltip title="Start game" arrow placement="left">
             <Button
               sx={{ mr: 2 }}
-              size='large'
               variant="outlined"
+              size={matches540 ? 'small' : 'large'}
               startIcon={<AudiotrackIcon />}
+              disabled={!isAuth}
             >
               Audio challenge
             </Button>
             </Tooltip>
             <Tooltip title="Start game" arrow placement="right">
-            <Button variant="outlined" size='large' startIcon={<GrassIcon />}>
+            <Button variant="outlined" size={matches540 ? 'small' : 'large'} disabled={!isAuth} startIcon={<GrassIcon />}>
               Sprint
             </Button>
             </Tooltip>
           </Card>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={ matches370 ?{width:'100%'} : {}}>
           <Card sx={{ p: 1 }}>
             <ToggleButtonGroup
               value={String(currentGroup)}
               exclusive
               onChange={handleChange}
+              size={matches540 ? 'small' : 'medium'}
+              orientation={matches370 ? 'vertical' : 'horizontal'}
+              fullWidth={matches370}
             >
               <ToggleButton sx={{ backgroundColor: '#ffef62', '&:hover': { background: '#b2a429'}}} value="0">Lvl 1</ToggleButton>
               <ToggleButton sx={{ backgroundColor: '#ffcd38', '&:hover': { background: '#b28704'}}} value="1">Lvl 2</ToggleButton>
@@ -74,7 +84,8 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
           </Card>
         </Grid>
         <Grid item xs={12} sx={{mt: 1, mb: 1}}>
-        {currentGroup !== 6 &&<Pagination /* color='secondary' */ onChange={changePage} page={currentPage + 1} size='large' count={30}  boundaryCount={2} />}
+        
+        {currentGroup !== 6 &&<Pagination color={isLearnedPage && !isFetching ? 'secondary' : 'standard'} onChange={changePage} page={currentPage + 1} size={matches370 ? 'medium' : 'large'} count={30}  boundaryCount={matches540 ? 0 : 2} />}
         </Grid>
       </Grid>
   )

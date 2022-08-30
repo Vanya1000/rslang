@@ -32,11 +32,12 @@ type GraphStatPropsType = {
   dataForGraph: {
     [key: string]: string;
   } | null;
+  isFetching: boolean;
 }
 
 
 
-const GraphStat:React.FC<GraphStatPropsType> = ({title, color, dataForGraph}) => {
+const GraphStat:React.FC<GraphStatPropsType> = ({title, color, dataForGraph, isFetching}) => {
   let labels = ['0'];
   let dataGr = ['0'];
   if (dataForGraph) {
@@ -84,7 +85,7 @@ const GraphStat:React.FC<GraphStatPropsType> = ({title, color, dataForGraph}) =>
 
   return (
     <Box component={Paper}>
-      {dataGr.length < 2  && <Alert severity="info">Not enough data to display</Alert>}
+      {dataGr.length < 2  && !isFetching && <Alert severity="info">Not enough data to display</Alert>}
       <Line data={data} options={options}/>
     </Box>
   )
