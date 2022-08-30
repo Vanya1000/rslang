@@ -5,22 +5,25 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import {
   selectCurrentWordIndex,
   setCurrentWordIndex,
-  addAnswer,
-} from "../../../../store/audioChallengeSlice";
+  addAnswer
+} from "../../../../store/gameSlice";
 import { selectGameWords } from "../../../../store/gameSlice";
 import rightAudioPath from "../../../../assets/audio/right.mp3";
 import mistakeAudioPath from "../../../../assets/audio/mistake.mp3";
 import successAudioPath from "../../../../assets/audio/success.mp3";
-import AudioChallengeResults from "./AudioChallengeResults";
+import GameResults from "../GameResults";
+import { sendStatistics } from "../../../../store/statisticsSlice";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-const AudioChallengeCard = () => {
+const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
   const [rightAnswer, setRightAnswer] = useState<number | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<number | null>(null);
-  const [isEnd, setEnd] = useState(false);
+  const [animate, setAnimate] = useState<string | null>('');
+
+  const [series, setSeries] = useState<number>(0);
 
   const words = useAppSelector(selectGameWords);
   const currentWordIndex = useAppSelector(selectCurrentWordIndex);
@@ -29,6 +32,7 @@ const AudioChallengeCard = () => {
 
   useEffect(() => {
     playWordAudio();
+    setAnimate(null);
 
     const array: string[] = [];
     array.push(words[currentWordIndex].wordTranslate);
@@ -60,18 +64,25 @@ const AudioChallengeCard = () => {
 
   const checkAnswer = (optionIndex: number) => {
     if (!isAnswered) {
+      const wordId = words[currentWordIndex].id!;
       if (words[currentWordIndex].wordTranslate === options[optionIndex]) {
         setRightAnswer(optionIndex);
+        setAnimate('green');
         dispatch(
-          addAnswer({ wordId: words[currentWordIndex].id, status: "right" })
+          addAnswer({ wordId: wordId, status: "right" })
         );
+        dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'audioChallenge', series: series + 1}));
+        setSeries((prev) => prev + 1);
         playAudio(rightAudioPath);
       } else {
         setWrongAnswer(optionIndex);
+        setAnimate('red');
         dispatch(
-          addAnswer({ wordId: words[currentWordIndex].id, status: "wrong" })
+          addAnswer({ wordId: wordId, status: "wrong" })
         );
         displayRightAnswer();
+        dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0}));
+        setSeries(0);
         playAudio(mistakeAudioPath);
       }
       setIsAnswered(true);
@@ -82,7 +93,7 @@ const AudioChallengeCard = () => {
     displayRightAnswer();
     setIsAnswered(true);
     dispatch(
-      addAnswer({ wordId: words[currentWordIndex].id, status: "wrong" })
+      addAnswer({ wordId: words[currentWordIndex].id!, status: "wrong" })
     );
     playAudio(mistakeAudioPath);
   };
@@ -101,12 +112,13 @@ const AudioChallengeCard = () => {
       dispatch(setCurrentWordIndex());
     } else {
       playAudio(successAudioPath);
-      setEnd(true);
+      props.setEnd(true);
     }
   };
 
   return (
-    <div className={`game__content${isEnd ? ' invisible' : ''}`}>
+    <div className={`game__content${props.isEnd ? ' invisible' : ''}${animate === 'red' ? ' background_red' : ''}
+    ${animate === 'green' ? ' background_green' : ''}`}>
       <div className="content__container">
         <img
           className={`content__image${isAnswered ? "" : " invisible"}`}
@@ -174,7 +186,7 @@ const AudioChallengeCard = () => {
       >
         NEXT
       </button>
-      <AudioChallengeResults open={isEnd} setEnd={setEnd} />
+      <GameResults open={props.isEnd} setEnd={props.setEnd} />
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import gameStyles from './Game.module.css';
 import './cube.css';
 
-import { fetchGameWords, selectCurrentGame, setCurrentGame, setCurrentGroup, setCurrentPage } from '../../../store/gameSlice';
+import { fetchGameWords, resetGame, selectCurrentGame, setCurrentGame, setCurrentGroup, setCurrentPage } from '../../../store/gameSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
-import gameBack from '../../../assets/gameImg/gameBack1.png';
+import backgroundImg from '../../../assets/gameImg/background.jpg';
 import sprintImg from '../../../assets/gameImg/sprint.png';
-import audioImg from '../../../assets/gameImg/audioGame.png';
+import earphonesImg from '../../../assets/gameImg/headphone.png';
 
 const GamePage = () => {
   const levelButtonColors = ['#ffef62', '#ffcd38', '#a2cf6e', '#33ab9f', '#6573c3', '#af52bf'];
@@ -49,13 +49,16 @@ const GamePage = () => {
   }
 
   const startGame = () => {
+    dispatch(resetGame());
     const page = Math.floor(Math.random() * 30);
     dispatch(setCurrentPage(page));
     dispatch(fetchGameWords());
     
     if (currentGame === 'sprint') {
+      dispatch(setCurrentGame('sprint'));
       navigate('/sprint');
-    } else if (currentGame === 'audioChallenge'){
+    } else if (currentGame === 'audioChallenge') {
+      dispatch(setCurrentGame('audioChallenge'));
       navigate('/audio-challenge');
     }
   }
@@ -66,14 +69,14 @@ const GamePage = () => {
         <div className="cube" ref={cubeRef}>
 
           <div className="cube__face cube__face--front">
-            <div className={gameStyles.tittle}>Choose Game</div>
-            <img src={gameBack} alt="" className={gameStyles.mainBackground} />
+            <div className={gameStyles.title}>Choose Game</div>
+            <img src={backgroundImg} alt="" className={gameStyles.mainBackground} />
             <div>
-              <button className={gameStyles.backBtn} onClick={() => {
+              <button className={gameStyles.gameBtn} onClick={() => {
                 setCubeSide('top');
                 dispatch(setCurrentGame('sprint'));
                 }}>Sprint</button>
-              <button className={gameStyles.backBtn} onClick={() => {
+              <button className={gameStyles.gameBtn} onClick={() => {
                 setCubeSide('bottom');
                 dispatch(setCurrentGame('audioChallenge'));
                 }}>Audio challenge</button>
@@ -83,41 +86,41 @@ const GamePage = () => {
           <div className="cube__face cube__face--back">back</div>
 
           <div className="cube__face cube__face--right">
-            <div className={gameStyles.tittle}>Select the Level</div>
+            <div className={gameStyles.title}>Select level</div>
             {renderSelectLevel()}
-            <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
+            <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>Back to games</button>
           </div>
 
           <div className="cube__face cube__face--left">
-            <div className={gameStyles.tittle}>Select the Level</div>
+            <div className={gameStyles.title}>Select level</div>
             {renderSelectLevel()}
-            <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
+            <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>Back to games</button>
           </div>
 
           <div className="cube__face cube__face--top">
             <img src={sprintImg} alt="" className={gameStyles.gameImg} />
-            <div className={gameStyles.gameTittle}>Sprint</div>
+            <div className={gameStyles.gameTitle}>Sprint</div>
             <div className={gameStyles.description}>
               Check how much points you can get in one minute,
               making educated guesses about what is right and what is wrong.
             </div>
             <div className={gameStyles.sprintBtn}>
-              <button className={gameStyles.backBtn} onClick={() => setCubeSide('right')}>SELECT THE LEVEL</button>
-              <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('right')}>Select level</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>Back to games</button>
             </div>
           </div>
 
           <div className="cube__face cube__face--bottom">
-            <img src={audioImg} alt="" className={gameStyles.gameImg} />
-            <div className={gameStyles.gameTittle} style={{color: '#01DAFE'}}>Audio challenge</div>
+            <img src={earphonesImg} alt="" className={gameStyles.gameImg} />
+            <div className={gameStyles.gameTitle}>Audio challenge</div>
             <div className={gameStyles.description} style={{color: '#313131'}}>
               Check your listening skills, trying to pick the right
               meaning after hearing a word.
               Be careful, as you just have one guess.
             </div>
             <div className={gameStyles.sprintBtn}>
-              <button className={gameStyles.backBtn} onClick={() => setCubeSide('left')}>SELECT THE LEVEL</button>
-              <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>BACK TO GAMES</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('left')}>Select level</button>
+              <button className={gameStyles.backBtn} onClick={() => setCubeSide('front')}>Back to games</button>
             </div>
           </div>
 
@@ -127,4 +130,4 @@ const GamePage = () => {
   )
 }
 
-export default GamePage
+export default GamePage;

@@ -144,3 +144,12 @@ export type StatisticsType = {
     }
   }
 }
+
+export type AnswerStatusType = 'right' | 'wrong';
+
+export type GameType = 'audioChallenge' | 'sprint';
+
+export type AnswerType = {
+  wordId: string;
+  status: AnswerStatusType;
+}

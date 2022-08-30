@@ -1,5 +1,5 @@
-import { WordType } from "../../../../types/type";
-import volume from "../../../../assets/images/volume.png";
+import { WordType } from "../../../types/type";
+import volume from "../../../assets/images/volume.png";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 const AudioChallengeWord = (props: { answer: WordType }) => {
