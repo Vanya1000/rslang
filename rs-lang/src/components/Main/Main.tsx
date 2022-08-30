@@ -13,20 +13,18 @@ import Sprint from './GamePage/SprintPage/Sprint';
 
 const Main = () => {
   return (
-    <div style={{
-       minHeight: `calc(100vh - 109px)`
-    }}>
+    <div style={{ minHeight: `calc(100vh - 125px)`}}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/book" element={<BookPage />} />
-        <Route path="/game" element={<GamePage />} />
-        <Route path="/audio-challenge" element={<AudioChallenge />} />
-        <Route path="/stat" element={<StatPage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="book" element={<BookPage />} />
+        <Route path="game" element={<GamePage />} />
+        <Route path="audio-challenge" element={<AudioChallenge />} />
+        <Route path="stat" element={<StatPage />} />
+        <Route path="about" element={<AboutPage />} />
         <Route path="*" element={<NotFound />}/>
-        <Route path="/signup" element={<SignUp />}/>
-        <Route path="/signin" element={<SignIn />}/>
-        <Route path="/sprint" element={<Sprint/> }/>
+        <Route path="signup" element={<SignUp />}/>
+        <Route path="signin" element={<SignIn />}/>
+        <Route path="sprint" element={<Sprint/> }/>
       </Routes>
     </div>
   )

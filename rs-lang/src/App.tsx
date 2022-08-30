@@ -8,14 +8,6 @@ import Footer from './components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 
 function App() {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    navigate(JSON.parse(window.sessionStorage.getItem('lastRoute') || '{}'))
-    window.onbeforeunload = () => {
-        window.sessionStorage.setItem('lastRoute', JSON.stringify(window.location.pathname))
-    }
-}, [])
 
   return (
     <ThemeProvider theme={false ? themeDark : themeLight}>

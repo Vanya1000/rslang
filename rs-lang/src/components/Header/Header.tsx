@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DrawerLayout from './DrawerLayout';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { logout, setIsSuccessRegistration } from '../../store/userSlice';
+import { logout, setIsSignin, setIsSuccessRegistration } from '../../store/userSlice';
 import Setting from '../Common/Setting';
 import { setCurrentGroup, setCurrentPage } from '../../store/bookSlice';
 
@@ -17,6 +17,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const redirect = useNavigate();
   const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
+  const isSignIn = useAppSelector(state => state.user.isSignin);
   const userName = useAppSelector(state => state.user?.user?.name);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,10 +30,12 @@ const Header = () => {
   }
 
   useEffect(() => {
-    if (isAuth) {
+    if (isSignIn === true) {
       redirect('/');
+      console.log('fuf');
+      dispatch(setIsSignin(false));
     }
-  }, [isAuth])
+  }, [isSignIn])
 
   return (
     <>
