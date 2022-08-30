@@ -1,18 +1,12 @@
 a {
   text-decoration: none;
-  color: rgb(235, 235, 235);
-  font-weight: 400;
 }
 
 .wrapper {
-  /* position: absolute; */
-  /* bottom: calc(100vh - 109px); */
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: rgb(49, 49, 49);
-  box-shadow: 0px -2px 12px rgb(49, 49, 49);
   z-index: 5;
   height: 45px;
 }
@@ -20,6 +14,8 @@ a {
 .linkWrapper {
   margin-left: 10px;
   display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
 .imgGit {
@@ -46,15 +42,10 @@ a {
 }
 
 .github div {
-  font-family: 'Edu SA Beginner', cursive;
-  font-weight: 400;
-  text-shadow: 1px 1px 4px white;
 }
 
 .date {
   cursor: default;
-  color: white;
-  font-size: 18px;
   margin-left: -15%;
 }
 
@@ -72,7 +63,11 @@ a {
 @media (max-width: 500px) {
   .wrapper {
     flex-direction: column;
-    height: 72px
+    height: 72px;
+  }
+  .linkWrapper {
+    gap: 5px;
+
   }
 
   .github {

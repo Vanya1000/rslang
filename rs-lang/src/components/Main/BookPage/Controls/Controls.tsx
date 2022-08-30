@@ -13,7 +13,7 @@ type ControlsPropsType = {
 }
 
 const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPage}) => {
-  const isLearnedPage = useAppSelector(state => state.book.words).filter(word => word.userWord?.difficulty === 'learned' || word.userWord?.difficulty === 'difficult').length === 20;
+  const isLearnedPage = useAppSelector(state => state?.book?.words).filter(word => word.userWord?.difficulty === 'learned' || word.userWord?.difficulty === 'difficult').length === 20;
   const isFetching = useAppSelector(state => state.book.isFetching);
 
   const dispatch = useAppDispatch();

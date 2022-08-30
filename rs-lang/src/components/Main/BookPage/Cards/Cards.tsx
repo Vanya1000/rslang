@@ -20,7 +20,7 @@ const Cards: React.FC<CardsPropsType> = ({ isAuth }) => {
 
   return (
     <>
-    {currentGroup === 6 && words.length === 0 && <EmptySection/>}
+    {currentGroup === 6 && words?.length === 0 && <EmptySection/>}
     <Grid
       container
       sx={{ mb: 2 }}
