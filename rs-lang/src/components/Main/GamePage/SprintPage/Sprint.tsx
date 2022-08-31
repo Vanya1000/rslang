@@ -1,24 +1,29 @@
 import '../Game.css';
 import CircularProgressWithLabel from '../CircularProgressWithLabel';
-import { useAppSelector } from '../../../../hooks/hooks';
-import { selectIsFetching } from '../../../../store/gameSlice';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
+import { selectIsFetching, selectTimer, setTimer } from '../../../../store/gameSlice';
 import { CircularProgress } from '@mui/material';
 import SprintCard from './SprintCard';
 import { useEffect, useState } from 'react';
+import successAudioPath from '../../../../assets/audio/success.mp3';
+import { playAudio } from '../common';
 
 const Sprint = () => {
-  const [timer, setTimer] = useState(60);
   const [isEnd, setEnd] = useState(false);
+
+  const timer = useAppSelector(selectTimer);
+  const dispatch = useAppDispatch();
 
   const isFetching = useAppSelector(selectIsFetching);
 
   useEffect(() => {
     if (timer === 0) {
       setEnd(true);
+      playAudio(successAudioPath);
       return;
     } else {
       setTimeout(() => {
-        setTimer(timer - 1);
+        dispatch(setTimer(timer - 1));
       }, 1000);
     }
   }, [timer]);
@@ -31,13 +36,13 @@ const Sprint = () => {
     );
   } else {
     return (
-      <div className="game sprint__game">
-        <div className="game__header">
+      <div className="sprint__game">
+        <div className={`game__header${isEnd ? ' invisible' : ''}`}>
           <CircularProgressWithLabel value={timer} game="sprint" />
           <h2 className="header__title">SPRINT</h2>
         </div>
         <div className="game__main">
-          <SprintCard isEnd={isEnd} setEnd={setEnd} setTimer={setTimer}/>
+          <SprintCard isEnd={isEnd} setEnd={setEnd} />
         </div>
       </div>
     );

@@ -1,10 +1,11 @@
 import { Modal } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { playAgain, selectAnswers } from '../../../store/gameSlice';
+import { playAgain, selectAnswers, setTimer } from '../../../store/gameSlice';
 import { selectCurrentGame, selectGameWords, setWords } from '../../../store/gameSlice';
 import { WordType } from '../../../types/type';
 import { useNavigate } from 'react-router-dom';
 import GameWord from './GameWord';
+import { shuffle } from './common';
 
 export type StatisticsType = {
   rightAnswers: WordType[];
@@ -12,7 +13,7 @@ export type StatisticsType = {
   rightAnswersInRow: number;
 }
 
-const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, setTimer?: React.Dispatch<React.SetStateAction<number>> | null}) => {
+const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
   const game = useAppSelector(selectCurrentGame);
@@ -20,11 +21,6 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-
-  const shuffle = (array: WordType[]) => {
-    const shuffled = array.slice().sort(() => Math.random() - 0.5);
-    return shuffled;
-  };
 
   const calculateStatistics = () => {
     const statistics: StatisticsType = {
@@ -58,20 +54,18 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
       dispatch(playAgain());
       dispatch(setWords(shuffle(words)));
     } else {
-      // props.setTimer(60);
+      dispatch(setTimer(60));
       props.setEnd(false);
     }
   }
 
   const backToGames = () => {
     props.setEnd(false);
-    dispatch(playAgain());
     navigate('/game');
   }
 
   const backToTextbook = () => {
     props.setEnd(false);
-    dispatch(playAgain());
     navigate('/book');
   }
 

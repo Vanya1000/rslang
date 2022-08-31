@@ -1,14 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
-.game {
+.audio-challenge__game,
+.sprint__game {
     width: 100%;
     min-height: calc(100vh - 64px);
     font-family: 'Work Sans', sans-serif;
-    background-image: url(../../../assets/gameImg/deer.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 0;
+}
+
+.audio-challenge__game {
+    background-image: url(../../../assets/gameImg/deer.jpg);
 }
 
 .sprint__game {
@@ -59,7 +63,8 @@
     margin: 20px 0;
 }
 
-.game__content {
+.audio-challenge__content,
+.sprint__content {
     margin: 0 auto;
     margin-top: calc(50vh - 370px);
     display: flex;
@@ -77,6 +82,7 @@
 
 .sprint__content {
     width: 500px;
+    border: 2px solid #01A1BB;
 }
 
 .sprint__points {
@@ -226,7 +232,7 @@
 }
 
 .sprint__circle_active {
-    background-color: #ff000097;
+    background-color: #00ff0089;
 }
 
 .content__button {

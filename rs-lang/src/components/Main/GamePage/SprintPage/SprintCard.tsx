@@ -3,15 +3,12 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { addAnswer, selectCurrentWordIndex, setCurrentWordIndex } from '../../../../store/gameSlice';
 import { fetchGameWords, selectCurrentPage, selectGameWords, setCurrentPage } from '../../../../store/gameSlice';
 import GameResults from '../GameResults';
-import { WordType } from '../../../../types/type';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
-import successAudioPath from '../../../../assets/audio/success.mp3';
 import volume from '../../../../assets/images/volume.png';
+import { playAudio, playWordAudio, shuffleStrings } from '../common';
 
-const baseUrl = process.env.REACT_APP_API_URL;
-
-const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, setTimer: React.Dispatch<React.SetStateAction<number>> }) => {
+const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [option, setOption] = useState<string>('');
   const [isRightAnswer, setIsRightAnswer] = useState<boolean | null>(null);
@@ -25,20 +22,6 @@ const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetSta
 
   const dispatch = useAppDispatch();
 
-  const playAudio = (path: string) => {
-    const audio = new Audio(path);
-    audio.play();
-  };
-
-  const playWordAudio = () => {
-    playAudio(`${baseUrl}${words[currentWordIndex].audio}`);
-  };
-
-  const shuffle = (array: WordType[] | string[]) => {
-    const shuffled = array.sort(() => Math.random() - 0.5);
-    return shuffled;
-  };
-
   useEffect(() => {
     const array: string[] = [];
     array.push(words[currentWordIndex].wordTranslate);
@@ -48,7 +31,7 @@ const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetSta
         array.push(words[index].wordTranslate);
       }
     }
-    shuffle(array);
+    shuffleStrings(array);
 
     setOption(array[0]);
     setIsAnswered(false);
@@ -100,7 +83,7 @@ const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetSta
   return (
     <div className={`game__content sprint__content${props.isEnd ? ' invisible' : ''}`}>
         <img
-        onClick={() => playWordAudio()}
+        onClick={() => playWordAudio(words, currentWordIndex)}
         className="sprint__img"
         src={volume}
         alt=""
@@ -120,7 +103,7 @@ const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetSta
           <button className="sprint__button_wrong" onClick={() => checkAnswer('wrong')}>WRONG</button>
         </div>
       </div>
-      <GameResults open={props.isEnd} setEnd={props.setEnd} setTimer={props.setTimer}/>
+      <GameResults open={props.isEnd} setEnd={props.setEnd}/>
     </div>
   );
 };

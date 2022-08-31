@@ -14,7 +14,7 @@ const AudioChallenge = () => {
   const [isEnd, setEnd] = useState(false);
 
   if (isFetching) {
-    return <div className="game">
+    return <div className="audio-challenge__game">
       <CircularProgress size="4rem" className="game__progress" color="info" thickness={2}/>
     </div>;
   } else {

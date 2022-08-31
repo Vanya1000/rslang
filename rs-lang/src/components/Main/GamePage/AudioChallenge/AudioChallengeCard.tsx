@@ -1,4 +1,3 @@
-import { WordType } from '../../../../types/type';
 import volume from '../../../../assets/images/volume.png';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
@@ -13,6 +12,7 @@ import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
 import successAudioPath from '../../../../assets/audio/success.mp3';
 import GameResults from '../GameResults';
 import { sendStatistics } from '../../../../store/statisticsSlice';
+import { playAudio, playWordAudio, shuffleStrings } from '../common';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -31,7 +31,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    playWordAudio();
+    playWordAudio(words, currentWordIndex);
     setAnimate(null);
 
     const array: string[] = [];
@@ -42,18 +42,13 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
         array.push(words[index].wordTranslate);
       }
     }
-    shuffle(array);
+    shuffleStrings(array);
 
     setOptions(array);
     setIsAnswered(false);
     setRightAnswer(null);
     setWrongAnswer(null);
   }, [currentWordIndex]);
-
-  const shuffle = (array: WordType[] | string[]) => {
-    array.sort(() => Math.random() - 0.5);
-    return array;
-  };
 
   const displayRightAnswer = () => {
     const rightAnswerIndex = options.findIndex(
@@ -98,15 +93,6 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
     playAudio(mistakeAudioPath);
   };
 
-  const playAudio = (path: string) => {
-    const audio = new Audio(path);
-    audio.play();
-  };
-
-  const playWordAudio = () => {
-    playAudio(`${baseUrl}${words[currentWordIndex].audio}`);
-  };
-
   const displayNextWord = () => {
     if (currentWordIndex < words.length - 1) {
       dispatch(setCurrentWordIndex());
@@ -117,7 +103,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
   };
 
   return (
-    <div className={`game__content${props.isEnd ? ' invisible' : ''}${animate === 'red' ? ' background_red' : ''}
+    <div className={`audio-challenge__content${props.isEnd ? ' invisible' : ''}${animate === 'red' ? ' background_red' : ''}
     ${animate === 'green' ? ' background_green' : ''}`}>
       <div className="content__container">
         <img
@@ -132,7 +118,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
             }`}
             src={volume}
             alt=""
-            onClick={() => playWordAudio()}
+            onClick={() => playWordAudio(words, currentWordIndex)}
           />
           <span className={`content__word${isAnswered ? '' : ' invisible'}`}>
             {words[currentWordIndex].word}
