@@ -2,7 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
 .audio-challenge__game,
-.sprint__game {
+.sprint__game,
+.audio-challenge,
+.sprint {
     width: 100%;
     min-height: calc(100vh - 64px);
     font-family: 'Work Sans', sans-serif;
@@ -58,9 +60,103 @@
     align-items: center;
 }
 
-.header__title {
+.audio-challenge {
+    background-image: url(../../../assets/gameImg/forest.jpg);
+}
+
+.sprint {
+    background-image: url(../../../assets/gameImg/landscape.jpg);
+}
+
+.header__title,
+.audio-challenge__title,
+.sprint__title {
     font-family: 'Roboto Condensed', sans-serif;
     margin: 20px 0;
+}
+
+.audio-challenge__title,
+.sprint__title {
+    font-size: 50px;
+    margin: 80px 0 50px 0;
+}
+
+.level-button__wrapper {
+    margin: 50px;
+}
+
+.level-button {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #F5F5F7;
+    font-size: 20px;
+    color:#313131d3;
+    transition: background-color 0.3s;
+}
+
+.level-button:nth-child(1) {
+    background-color: #ffef62;
+}
+
+.level-button:nth-child(1):hover {
+    background-color: #ffef62e9;
+}
+
+.level-button:nth-child(2) {
+    background-color: #ffcd38;
+}
+
+.level-button:nth-child(2):hover {
+    background-color: #ffcd38cc;
+}
+
+.level-button:nth-child(3) {
+    background-color: #a2cf6e;
+}
+
+.level-button:nth-child(3):hover {
+    background-color: #a2cf6ecb;
+}
+
+.level-button:nth-child(4) {
+    background-color: #33ab9f;
+}
+
+.level-button:nth-child(4):hover {
+    background-color: #33ab9fe0;
+}
+
+.level-button:nth-child(5) {
+    background-color: #6573c3;
+}
+
+.level-button:nth-child(5):hover {
+    background-color: #6573c3d8;
+}
+
+.level-button:nth-child(6) {
+    background-color: #af52bf;
+}
+
+.level-button:nth-child(6):hover {
+    background-color: #af52bfda;
+}
+
+.audio-challenge__wrapper,
+.sprint__wrapper {
+    width: 500px;
+    position: relative;
+    left: calc(50% - 250px);
+    color: #F5F5F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.audio-challenge__description,
+.sprint__description {
+    width: 400px;
+    text-align: center;
 }
 
 .audio-challenge__content,

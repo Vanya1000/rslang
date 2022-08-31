@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import wordsAPI from '../api/words';
-import { AnswerType, GameType, WordType } from '../types/type';
+import { AnswerType, WordType } from '../types/type';
 import { RootState } from './store';
 
 export type GameState = {
   words: WordType[];
-  currentGame: GameType | null;
+  currentGame: string | null;
   currentGroup: number;
   currentPage: number;
   isFetching: boolean;
@@ -43,7 +43,7 @@ export const gameSlice = createSlice({
   initialState,
 
   reducers: {
-    setCurrentGame(state, action: PayloadAction<GameType>) {
+    setCurrentGame(state, action: PayloadAction<string | null>) {
       state.currentGame = action.payload;
     },
     setCurrentGroup(state, action: PayloadAction<number>) {
