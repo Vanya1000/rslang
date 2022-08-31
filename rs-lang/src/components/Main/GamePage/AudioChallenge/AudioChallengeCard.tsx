@@ -4,7 +4,9 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   selectCurrentWordIndex,
   setCurrentWordIndex,
-  addAnswer
+  addAnswer,
+  playAgain,
+  setWords
 } from '../../../../store/gameSlice';
 import { selectGameWords } from '../../../../store/gameSlice';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
@@ -12,7 +14,7 @@ import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
 import successAudioPath from '../../../../assets/audio/success.mp3';
 import GameResults from '../GameResults';
 import { sendStatistics } from '../../../../store/statisticsSlice';
-import { playAudio, playWordAudio, shuffleStrings } from '../common';
+import { playAudio, playWordAudio, shuffle, shuffleStrings } from '../common';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -22,7 +24,6 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
   const [rightAnswer, setRightAnswer] = useState<number | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<number | null>(null);
   const [animate, setAnimate] = useState<string | null>('');
-
   const [series, setSeries] = useState<number>(0);
 
   const words = useAppSelector(selectGameWords);
@@ -85,11 +86,14 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
   };
 
   const skipAnswer = () => {
+    const wordId = words[currentWordIndex].id!;
+    setAnimate('red');
     displayRightAnswer();
     setIsAnswered(true);
     dispatch(
       addAnswer({ wordId: words[currentWordIndex].id!, status: 'wrong' })
     );
+    dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0}));
     playAudio(mistakeAudioPath);
   };
 
@@ -102,8 +106,15 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
     }
   };
 
+  const backToGame = () => {
+    setSeries(0);
+    props.setEnd(false);
+    dispatch(playAgain());
+    dispatch(setWords(shuffle(words)));
+  }
+
   return (
-    <div className={`audio-challenge__content${props.isEnd ? ' invisible' : ''}${animate === 'red' ? ' background_red' : ''}
+    <div className={`audio-challenge__content${props.isEnd ? ' invisible' : ''}${animate === 'red' ? ' background_red' : ' '}
     ${animate === 'green' ? ' background_green' : ''}`}>
       <div className="content__container">
         <img
@@ -172,7 +183,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
       >
         NEXT
       </button>
-      <GameResults open={props.isEnd} setEnd={props.setEnd} />
+      <GameResults open={props.isEnd} setEnd={props.setEnd} backToGame={backToGame}/>
     </div>
   );
 };

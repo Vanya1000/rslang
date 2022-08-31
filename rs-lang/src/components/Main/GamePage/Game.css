@@ -248,11 +248,11 @@
 .audio-challenge__statistics,
 .sprint__statistics {
     width: 600px;
-    height: 500px;
+    height: 520px;
     background-color: #f5f5f7a4;
     position: absolute;
     overflow-y: auto;
-    top: calc(50% - 240px);
+    top: calc(50% - 250px);
     left: calc(50% - 300px);
     border-radius: 5px;
     border: 2px solid #6573c3;
@@ -422,11 +422,11 @@
 }
 
 .background_green {
-    animation: animate-green 0.2s ease-in-out;
+    animation: animate-green 0.7s ease-in-out;
 }
 
 .background_red {
-    animation: animate-red 0.2s ease-in-out;
+    animation: animate-red 0.7s ease-in-out;
 }
 
 @keyframes animate-red {

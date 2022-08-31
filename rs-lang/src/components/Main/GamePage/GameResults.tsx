@@ -1,11 +1,10 @@
 import { Modal } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { playAgain, selectAnswers, setTimer } from '../../../store/gameSlice';
+import { useAppSelector } from '../../../hooks/hooks';
+import { selectAnswers } from '../../../store/gameSlice';
 import { selectCurrentGame, selectGameWords, setWords } from '../../../store/gameSlice';
 import { WordType } from '../../../types/type';
 import { useNavigate } from 'react-router-dom';
 import GameWord from './GameWord';
-import { shuffle } from './common';
 
 export type StatisticsType = {
   rightAnswers: WordType[];
@@ -13,12 +12,10 @@ export type StatisticsType = {
   rightAnswersInRow: number;
 }
 
-const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, backToGame: () => void}) => {
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
   const currentGame = useAppSelector(selectCurrentGame);
-
-  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -48,17 +45,6 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
     return statistics;
   }
 
-  const backToGame = () => {
-    if (currentGame === 'audioChallenge') {
-      props.setEnd(false);
-      dispatch(playAgain());
-      dispatch(setWords(shuffle(words)));
-    } else {
-      dispatch(setTimer(60));
-      props.setEnd(false);
-    }
-  }
-
   const backToGames = () => {
     props.setEnd(false);
     navigate('/game');
@@ -78,7 +64,7 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
             <h2 className="statistics__title">RESULTS</h2>
 
             <div className="statistics__buttons">
-              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToGame()}>PLAY AGAIN</button>
+              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => props.backToGame()}>PLAY AGAIN</button>
               <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToGames()}>BACK TO GAMES</button>
               <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToTextbook()}>BACK TO TEXTBOOK</button>
             </div>
@@ -92,7 +78,7 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
               <div className="statistics__accuracy">
                 <p>ACCURACY</p>
-                <p className={`${currentGame === 'sprint' ? ' accuracy__number_sprint' : ' accuracy__number'}`}>{statistics.rightAnswers.length / words.length * 100}%</p>
+                <p className={`${currentGame === 'sprint' ? ' accuracy__number_sprint' : ' accuracy__number'}`}>{Math.trunc(statistics.rightAnswers.length / words.length * 100)}%</p>
               </div>
             </div>
 

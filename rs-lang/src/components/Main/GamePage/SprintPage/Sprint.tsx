@@ -1,7 +1,7 @@
 import '../Game.css';
 import CircularProgressWithLabel from '../CircularProgressWithLabel';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
-import { selectIsFetching, selectTimer, setTimer } from '../../../../store/gameSlice';
+import { useAppSelector } from '../../../../hooks/hooks';
+import { selectIsFetching } from '../../../../store/gameSlice';
 import { CircularProgress } from '@mui/material';
 import SprintCard from './SprintCard';
 import { useEffect, useState } from 'react';
@@ -10,9 +10,7 @@ import { playAudio } from '../common';
 
 const Sprint = () => {
   const [isEnd, setEnd] = useState(false);
-
-  const timer = useAppSelector(selectTimer);
-  const dispatch = useAppDispatch();
+  const [timer, setTimer] = useState(60);
 
   const isFetching = useAppSelector(selectIsFetching);
 
@@ -23,7 +21,7 @@ const Sprint = () => {
       return;
     } else {
       setTimeout(() => {
-        dispatch(setTimer(timer - 1));
+        setTimer(timer - 1);
       }, 1000);
     }
   }, [timer]);
@@ -42,7 +40,7 @@ const Sprint = () => {
           <h2 className="header__title">SPRINT</h2>
         </div>
         <div className="game__main">
-          <SprintCard isEnd={isEnd} setEnd={setEnd} />
+          <SprintCard isEnd={isEnd} setEnd={setEnd} setTimer={setTimer}/>
         </div>
       </div>
     );

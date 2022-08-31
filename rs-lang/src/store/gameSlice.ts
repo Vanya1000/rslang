@@ -11,7 +11,6 @@ export type GameState = {
   isFetching: boolean;
   currentWordIndex: number;
   answers: AnswerType[];
-  timer: number;
 }
 
 const initialState: GameState = {
@@ -22,7 +21,6 @@ const initialState: GameState = {
   isFetching: false,
   currentWordIndex: 0,
   answers: [],
-  timer: 60,
 };
 
 export const fetchGameWords = createAsyncThunk<WordType[] | undefined, void, { state: RootState }>(
@@ -66,7 +64,6 @@ export const gameSlice = createSlice({
     playAgain(state) {
       state.currentWordIndex = 0;
       state.answers = [];
-      state.timer = 60;
     },
     resetGame(state) {
       state.words = [];
@@ -76,11 +73,7 @@ export const gameSlice = createSlice({
       state.isFetching = false;
       state.currentWordIndex = 0;
       state.answers = [];
-      state.timer = 60;
     },
-    setTimer(state, action: PayloadAction<number>) {
-      state.timer = action.payload;
-    }
   },
 
   extraReducers: (builder) => {
@@ -95,7 +88,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setCurrentGame, setCurrentGroup, setCurrentPage, setWords, setCurrentWordIndex, addAnswer, playAgain, resetGame, setTimer } = gameSlice.actions;
+export const { setCurrentGame, setCurrentGroup, setCurrentPage, setWords, setCurrentWordIndex, addAnswer, playAgain, resetGame } = gameSlice.actions;
 
 export default gameSlice.reducer;
 
@@ -114,5 +107,3 @@ export const selectCurrentWordIndex = (state: RootState) => state.game.currentWo
 export const selectAnswers = (state: RootState) => state.game.answers;
 
 export const selectProgress = (state: RootState) => state.game.answers.length * 5;
-
-export const selectTimer = (state: RootState) => state.game.timer;
