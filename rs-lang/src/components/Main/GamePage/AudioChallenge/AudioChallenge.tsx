@@ -1,11 +1,11 @@
-import "../Game.css";
-import { useAppSelector } from "../../../../hooks/hooks";
-import { selectIsFetching } from "../../../../store/gameSlice";
-import AudioChallengeCard from "./AudioChallengeCard";
-import { CircularProgress } from "@mui/material";
-import { selectProgress } from "../../../../store/gameSlice";
-import CircularProgressWithLabel from "../CircularProgressWithLabel";
-import { useState } from "react";
+import '../Game.css';
+import { useAppSelector } from '../../../../hooks/hooks';
+import { selectIsFetching } from '../../../../store/gameSlice';
+import AudioChallengeCard from './AudioChallengeCard';
+import { CircularProgress } from '@mui/material';
+import { selectProgress } from '../../../../store/gameSlice';
+import CircularProgressWithLabel from '../CircularProgressWithLabel';
+import { useState } from 'react';
 
 const AudioChallenge = () => {
   const isFetching = useAppSelector(selectIsFetching);

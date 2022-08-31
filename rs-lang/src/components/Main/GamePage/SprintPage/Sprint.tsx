@@ -1,10 +1,10 @@
-import "../Game.css";
-import CircularProgressWithLabel from "../CircularProgressWithLabel";
-import { useAppSelector } from "../../../../hooks/hooks";
-import { selectIsFetching } from "../../../../store/gameSlice";
-import { CircularProgress } from "@mui/material";
-import SprintCard from "./SprintCard";
-import { useEffect, useState } from "react";
+import '../Game.css';
+import CircularProgressWithLabel from '../CircularProgressWithLabel';
+import { useAppSelector } from '../../../../hooks/hooks';
+import { selectIsFetching } from '../../../../store/gameSlice';
+import { CircularProgress } from '@mui/material';
+import SprintCard from './SprintCard';
+import { useEffect, useState } from 'react';
 
 const Sprint = () => {
   const [timer, setTimer] = useState(60);

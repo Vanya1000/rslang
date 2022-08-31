@@ -1,5 +1,5 @@
-import { CircularProgress, CircularProgressProps } from "@mui/material";
-import { SECONDS_PER_MINUTE } from "../../../constants/constants";
+import { CircularProgress, CircularProgressProps } from '@mui/material';
+import { SECONDS_PER_MINUTE } from '../../../constants/constants';
 
 const CircularProgressWithLabel = (props: CircularProgressProps & { value: number, game: string }) => {
   const value = props.game === 'sprint' ? props.value * 100 / SECONDS_PER_MINUTE : props.value;

@@ -46,7 +46,6 @@ export const fetchHardWords = createAsyncThunk<WordType[] | undefined,  void , {
     try {
       if (user) {
         const response = await wordsAPI.getHardWords(user.userId);
-        console.log(response.data);
         return response.data[0].paginatedResults;
       }
     } catch (error) {
@@ -62,8 +61,7 @@ export const createUserWord = createAsyncThunk<void, {wordId: string, payload:Us
     try {
       const {status, data} = await wordsAPI.createUserWord(user!.userId, wordId, payload)
       if (status === 200) {
-        
-        dispatch(setCreateUserWord(data));
+          dispatch(setCreateUserWord(data));
       }
     } catch (error) {
       console.log(error);
@@ -114,11 +112,11 @@ export const bookSlice = createSlice({
       state.currentPage = action.payload;
     },
     setCreateUserWord: (state, action: PayloadAction<CreateUserWordType>) => {
-      const word = state.words.find((word) => word._id === action.payload.wordId);
-      word!.userWord = action.payload;
+      const word = state.words?.find((word) => word._id === action.payload.wordId);
+      if (word?.userWord) { word.userWord = action.payload}
     },
     setDeleteUserWord: (state, action: PayloadAction<CreateUserWordType>) => {
-      state.words = state.words.filter(word => word._id !== action.payload.wordId);
+      state.words = state.words?.filter(word => word._id !== action.payload.wordId);
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,

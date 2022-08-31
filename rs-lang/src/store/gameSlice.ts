@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import wordsAPI from "../api/words";
-import { AnswerType, GameType, WordType } from "../types/type";
-import { RootState } from "./store";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import wordsAPI from '../api/words';
+import { AnswerType, GameType, WordType } from '../types/type';
+import { RootState } from './store';
 
 export type GameState = {
   words: WordType[];
@@ -24,7 +24,7 @@ const initialState: GameState = {
 };
 
 export const fetchGameWords = createAsyncThunk<WordType[] | undefined, void, { state: RootState }>(
-  "game/fetchGameWords",
+  'game/fetchGameWords',
   async (_, { getState }) => {
     try {
       const { currentGroup, currentPage } = getState().game;

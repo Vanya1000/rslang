@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Grid,
@@ -11,8 +11,8 @@ import {
   TableRow,
   Typography,
   useMediaQuery,
-} from "@mui/material";
-import { StatisticsType } from "../../../../types/type";
+} from '@mui/material';
+import { StatisticsType } from '../../../../types/type';
 
 type TableStatPropsType = {
   dataForTable: StatisticsType;
@@ -38,35 +38,35 @@ const TableStat: React.FC<TableStatPropsType> = ({
     <>
       {matches460 ?
       <>
-      <Grid xs={12} sm={"auto"} item component={Paper} sx={{ p: 2, mb: 2 }}>
+      <Grid xs={12} sm={'auto'} item component={Paper} sx={{ p: 2, mb: 2 }}>
         <Box>
           <Typography variant="overline">Audio challenge</Typography>
         </Box>
         <Box>
           <Typography align="left" variant="body2">
-          New words: {isChangeTodayAudioChall ? gameData?.audioChallenge?.countNewWords : "-"}
+          New words: {isChangeTodayAudioChall ? gameData?.audioChallenge?.countNewWords : '-'}
           </Typography>
           <Typography align="left" variant="body2">
           % correct answers: {avgAllgame.avgAudioChall}
           </Typography>
           <Typography align="left" variant="body2">
-          Longest series of correct: {isChangeTodayAudioChall ? gameData?.audioChallenge?.longestSeries : "-"}
+          Longest series of correct: {isChangeTodayAudioChall ? gameData?.audioChallenge?.longestSeries : '-'}
           </Typography>
         </Box>
       </Grid>
-      <Grid xs={12} sm={"auto"} item component={Paper} sx={{ p: 2 }}>
+      <Grid xs={12} sm={'auto'} item component={Paper} sx={{ p: 2 }}>
         <Box>
           <Typography variant="overline">Sprint</Typography>
         </Box>
         <Box>
           <Typography align="left" variant="body2">
-          New words: {isChangeTodayAudioChall ? gameData?.sprint?.countNewWords : "-"}
+          New words: {isChangeTodayAudioChall ? gameData?.sprint?.countNewWords : '-'}
           </Typography>
           <Typography align="left" variant="body2">
           % correct answers: {avgAllgame.avgSprint}
           </Typography>
           <Typography align="left" variant="body2">
-          Longest series of correct: {isChangeTodayAudioChall ? gameData?.sprint?.longestSeries : "-"}
+          Longest series of correct: {isChangeTodayAudioChall ? gameData?.sprint?.longestSeries : '-'}
           </Typography>
         </Box>
       </Grid>
@@ -75,7 +75,7 @@ const TableStat: React.FC<TableStatPropsType> = ({
       <Table aria-label="simple table">
         <TableHead>
           <TableRow
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell>Game</TableCell>
             <TableCell align="center">New words</TableCell>
@@ -85,7 +85,7 @@ const TableStat: React.FC<TableStatPropsType> = ({
         </TableHead>
         <TableBody>
           <TableRow
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row">
               Audio challenge
@@ -93,27 +93,27 @@ const TableStat: React.FC<TableStatPropsType> = ({
             <TableCell align="center">
               {isChangeTodayAudioChall
                 ? gameData?.audioChallenge?.countNewWords
-                : "-"}
+                : '-'}
             </TableCell>
             <TableCell align="center">{avgAllgame.avgAudioChall}</TableCell>
             <TableCell align="center">
               {isChangeTodayAudioChall
                 ? gameData?.audioChallenge?.longestSeries
-                : "-"}
+                : '-'}
             </TableCell>
           </TableRow>
           <TableRow
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row">
               Sprint
             </TableCell>
             <TableCell align="center">
-              {isChangeTodaySprint ? gameData?.sprint?.countNewWords : "-"}
+              {isChangeTodaySprint ? gameData?.sprint?.countNewWords : '-'}
             </TableCell>
             <TableCell align="center">{avgAllgame.avgSprint}</TableCell>
             <TableCell align="center">
-              {isChangeTodaySprint ? gameData?.sprint?.longestSeries : "-"}
+              {isChangeTodaySprint ? gameData?.sprint?.longestSeries : '-'}
             </TableCell>
           </TableRow>
         </TableBody>

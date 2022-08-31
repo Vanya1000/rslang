@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Box } from "@mui/system";
-import { Alert, Paper } from "@mui/material";
+import React from 'react';
+import { Box } from '@mui/system';
+import { Alert, Paper } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -23,8 +23,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-
 
 type GraphStatPropsType = {
   title: string;

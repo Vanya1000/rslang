@@ -115,13 +115,13 @@ export const sendAllStatistics = createAsyncThunk<void,  {type: 'learned' | 'new
             if (type === 'learned') {
               data.learnedWords ? data.learnedWords = data.learnedWords + 1 : data.learnedWords = 1;
             }
-            if (data.optional?.wordStatistics?.[path]) {
+            if (data.optional?.wordStatistics?.[path]?.[dateNow]) {
               data.optional!.wordStatistics[path]![dateNow] = String(Number(data.optional?.wordStatistics?.[path]![dateNow]) + 1);
             } else {
               data.optional!.wordStatistics![path] = {[dateNow]: '1'};
             }
             if (type === 'new') {
-              data.optional.gamesStatistics?.[game]?.countNewWords 
+              data.optional.gamesStatistics?.[game]?.countNewWords
               ? data.optional!.gamesStatistics![game]!.countNewWords = data.optional!.gamesStatistics![game]!.countNewWords! + 1
               :data.optional!.gamesStatistics![game]!.countNewWords! = 1;
             }
@@ -142,7 +142,6 @@ export const sendAllStatistics = createAsyncThunk<void,  {type: 'learned' | 'new
             }
           }
           if (series) {
-            console.log(series);
             if (gamePath?.longestSeries) {
               if (series > gamePath?.longestSeries) {
                 gamePath!.longestSeries = series;
@@ -181,6 +180,7 @@ export const deleteOneWordAsLearned = createAsyncThunk<void,  void , {state: Roo
         }
       }
     } catch (error) {
+      console.log(error);
     }
   }
 );
@@ -199,7 +199,6 @@ export const sendStatistics = createAsyncThunk<void,  {type: 'right' | 'wrong', 
           if (!wordData.userWord) { //+ does not exist in the database
             dispatch(createUserWord({wordId, payload: createUserWordData(game, type)}));
             dispatch(sendAllStatistics({type: 'new', game, typeAnswer: type, series}));
-            console.log('123');
           } else {// exists in the database
             if (wordData.userWord.optional?.isNew === 'false') { // the word has already participated in the game
               if (type === 'right') {
@@ -214,7 +213,7 @@ export const sendStatistics = createAsyncThunk<void,  {type: 'right' | 'wrong', 
                   dispatch(updateExistUserWord({wordId, payload: calculateUserWordData(game, type, wordData.userWord)}))
                   dispatch(sendAllStatistics({type: 'plain', game, typeAnswer: type, series}));
                 }
-                ;
+                
               } else {
                 if (wordData.userWord.difficulty === 'learned') {
                   dispatch(updateExistUserWord({wordId, payload: calculateUserWordData(game, type, wordData.userWord)}))
@@ -235,6 +234,7 @@ export const sendStatistics = createAsyncThunk<void,  {type: 'right' | 'wrong', 
         }
       }
     } catch (error) {
+      console.log(error);
     }
   }
 )

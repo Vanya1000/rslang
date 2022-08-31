@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AppBar, Box, Button, IconButton, Link, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import { NavLink, Link as RLink, useNavigate } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -10,8 +10,8 @@ import Setting from '../Common/Setting';
 import { setCurrentGroup, setCurrentPage } from '../../store/bookSlice';
 
 
-const linkColor = (isActive: any) => (isActive ? '#FFFFFF' : '#b0b0b0');
-const underLine = (isActive: any) => (isActive ? 'underline' : 'none');
+const linkColor = (isActive: unknown) => (isActive ? '#FFFFFF' : '#b0b0b0');
+const underLine = (isActive: unknown) => (isActive ? 'underline' : 'none');
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +32,6 @@ const Header = () => {
   useEffect(() => {
     if (isSignIn === true) {
       redirect('/');
-      console.log('fuf');
       dispatch(setIsSignin(false));
     }
   }, [isSignIn])
