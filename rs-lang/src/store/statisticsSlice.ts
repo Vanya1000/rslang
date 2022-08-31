@@ -74,13 +74,15 @@ export const addOneWordAsLearnedOrNew = createAsyncThunk<void,  'learned' | 'new
         if (status === 200) {
           if (type === 'new') {
             data.learnedWords ? data.learnedWords = data.learnedWords + 1 : data.learnedWords = 1;
+          } else {
+            data.learnedWords ? data.learnedWords + 1 : data.learnedWords = 1;
           }
           delete data.id;
           const dateNow = getCurrentDate();
-          if (data.optional?.wordStatistics?.[path]![dateNow]) {
+          if (data.optional?.wordStatistics?.[path]?.[dateNow]) {
             data.optional!.wordStatistics![path]![dateNow] = String(Number(data.optional?.wordStatistics?.[path]![dateNow]) + 1);
           } else {
-            data.optional!.wordStatistics![path]![dateNow] = '1';
+            data.optional!.wordStatistics![path] = {[dateNow]: '1'};
           }
           dispatch(upsertStatistics(data));
         }

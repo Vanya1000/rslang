@@ -113,7 +113,9 @@ export const bookSlice = createSlice({
     },
     setCreateUserWord: (state, action: PayloadAction<CreateUserWordType>) => {
       const word = state.words?.find((word) => word._id === action.payload.wordId);
-      if (word?.userWord) { word.userWord = action.payload}
+      if (word) {
+        word.userWord = action.payload
+      }
     },
     setDeleteUserWord: (state, action: PayloadAction<CreateUserWordType>) => {
       state.words = state.words?.filter(word => word._id !== action.payload.wordId);
