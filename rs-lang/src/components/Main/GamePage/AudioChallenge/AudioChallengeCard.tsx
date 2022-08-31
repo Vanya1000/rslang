@@ -1,18 +1,18 @@
-import { WordType } from "../../../../types/type";
-import volume from "../../../../assets/images/volume.png";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { WordType } from '../../../../types/type';
+import volume from '../../../../assets/images/volume.png';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   selectCurrentWordIndex,
   setCurrentWordIndex,
   addAnswer
-} from "../../../../store/gameSlice";
-import { selectGameWords } from "../../../../store/gameSlice";
-import rightAudioPath from "../../../../assets/audio/right.mp3";
-import mistakeAudioPath from "../../../../assets/audio/mistake.mp3";
-import successAudioPath from "../../../../assets/audio/success.mp3";
-import GameResults from "../GameResults";
-import { sendStatistics } from "../../../../store/statisticsSlice";
+} from '../../../../store/gameSlice';
+import { selectGameWords } from '../../../../store/gameSlice';
+import rightAudioPath from '../../../../assets/audio/right.mp3';
+import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
+import successAudioPath from '../../../../assets/audio/success.mp3';
+import GameResults from '../GameResults';
+import { sendStatistics } from '../../../../store/statisticsSlice';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -69,7 +69,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
         setRightAnswer(optionIndex);
         setAnimate('green');
         dispatch(
-          addAnswer({ wordId: wordId, status: "right" })
+          addAnswer({ wordId: wordId, status: 'right' })
         );
         dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'audioChallenge', series: series + 1}));
         setSeries((prev) => prev + 1);
@@ -78,7 +78,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
         setWrongAnswer(optionIndex);
         setAnimate('red');
         dispatch(
-          addAnswer({ wordId: wordId, status: "wrong" })
+          addAnswer({ wordId: wordId, status: 'wrong' })
         );
         displayRightAnswer();
         dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0}));
@@ -93,7 +93,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
     displayRightAnswer();
     setIsAnswered(true);
     dispatch(
-      addAnswer({ wordId: words[currentWordIndex].id!, status: "wrong" })
+      addAnswer({ wordId: words[currentWordIndex].id!, status: 'wrong' })
     );
     playAudio(mistakeAudioPath);
   };
@@ -121,20 +121,20 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
     ${animate === 'green' ? ' background_green' : ''}`}>
       <div className="content__container">
         <img
-          className={`content__image${isAnswered ? "" : " invisible"}`}
+          className={`content__image${isAnswered ? '' : ' invisible'}`}
           src={`${baseUrl}${words[currentWordIndex].image}`}
           alt=""
         />
         <div className="content__wrapper">
           <img
             className={`content__volume${
-              isAnswered ? "" : " content__volume_active"
+              isAnswered ? '' : ' content__volume_active'
             }`}
             src={volume}
             alt=""
             onClick={() => playWordAudio()}
           />
-          <span className={`content__word${isAnswered ? "" : " invisible"}`}>
+          <span className={`content__word${isAnswered ? '' : ' invisible'}`}>
             {words[currentWordIndex].word}
           </span>
         </div>
@@ -142,46 +142,46 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
 
       <ul className="content__list">
         <li
-          className={`list__item${isAnswered ? " list__item_inactive" : ""}${
-            rightAnswer === 0 ? " list__item_green" : ""
-          }${wrongAnswer === 0 ? " list__item_red" : ""}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
+            rightAnswer === 0 ? ' list__item_green' : ''
+          }${wrongAnswer === 0 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(0)}
         >
           {options[0]}
         </li>
         <li
-          className={`list__item${isAnswered ? " list__item_inactive" : ""}${
-            rightAnswer === 1 ? " list__item_green" : ""
-          }${wrongAnswer === 1 ? " list__item_red" : ""}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
+            rightAnswer === 1 ? ' list__item_green' : ''
+          }${wrongAnswer === 1 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(1)}
         >
           {options[1]}
         </li>
         <li
-          className={`list__item${isAnswered ? " list__item_inactive" : ""}${
-            rightAnswer === 2 ? " list__item_green" : ""
-          }${wrongAnswer === 2 ? " list__item_red" : ""}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
+            rightAnswer === 2 ? ' list__item_green' : ''
+          }${wrongAnswer === 2 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(2)}
         >
           {options[2]}
         </li>
         <li
-          className={`list__item${isAnswered ? " list__item_inactive" : ""}${
-            rightAnswer === 3 ? " list__item_green" : ""
-          }${wrongAnswer === 3 ? " list__item_red" : ""}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
+            rightAnswer === 3 ? ' list__item_green' : ''
+          }${wrongAnswer === 3 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(3)}
         >
           {options[3]}
         </li>
       </ul>
       <button
-        className={`content__button${isAnswered ? " invisible" : ""}`}
+        className={`content__button${isAnswered ? ' invisible' : ''}`}
         onClick={() => skipAnswer()}
       >
         I DON'T KNOW
       </button>
       <button
-        className={`content__button${isAnswered ? "" : " invisible"}`}
+        className={`content__button${isAnswered ? '' : ' invisible'}`}
         onClick={() => displayNextWord()}
       >
         NEXT

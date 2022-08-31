@@ -32,7 +32,6 @@ instance.interceptors.response.use(
             Authorization: `Bearer ${store.getState().user.user?.refreshToken}`,
           }
         });
-        console.log(rs.data);
         store.dispatch(updateToken(rs.data));
         return instance.request(originalRequest);
       } catch (e) {

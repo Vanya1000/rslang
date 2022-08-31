@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export type settingsState = {
   isShowTranslation: boolean;
+  isLightTheme: boolean;
 }
 
 const initialState: settingsState = {
   isShowTranslation: true,
+  isLightTheme: true,
 };
 
 

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Container } from "@mui/material";
-import Controls from "./Controls/Controls";
-import Cards from "./Cards/Cards";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { fetchHardWords, fetchWords } from "../../../store/bookSlice";
+import React, { useEffect } from 'react';
+import { Container } from '@mui/material';
+import Controls from './Controls/Controls';
+import Cards from './Cards/Cards';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { fetchHardWords, fetchWords } from '../../../store/bookSlice';
 
 const BookPage = () => {
   const isAuth = useAppSelector((state) => !!state.user.user?.userId);
@@ -19,7 +19,7 @@ const BookPage = () => {
   }, [currentGroup, currentPage, isAuth, dispatch]);
   
   return (
-    <Container maxWidth={"xl"}>
+    <Container maxWidth={'xl'}>
       <Controls currentGroup={currentGroup} currentPage={currentPage} isAuth={isAuth}/>
       <Cards isAuth={isAuth}/>
     </Container>

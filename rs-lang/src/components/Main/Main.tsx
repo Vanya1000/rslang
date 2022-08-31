@@ -13,7 +13,7 @@ import Sprint from './GamePage/SprintPage/Sprint';
 
 const Main = () => {
   return (
-    <div style={{ minHeight: `calc(100vh - 125px)`}}>
+    
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="book" element={<BookPage />} />
@@ -26,7 +26,6 @@ const Main = () => {
         <Route path="signin" element={<SignIn />}/>
         <Route path="sprint" element={<Sprint/> }/>
       </Routes>
-    </div>
   )
 }
 

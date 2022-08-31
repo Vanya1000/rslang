@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -14,7 +13,6 @@ const Setting = () => {
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
-    console.log('1');
   };
   const changeCheck = () => {
     dispatch(setIsShowTranslation(!isShowTranslate));

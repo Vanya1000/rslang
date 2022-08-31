@@ -23,9 +23,9 @@ const level: {[key: number]: string} = {
 }
 
 const dataPayload: UserWordType = {
-  "difficulty": "difficult",
-  "optional": {
-    "countRightAnswers": "0"
+  'difficulty': 'difficult',
+  'optional': {
+    'countRightAnswers': '0'
   }
 }
 
@@ -53,13 +53,13 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
       if (!isSend) {
         if (word.userWord) {
           if (isDifficult) {
-            dispatch(deleteDifficultUserWord({wordId: word._id!, payload: {"difficulty": "none"}}));
+            dispatch(deleteDifficultUserWord({wordId: word._id!, payload: {'difficulty': 'none'}}));
           } else {
             dispatch(updateExistUserWord({wordId: word._id!, payload: dataPayload}));
             dispatch(deleteOneWordAsLearned());
           }
         } else {
-          dispatch(createUserWord({wordId: word._id!, payload: {"difficulty": "difficult"}}));
+          dispatch(createUserWord({wordId: word._id!, payload: {'difficulty': 'difficult'}}));
           dispatch(deleteOneWordAsLearned());
         }
       }
@@ -69,9 +69,9 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
       if (!isSend) {
         dispatch(addOneWordAsLearnedOrNew('learned'));
         if (word.userWord) {
-          dispatch(updateExistUserWord({wordId: word._id!, payload: {"difficulty": "learned"}}));
+          dispatch(updateExistUserWord({wordId: word._id!, payload: {'difficulty': 'learned'}}));
         } else {
-          dispatch(createUserWord({wordId: word._id!, payload: {"difficulty": "learned"}}));
+          dispatch(createUserWord({wordId: word._id!, payload: {'difficulty': 'learned'}}));
         }
       }
     }

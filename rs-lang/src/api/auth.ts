@@ -1,6 +1,6 @@
-import { AxiosResponse } from "axios";
-import { DataForRegistration, LoginResponseType, RegistrationResponseType } from "../types/type";
-import instance from "./api";
+import { AxiosResponse } from 'axios';
+import { DataForRegistration, LoginResponseType, RegistrationResponseType } from '../types/type';
+import instance from './api';
 
 
 export default class AuthService {

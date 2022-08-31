@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { StatisticsType } from "../types/type";
-import instance from "./api";
+import { StatisticsType } from '../types/type';
+import instance from './api';
 
 export default class StatisticsAPI {
   static async getStatistics(userId: string): Promise<AxiosResponse<StatisticsType>> {

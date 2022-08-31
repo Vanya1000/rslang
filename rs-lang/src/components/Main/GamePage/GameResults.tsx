@@ -1,10 +1,10 @@
-import { Modal } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { playAgain, selectAnswers } from "../../../store/gameSlice";
-import { selectCurrentGame, selectGameWords, setWords } from "../../../store/gameSlice";
-import { WordType } from "../../../types/type";
+import { Modal } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { playAgain, selectAnswers } from '../../../store/gameSlice';
+import { selectCurrentGame, selectGameWords, setWords } from '../../../store/gameSlice';
+import { WordType } from '../../../types/type';
 import { useNavigate } from 'react-router-dom';
-import GameWord from "./GameWord";
+import GameWord from './GameWord';
 
 export type StatisticsType = {
   rightAnswers: WordType[];
@@ -35,7 +35,7 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
     let rightAnswersInRow = 0;
 
-    for (let answer of answers) {
+    for (const answer of answers) {
       const word = words.find((item) => item.id === answer.wordId)!;
       switch (answer.status) {
         case 'right':

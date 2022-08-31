@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { CreateUserWordType, ResponseOneAggregatedWord, ResponseWordTypeWithAuth, UserWordType, WordType } from "../types/type";
-import instance from "./api";
+import { CreateUserWordType, ResponseOneAggregatedWord, ResponseWordTypeWithAuth, UserWordType, WordType } from '../types/type';
+import instance from './api';
 
 
 
@@ -14,7 +14,7 @@ export default class wordsAPI {
   }
 
   static async getHardWords(id: string): Promise<AxiosResponse<ResponseWordTypeWithAuth>> {
-    const hardWords = {"userWord.difficulty":"difficult"};
+    const hardWords = {'userWord.difficulty':'difficult'};
     return instance.get<ResponseWordTypeWithAuth>(`users/${id}/aggregatedWords?&wordsPerPage=999`, {
       params: {filter: hardWords},
     });

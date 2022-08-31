@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { Alert, Grid, Paper, Typography } from "@mui/material";
-import { Box, Container } from "@mui/system";
-import GraphStat from "./GraphStat/GraphStat";
-import TableStat from "./TableStat/TableStat";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { fetchStatistics } from "../../../store/statisticsSlice";
-import { getCurrentDate } from "../../../AuxiliaryFunctions/AuxiliaryFunctions";
-import NoAuth from "../../Common/NoAuth";
+import React, { useEffect } from 'react';
+import { Alert, Grid, Paper, Typography } from '@mui/material';
+import { Box, Container } from '@mui/system';
+import GraphStat from './GraphStat/GraphStat';
+import TableStat from './TableStat/TableStat';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { fetchStatistics } from '../../../store/statisticsSlice';
+import { getCurrentDate } from '../../../AuxiliaryFunctions/AuxiliaryFunctions';
+import NoAuth from '../../Common/NoAuth';
 
 const StatPage = () => {
   const dataStatistics = useAppSelector(state => state.statistics.data);
-  const isAuth = useAppSelector(state => state.user?.user?.message === "Authenticated");
+  const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
   const isFetching = useAppSelector(state => state.statistics.isFetching);
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -88,7 +88,7 @@ const StatPage = () => {
             alignItems="center"
             gap={1}
           >
-            <Grid xs={12} sm={"auto"} item component={Paper} sx={{ p: 2 }}>
+            <Grid xs={12} sm={'auto'} item component={Paper} sx={{ p: 2 }}>
               <Box>
                 <Typography variant="overline">new words daily</Typography>
               </Box>
@@ -98,7 +98,7 @@ const StatPage = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid xs={12} sm={"auto"} item component={Paper} sx={{ p: 2 }}>
+            <Grid xs={12} sm={'auto'} item component={Paper} sx={{ p: 2 }}>
               <Box>
                 <Typography variant="overline">% correct answers</Typography>
               </Box>
@@ -108,7 +108,7 @@ const StatPage = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid xs={12} sm={"auto"} item component={Paper} sx={{ p: 2 }}>
+            <Grid xs={12} sm={'auto'} item component={Paper} sx={{ p: 2 }}>
               <Box>
                 <Typography variant="overline">learned words</Typography>
               </Box>
