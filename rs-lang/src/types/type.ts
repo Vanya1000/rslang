@@ -151,3 +151,5 @@ export type AnswerType = {
   wordId: string;
   status: AnswerStatusType;
 }
+
+export type GameType = 'sprint' | 'audioChallenge';

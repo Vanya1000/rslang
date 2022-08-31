@@ -5,7 +5,9 @@ import GrassIcon from '@mui/icons-material/Grass';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { fetchHardWords, setCurrentGroup, setCurrentPage } from '../../../../store/bookSlice';
 import { useNavigate } from 'react-router-dom';
-import { fetchGameWords, resetGame, setCurrentGame, setCurrentGameGroup, setCurrentGamePage } from '../../../../store/gameSlice';
+import { fetchGameWords, resetGame, setGame, setGameGroup, setGamePage } from '../../../../store/gameSlice';
+import { GameType } from '../../../../types/type';
+import { getGameRoute } from '../../GamePage/common';
 
 
 type ControlsPropsType = {
@@ -43,17 +45,13 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
       dispatch(setCurrentPage(value - 1))
   }
 
-  const startGame = (game: string) => {
+  const startGame = (game: GameType) => {
     dispatch(resetGame());
-    if (game === 'sprint') {
-      dispatch(setCurrentGame('sprint'));
-    } else {
-      dispatch(setCurrentGame('audioChallenge'));
-    }
-    dispatch(setCurrentGameGroup(currentGameGroup));
-    dispatch(setCurrentGamePage(currentGamePage));
+    dispatch(setGame(game));
+    dispatch(setGameGroup(currentGameGroup));
+    dispatch(setGamePage(currentGamePage));
     dispatch(fetchGameWords());
-    navigate(`/${game}`);
+    navigate(getGameRoute(game));
   }
 
   return (
@@ -72,7 +70,7 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
               size={matches540 ? 'small' : 'large'}
               startIcon={<AudiotrackIcon />}
               disabled={!isAuth}
-              onClick={() => startGame('audio-challenge')}
+              onClick={() => startGame('audioChallenge')}
             >
               Audio challenge
             </Button>

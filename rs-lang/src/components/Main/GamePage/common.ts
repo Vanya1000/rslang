@@ -1,14 +1,9 @@
-import { WordType } from "./../../../types/type";
+import { GameType, WordType } from "./../../../types/type";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-export const shuffle = (array: WordType[]) => {
+export const shuffle = <T>(array: T[]) => {
   const shuffled = array.slice().sort(() => Math.random() - 0.5);
-  return shuffled;
-};
-
-export const shuffleStrings = (array: string[]) => {
-  const shuffled = array.sort(() => Math.random() - 0.5);
   return shuffled;
 };
 
@@ -17,6 +12,10 @@ export const playAudio = (path: string) => {
   audio.play();
 };
 
-export const playWordAudio = (words: WordType[], currentWordIndex: number) => {
-  playAudio(`${baseUrl}${words[currentWordIndex].audio}`);
+export const playWordAudio = (gameWords: WordType[], wordIndex: number) => {
+  playAudio(`${baseUrl}${gameWords[wordIndex].audio}`);
 };
+
+export const getGameRoute = (game: GameType) => {
+  return game === 'sprint' ? '/sprint' : '/audio-challenge';
+}

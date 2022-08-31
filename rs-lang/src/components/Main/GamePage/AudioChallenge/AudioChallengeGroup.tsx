@@ -1,7 +1,7 @@
-import GameLevelButton from "../GameLevelButton";
+import GameGroupButton from "../GameGroupButton";
 import '../Game.css';
 
-const AudioChallengeLevel = () => {
+const AudioChallengeGroup = () => {
   return (
     <div className='audio-challenge'>
       <div className='audio-challenge__wrapper'>
@@ -12,11 +12,11 @@ const AudioChallengeLevel = () => {
           Be careful, as you just have one guess.
         </div>
         <div className='level-button__wrapper'>
-          {[0, 1, 2, 3, 4, 5].map((index) => <GameLevelButton index={index} key={index} />)}
+          {[0, 1, 2, 3, 4, 5].map((index) => <GameGroupButton group={index} key={index} />)}
         </div>
       </div>
     </div>
   )
 }
 
-export default AudioChallengeLevel;
+export default AudioChallengeGroup;

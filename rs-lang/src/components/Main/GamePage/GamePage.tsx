@@ -1,23 +1,20 @@
 import './GamePage.css';
 
-import { resetGame, setCurrentGame } from '../../../store/gameSlice';
+import { resetGame, setGame } from '../../../store/gameSlice';
 import { useAppDispatch } from '../../../hooks/hooks';
 import { useNavigate } from 'react-router-dom';
+import { GameType } from '../../../types/type';
+import { getGameRoute } from './common';
 
 const GamePage = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const startGame = (game: string) => {
+  const startGame = (game: GameType) => {
     dispatch(resetGame());
-    if (game === 'sprint') {
-      dispatch(setCurrentGame('sprint'));
-      navigate('/sprint');
-    } else {
-      dispatch(setCurrentGame('audioChallenge'));
-      navigate('/audio-challenge');
-    }
+    dispatch(setGame(game));
+    navigate(getGameRoute(game));
   }
 
   return (
@@ -29,7 +26,7 @@ const GamePage = () => {
             startGame('sprint');
             }}>Sprint</button>
           <button className='game__button' onClick={() => {
-            startGame('audio-challenge');
+            startGame('audioChallenge');
             }}>Audio challenge</button>
         </div>
       </div>

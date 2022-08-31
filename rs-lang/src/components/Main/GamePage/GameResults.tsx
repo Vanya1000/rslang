@@ -1,7 +1,7 @@
 import { Modal } from '@mui/material';
 import { useAppSelector } from '../../../hooks/hooks';
 import { selectAnswers } from '../../../store/gameSlice';
-import { selectCurrentGame, selectGameWords, setWords } from '../../../store/gameSlice';
+import { selectGame, selectGameWords, setGameWords } from '../../../store/gameSlice';
 import { WordType } from '../../../types/type';
 import { useNavigate } from 'react-router-dom';
 import GameWord from './GameWord';
@@ -15,7 +15,7 @@ export type StatisticsType = {
 const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, backToGame: () => void}) => {
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
-  const currentGame = useAppSelector(selectCurrentGame);
+  const currentGame = useAppSelector(selectGame);
 
   const navigate = useNavigate();
 
