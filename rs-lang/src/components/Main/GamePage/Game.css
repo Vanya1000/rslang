@@ -5,10 +5,14 @@
     width: 100%;
     min-height: calc(100vh - 64px);
     font-family: 'Work Sans', sans-serif;
-    background-image: url(../../../assets/gameImg/background.jpg);
+    background-image: url(../../../assets/gameImg/deer.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 0;
+}
+
+.sprint__game {
+    background-image: url(../../../assets/gameImg/forest.jpg);
 }
 
 .game__progress {

@@ -31,7 +31,7 @@ const Sprint = () => {
     );
   } else {
     return (
-      <div className="game">
+      <div className="game sprint__game">
         <div className="game__header">
           <CircularProgressWithLabel value={timer} game="sprint" />
           <h2 className="header__title">SPRINT</h2>

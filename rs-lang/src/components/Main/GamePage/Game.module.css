@@ -25,27 +25,34 @@ button {
   width: 596px;
 }
 
-.title {
+.title,
+.levelTitle {
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 44px;
-  margin: 35px 0 150px 0;
+  margin: 100px 0;
 }
 
+.levelBackBtn,
 .backBtn,
 .gameBtn {
   border: none;
   border-radius: 5px;
-  box-shadow: 3px 3px 15px rgb(196, 151, 255);
+  box-shadow: 3px 3px 15px #6573c3;
   margin: 25px;
   width: 60%;
   height: 40px;
   transition: transform 0.4s ease-in-out;
   font-size: 20px;
   letter-spacing: 2px;
-  color: white;
-  background-color: rgb(49, 49, 49);
+  color: #ffffff;
+  background-color: #313131;
 }
 
+.levelBackBtn {
+  box-shadow: 3px 3px 15px #f5f5f7c7;
+}
+
+.levelBackBtn:hover,
 .gameBtn:hover,
 .backBtn:hover {
   transform: scale(1.2);
@@ -59,8 +66,9 @@ button {
 }
 
 .gameTitle {
+  margin: 100px 0 50px 0;
   font-size: 46px;
-  color: rgb(95, 255, 255);
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .gameImg {
@@ -70,10 +78,10 @@ button {
 
 .selectLvlBtnWrapper {
   padding: 40px 0;
-  margin: 50px 45px;
-  box-shadow: 2px 2px 5px rgba(48, 48, 48, 0.884);
+  margin: 45px;
+  box-shadow: 2px 2px 5px #f5f5f74c;
   border-radius: 5px;
-  background-color: aliceblue;
+  background-color: #f5f5f7c7;
 }
 
 .selectLvlBtn {
@@ -82,11 +90,11 @@ button {
   height: 60px;
   border-radius: 50%;
   border: none;
-  box-shadow: 2px 2px 5px rgba(48, 48, 48, 0.884);
+  box-shadow: 2px 2px 5px #313131;
   transition: transform 0.4s ease-in-out;
   font-size: 20px;
   font-weight: 600;
-  color: rgb(49, 49, 49);
+  color: #313131;
 }
 
 .selectLvlBtn:hover {
@@ -107,11 +115,23 @@ button {
     width: 296px;
   }
 
-  .title {
+  .title,
+  .levelTitle {
     font-size: 30px;
+    margin: 35px 0 15px 0;
+  }
+
+  .levelTitle {
     margin: 25px 0 15px 0;
   }
 
+  .gameTitle {
+    margin: 35px 0 25px 0;
+    font-size: 46px;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+  .levelBackBtn,
   .backBtn,
   .gameBtn {
     width: 70%;
@@ -120,8 +140,8 @@ button {
     height: 30px;
   }
 
-  .gameBtn {
-    margin: 25px;
+  .gameBtn:first-child {
+    margin-top: 40px;
   }
 
   .description {
@@ -150,7 +170,7 @@ button {
     height: 30px;
     font-size: 18px;
     font-weight: 600;
-    color: rgb(49, 49, 49);
+    color: #313131;
   }
   
   .selectLvlBtn:hover {

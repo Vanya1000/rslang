@@ -41,12 +41,25 @@
   background-size: cover;
 }
 
-.cube__face--right  { background: rgba(165, 229, 255, 0.7); }
-.cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
-.cube__face--left   { background: hsla(41, 100%, 65%, 0.7); }
-.cube__face--top    { background: hsla(226, 100%, 73%, 0.9); }
+.cube__face--right {
+  background-image: url(../../../assets/gameImg/mountains.jpg);
+
+}
+
+.cube__face--back   {
+  background: hsla(120, 100%, 50%, 0.7);
+}
+
+.cube__face--left {
+  background-image: url(../../../assets/gameImg/mountains.jpg);
+}
+
+.cube__face--top {
+  background-image: url(../../../assets/gameImg/landscape.jpg);
+}
+
 .cube__face--bottom {
-  background-image: url(../../../assets/gameImg/sunset.jpg);
+  background-image: url(../../../assets/gameImg/landscape.jpg);
 }
 
 .cube__face--front  { transform: rotateY(  0deg) translateZ(300px); }
