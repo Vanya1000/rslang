@@ -16,7 +16,7 @@ export type StatisticsType = {
 const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
-  const game = useAppSelector(selectCurrentGame);
+  const currentGame = useAppSelector(selectCurrentGame);
 
   const dispatch = useAppDispatch();
 
@@ -49,7 +49,7 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
   }
 
   const backToGame = () => {
-    if (game === 'audioChallenge') {
+    if (currentGame === 'audioChallenge') {
       props.setEnd(false);
       dispatch(playAgain());
       dispatch(setWords(shuffle(words)));
@@ -73,14 +73,14 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
     return (
         <Modal hideBackdrop={true} open={props.open}>
-          <div className="statistics">
+          <div className={`statistics${currentGame === 'sprint' ? ' sprint__statistics' : ' audio-challenge__statistics'}`}>
 
             <h2 className="statistics__title">RESULTS</h2>
 
             <div className="statistics__buttons">
-              <button className="statistics__button" onClick={() => backToGame()}>PLAY AGAIN</button>
-              <button className="statistics__button" onClick={() => backToGames()}>BACK TO GAMES</button>
-              <button className="statistics__button" onClick={() => backToTextbook()}>BACK TO TEXTBOOK</button>
+              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToGame()}>PLAY AGAIN</button>
+              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToGames()}>BACK TO GAMES</button>
+              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToTextbook()}>BACK TO TEXTBOOK</button>
             </div>
 
             <div className="statistics__wrapper">
@@ -92,7 +92,7 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
               <div className="statistics__accuracy">
                 <p>ACCURACY</p>
-                <p className="accuracy__number">{statistics.rightAnswers.length / words.length * 100}%</p>
+                <p className={`${currentGame === 'sprint' ? ' accuracy__number_sprint' : ' accuracy__number'}`}>{statistics.rightAnswers.length / words.length * 100}%</p>
               </div>
             </div>
 

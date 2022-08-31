@@ -19,7 +19,7 @@ const AudioChallenge = () => {
     </div>;
   } else {
     return (
-      <div className="game">
+      <div className="audio-challenge__game">
 
         <div className={`game__header${isEnd ? ' invisible' : ''}`}>
           <CircularProgressWithLabel value={progress} game='audioChallenge'/>

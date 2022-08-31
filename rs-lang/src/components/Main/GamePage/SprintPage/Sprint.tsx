@@ -30,7 +30,7 @@ const Sprint = () => {
 
   if (isFetching) {
     return (
-      <div className="game">
+      <div className="sprint__game">
         <CircularProgress size="4rem" className="game__progress" color="info" thickness={2}/>
       </div>
     );
