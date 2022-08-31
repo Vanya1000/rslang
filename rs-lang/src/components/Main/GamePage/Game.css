@@ -1,14 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
-.game {
+.audio-challenge__game,
+.sprint__game,
+.audio-challenge,
+.sprint {
     width: 100%;
     min-height: calc(100vh - 64px);
     font-family: 'Work Sans', sans-serif;
-    background-image: url(../../../assets/gameImg/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 0;
+}
+
+.audio-challenge__game {
+    background-image: url(../../../assets/gameImg/deer.jpg);
+}
+
+.sprint__game {
+    background-image: url(../../../assets/gameImg/forest.jpg);
 }
 
 .game__progress {
@@ -50,12 +60,112 @@
     align-items: center;
 }
 
-.header__title {
+.audio-challenge {
+    background-image: url(../../../assets/gameImg/forest.jpg);
+}
+
+.sprint {
+    background-image: url(../../../assets/gameImg/landscape.jpg);
+}
+
+.header__title,
+.audio-challenge__title,
+.sprint__title {
     font-family: 'Roboto Condensed', sans-serif;
     margin: 20px 0;
 }
 
-.game__content {
+.audio-challenge__title,
+.sprint__title {
+    font-size: 50px;
+    margin: 80px 0 50px 0;
+    text-align: center;
+}
+
+.level-button__wrapper {
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.level-button {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #F5F5F7;
+    font-size: 20px;
+    color:#313131d3;
+    transition: background-color 0.3s;
+}
+
+.level-button:nth-child(1) {
+    background-color: #ffef62;
+}
+
+.level-button:nth-child(1):hover {
+    background-color: #ffef62e9;
+}
+
+.level-button:nth-child(2) {
+    background-color: #ffcd38;
+}
+
+.level-button:nth-child(2):hover {
+    background-color: #ffcd38cc;
+}
+
+.level-button:nth-child(3) {
+    background-color: #a2cf6e;
+}
+
+.level-button:nth-child(3):hover {
+    background-color: #a2cf6ecb;
+}
+
+.level-button:nth-child(4) {
+    background-color: #33ab9f;
+}
+
+.level-button:nth-child(4):hover {
+    background-color: #33ab9fe0;
+}
+
+.level-button:nth-child(5) {
+    background-color: #6573c3;
+}
+
+.level-button:nth-child(5):hover {
+    background-color: #6573c3d8;
+}
+
+.level-button:nth-child(6) {
+    background-color: #af52bf;
+}
+
+.level-button:nth-child(6):hover {
+    background-color: #af52bfda;
+}
+
+.audio-challenge__wrapper,
+.sprint__wrapper {
+    width: 500px;
+    position: relative;
+    left: calc(50% - 250px);
+    color: #F5F5F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.audio-challenge__description,
+.sprint__description {
+    width: 400px;
+    text-align: center;
+}
+
+.audio-challenge__content,
+.sprint__content {
     margin: 0 auto;
     margin-top: calc(50vh - 370px);
     display: flex;
@@ -73,6 +183,7 @@
 
 .sprint__content {
     width: 500px;
+    border: 2px solid #01A1BB;
 }
 
 .sprint__points {
@@ -222,7 +333,7 @@
 }
 
 .sprint__circle_active {
-    background-color: #ff000097;
+    background-color: #00ff0089;
 }
 
 .content__button {
@@ -235,16 +346,21 @@
     outline: none;
 }
 
-.statistics {
+.audio-challenge__statistics,
+.sprint__statistics {
     width: 600px;
-    height: 500px;
+    height: 520px;
     background-color: #f5f5f7a4;
     position: absolute;
     overflow-y: auto;
-    top: calc(50% - 240px);
+    top: calc(50% - 250px);
     left: calc(50% - 300px);
     border-radius: 5px;
     border: 2px solid #6573c3;
+}
+
+.sprint__statistics {
+    border: 2px solid #01A1BB;
 }
 
 .statistics > * {
@@ -266,7 +382,8 @@
     margin-top: 30px;
 }
 
-.statistics__button {
+.statistics__button,
+.statistics__button_sprint {
     outline: none;
     border: 1px solid #F5F5F7;
     font-size: 16px;
@@ -280,8 +397,16 @@
     transition: background-color 0.4s;
 }
 
+.statistics__button_sprint {
+    background-color: #01A1BB;
+}
+
 .statistics__button:hover {
     background-color: #6573c3;
+}
+
+.statistics__button_sprint:hover {
+    background-color: #01a2bba7;
 }
 
 .statistics__wrapper {
@@ -303,10 +428,15 @@
     justify-content: center;
 }
 
-.accuracy__number {
+.accuracy__number,
+.accuracy__number_sprint {
     font-size: 30px;
     margin: 0 5px;
     color: #6573c3;
+}
+
+.accuracy__number_sprint {
+    color: #01A1BB;
 }
 
 .statistics__answers li {
@@ -393,11 +523,11 @@
 }
 
 .background_green {
-    animation: animate-green 0.2s ease-in-out;
+    animation: animate-green 0.7s ease-in-out;
 }
 
 .background_red {
-    animation: animate-red 0.2s ease-in-out;
+    animation: animate-red 0.7s ease-in-out;
 }
 
 @keyframes animate-red {
@@ -409,7 +539,8 @@
 }
 
 @media(max-width: 680px) {
-    .game__content {
+    .audio-challenge__content,
+    .sprint__content {
         width: 300px;
     }
 
@@ -420,7 +551,8 @@
 }
 
 @media(max-width: 640px) {
-    .statistics {
+    .audio-challenge__statistics,
+    .sprint__statistics {
         width: 300px;
         left: calc(50% - 150px);
     }
@@ -437,9 +569,38 @@
         justify-content: center;
     }
 
-    .statistics__button {
+    .sprint__buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .statistics__button,
+    .statistics__button_sprint {
         width: 250px;
         left: calc(50% - 125px);
+    }
+}
+
+@media (max-width: 600px) {
+    .audio-challenge__game,
+    .sprint__game,
+    .audio-challenge,
+    .sprint {
+        min-height: calc(100vh - 55px);
+    }
+}
+
+@media(max-width: 540px) {
+    .audio-challenge__wrapper,
+    .sprint__wrapper {
+        width: 300px;
+        left: calc(50% - 150px);
+    }
+
+    .audio-challenge__description,
+    .sprint__description {
+        width: 300px;
     }
 }
 

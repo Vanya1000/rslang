@@ -108,3 +108,5 @@ export const userSlice = createSlice({
 export const { setIsSuccessRegistration, setRegErrorMessage, setUserData, logout, updateToken, setIsSignin } = userSlice.actions;
 
 export default userSlice.reducer;
+
+export const selectUser = (state: RootState) => state.user.user;

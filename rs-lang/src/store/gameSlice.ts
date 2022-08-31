@@ -5,21 +5,21 @@ import { RootState } from './store';
 
 export type GameState = {
   words: WordType[];
-  currentGame: GameType | null;
-  currentGroup: number;
-  currentPage: number;
+  game: GameType | null;
+  gameGroup: number | null;
+  gamePage: number | null;
   isFetching: boolean;
-  currentWordIndex: number;
+  wordIndex: number;
   answers: AnswerType[];
 }
 
 const initialState: GameState = {
   words: [],
-  currentGame: null,
-  currentGroup: 0,
-  currentPage: 0,
+  game: null,
+  gameGroup: null,
+  gamePage: null,
   isFetching: false,
-  currentWordIndex: 0,
+  wordIndex: 0,
   answers: [],
 };
 
@@ -27,8 +27,8 @@ export const fetchGameWords = createAsyncThunk<WordType[] | undefined, void, { s
   'game/fetchGameWords',
   async (_, { getState }) => {
     try {
-      const { currentGroup, currentPage } = getState().game;
-      const { status, data } = await wordsAPI.getWordsNoAuth(currentGroup, currentPage);
+      const { gameGroup, gamePage } = getState().game;
+      const { status, data } = await wordsAPI.getWordsNoAuth(gameGroup!, gamePage!);
       if (status === 200) {
         return data;
       }
@@ -43,37 +43,37 @@ export const gameSlice = createSlice({
   initialState,
 
   reducers: {
-    setCurrentGame(state, action: PayloadAction<GameType>) {
-      state.currentGame = action.payload;
+    setGame(state, action: PayloadAction<GameType>) {
+      state.game = action.payload;
     },
-    setCurrentGroup(state, action: PayloadAction<number>) {
-      state.currentGroup = action.payload;
+    setGameGroup(state, action: PayloadAction<number>) {
+      state.gameGroup = action.payload;
     },
-    setCurrentPage(state, action: PayloadAction<number>) {
-      state.currentPage = action.payload;
+    setGamePage(state, action: PayloadAction<number>) {
+      state.gamePage = action.payload;
     },
-    setWords(state, action: PayloadAction<WordType[]>) {
+    setGameWords(state, action: PayloadAction<WordType[]>) {
       state.words = action.payload;
     },
-    setCurrentWordIndex(state) {
-      state.currentWordIndex++;
+    setWordIndex(state) {
+      state.wordIndex++;
     },
     addAnswer(state, action: PayloadAction<AnswerType>) {
       state.answers.push(action.payload);
     },
     playAgain(state) {
-      state.currentWordIndex = 0;
+      state.wordIndex = 0;
       state.answers = [];
     },
     resetGame(state) {
       state.words = [];
-      state.currentGame = null;
-      state.currentGroup = 0;
-      state.currentPage = 0;
+      state.game = null;
+      state.gameGroup = null;
+      state.gamePage = null;
       state.isFetching = false;
-      state.currentWordIndex = 0;
+      state.wordIndex = 0;
       state.answers = [];
-    }
+    },
   },
 
   extraReducers: (builder) => {
@@ -88,7 +88,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setCurrentGame, setCurrentGroup, setCurrentPage, setWords, setCurrentWordIndex, addAnswer, playAgain, resetGame } = gameSlice.actions;
+export const { setGame, setGameGroup, setGamePage, setGameWords, setWordIndex, addAnswer, playAgain, resetGame } = gameSlice.actions;
 
 export default gameSlice.reducer;
 
@@ -96,13 +96,13 @@ export const selectGameWords = (state: RootState) => state.game.words;
 
 export const selectIsFetching = (state: RootState) => state.game.isFetching;
 
-export const selectCurrentGroup = (state: RootState) => state.game.currentGroup;
+export const selectGameGroup = (state: RootState) => state.game.gameGroup;
 
-export const selectCurrentPage = (state: RootState) => state.game.currentPage;
+export const selectGamePage = (state: RootState) => state.game.gamePage;
 
-export const selectCurrentGame = (state: RootState) => state.game.currentGame;
+export const selectGame = (state: RootState) => state.game.game;
 
-export const selectCurrentWordIndex = (state: RootState) => state.game.currentWordIndex;
+export const selectWordIndex = (state: RootState) => state.game.wordIndex;
 
 export const selectAnswers = (state: RootState) => state.game.answers;
 

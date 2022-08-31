@@ -1,25 +1,33 @@
 import '../Game.css';
 import { useAppSelector } from '../../../../hooks/hooks';
-import { selectIsFetching } from '../../../../store/gameSlice';
+import { selectGameGroup, selectIsFetching } from '../../../../store/gameSlice';
 import AudioChallengeCard from './AudioChallengeCard';
 import { CircularProgress } from '@mui/material';
 import { selectProgress } from '../../../../store/gameSlice';
 import CircularProgressWithLabel from '../CircularProgressWithLabel';
 import { useState } from 'react';
+import AudioChallengeGroup from './AudioChallengeGroup';
 
 const AudioChallenge = () => {
-  const isFetching = useAppSelector(selectIsFetching);
-  const progress = useAppSelector(selectProgress);
-
   const [isEnd, setEnd] = useState(false);
 
+  const isFetching = useAppSelector(selectIsFetching);
+  const progress = useAppSelector(selectProgress);
+  const gameGroup = useAppSelector(selectGameGroup);
+
   if (isFetching) {
-    return <div className="game">
-      <CircularProgress size="4rem" className="game__progress" color="info" thickness={2}/>
-    </div>;
+    return (
+      <div className="audio-challenge__game">
+        <CircularProgress size="4rem" className="game__progress" color="info" thickness={2}/>
+      </div>
+    );
+  } else if (gameGroup === null) {
+    return (
+      <AudioChallengeGroup />
+    );
   } else {
     return (
-      <div className="game">
+      <div className="audio-challenge__game">
 
         <div className={`game__header${isEnd ? ' invisible' : ''}`}>
           <CircularProgressWithLabel value={progress} game='audioChallenge'/>
@@ -27,7 +35,7 @@ const AudioChallenge = () => {
         </div>
 
         <div className="game__main">
-           <AudioChallengeCard isEnd={isEnd} setEnd={setEnd}/>
+            <AudioChallengeCard isEnd={isEnd} setEnd={setEnd}/>
         </div>
 
       </div>

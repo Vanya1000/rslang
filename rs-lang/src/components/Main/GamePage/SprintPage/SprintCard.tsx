@@ -1,106 +1,120 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
-import { addAnswer, selectCurrentWordIndex, setCurrentWordIndex } from '../../../../store/gameSlice';
-import { fetchGameWords, selectCurrentPage, selectGameWords, setCurrentPage } from '../../../../store/gameSlice';
+import { addAnswer, playAgain, selectWordIndex, setWordIndex } from '../../../../store/gameSlice';
+import { fetchGameWords, selectGamePage, selectGameWords, setGamePage } from '../../../../store/gameSlice';
 import GameResults from '../GameResults';
-import { WordType } from '../../../../types/type';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
-import successAudioPath from '../../../../assets/audio/success.mp3';
 import volume from '../../../../assets/images/volume.png';
+import { playAudio, playWordAudio, shuffle } from '../common';
+import { sendStatistics } from '../../../../store/statisticsSlice';
+import { selectUser } from '../../../../store/userSlice';
 
-const baseUrl = process.env.REACT_APP_API_URL;
 
 const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, setTimer: React.Dispatch<React.SetStateAction<number>> }) => {
-  const [isAnswered, setIsAnswered] = useState(false);
   const [option, setOption] = useState<string>('');
-  const [isRightAnswer, setIsRightAnswer] = useState<boolean | null>(null);
+  const [isAnswered, setIsAnswered] = useState(false);
   const [points, setPoints] = useState<number>(0);
   const [bonus, setBonus] = useState<number>(10);
-  const [answeredInRow, setAnsweredInRow] = useState<number>(0);
+  const [bonusProgress, setBonusProgress] = useState<number>(0);
+  const [animate, setAnimate] = useState<string | null>('');
+  const [series, setSeries] = useState<number>(0);
 
-  const words = useAppSelector(selectGameWords);
-  const currentWordIndex = useAppSelector(selectCurrentWordIndex);
-  const currentPage = useAppSelector(selectCurrentPage);
+  const gameWords = useAppSelector(selectGameWords);
+  const wordIndex = useAppSelector(selectWordIndex);
+  const gamePage = useAppSelector(selectGamePage);
+  const user = useAppSelector(selectUser);
 
   const dispatch = useAppDispatch();
 
-  const playAudio = (path: string) => {
-    const audio = new Audio(path);
-    audio.play();
-  };
-
-  const playWordAudio = () => {
-    playAudio(`${baseUrl}${words[currentWordIndex].audio}`);
-  };
-
-  const shuffle = (array: WordType[] | string[]) => {
-    const shuffled = array.sort(() => Math.random() - 0.5);
-    return shuffled;
-  };
-
   useEffect(() => {
     const array: string[] = [];
-    array.push(words[currentWordIndex].wordTranslate);
+    array.push(gameWords[wordIndex].wordTranslate);
     while (array.length < 2) {
-      const index = Math.floor(Math.random() * 20);
-      if (!array.includes(words[index].wordTranslate)) {
-        array.push(words[index].wordTranslate);
+      const index = Math.floor(Math.random() * gameWords.length);
+      if (!array.includes(gameWords[index].wordTranslate)) {
+        array.push(gameWords[index].wordTranslate);
       }
     }
-    shuffle(array);
+    const shuffled = shuffle(array);
 
-    setOption(array[0]);
+    setOption(shuffled[0]);
     setIsAnswered(false);
-    setIsRightAnswer(null);
-  }, [currentWordIndex]);
+    setTimeout(() => setAnimate(null), 700);
+  }, [wordIndex]);
+
+  const addGameWords = () => {
+    const page = Math.floor(Math.random() * 30);
+    let isNewPage = false;
+    while (!isNewPage) {
+      if (page !== gamePage) {
+        dispatch(setGamePage(page));
+        dispatch(fetchGameWords());
+        isNewPage = true;
+      }
+    }
+  }
 
   const checkAnswer = (button: string) => {
     if (!isAnswered) {
-      if (words[currentWordIndex].wordTranslate === option && button === 'right' || 
-      words[currentWordIndex].wordTranslate !== option && button === 'wrong') {
-        setIsRightAnswer(true);
+      const wordId = gameWords[wordIndex].id!;
+      if (gameWords[wordIndex].wordTranslate === option && button === 'right' || 
+      gameWords[wordIndex].wordTranslate !== option && button === 'wrong') {
+        setAnimate('green');
         dispatch(
-          addAnswer({ wordId: words[currentWordIndex].id!, status: 'right' })
+          addAnswer({ wordId: wordId, status: 'right' })
         );
+        if (user) {
+          dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'sprint', series: series + 1}));
+        }
+        setSeries((prev) => prev + 1);
         playAudio(rightAudioPath);
         setPoints((prev) => prev + bonus);
-        setAnsweredInRow((prev) => prev + 1);
-        if (answeredInRow === 3) {
+        if (bonusProgress === 3) {
           setBonus((prev) => prev + 10);
-          setAnsweredInRow(0);
+          setBonusProgress(0);
+        } else {
+          setBonusProgress((prev) => prev + 1);
         }
       } else {
-        setIsRightAnswer(false);
+        setAnimate('red');
         dispatch(
-          addAnswer({ wordId: words[currentWordIndex].id!, status: 'wrong' })
+          addAnswer({ wordId: gameWords[wordIndex].id!, status: 'wrong' })
         );
+        if (user) {
+          dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'sprint', series: 0}));
+        }
+        setSeries(0);
         playAudio(mistakeAudioPath);
         setBonus(10);
-        setAnsweredInRow(0);
+        setBonusProgress(0);
       }
+
       setIsAnswered(true);
-      if (currentWordIndex === 19) {
-        const page = Math.floor(Math.random() * 30);
-        let isNewPage = false;
-        while (!isNewPage) {
-          if (page !== currentPage) {
-            dispatch(setCurrentPage(page));
-            dispatch(fetchGameWords());
-            isNewPage = true;
-          }
-        }
-        dispatch(setCurrentWordIndex());
-      } else {
-        dispatch(setCurrentWordIndex());
+
+      if (wordIndex === gameWords.length - 1) {
+        addGameWords();
       }
+
+      dispatch(setWordIndex());
     }
   };
 
+  const backToGame = () => {
+    setSeries(0);
+    setBonusProgress(0);
+    setBonus(10);
+    setPoints(0);
+    props.setTimer(60);
+    props.setEnd(false);
+    dispatch(playAgain());
+  }
+
   return (
-    <div className={`game__content sprint__content${props.isEnd ? ' invisible' : ''}`}>
+    <div className={`sprint__content${props.isEnd ? ' invisible' : ''}${animate === 'red' ? ' background_red' : ' '}
+    ${animate === 'green' ? ' background_green' : ''}`}>
         <img
-        onClick={() => playWordAudio()}
+        onClick={() => playWordAudio(gameWords, wordIndex)}
         className="sprint__img"
         src={volume}
         alt=""
@@ -108,19 +122,19 @@ const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetSta
       <div className="sprint__points">{points}</div>
       <div className="sprint__bonus">+{bonus} points</div>
       <div className="sprint__circles">
-        <div className={`sprint__circle${answeredInRow >= 1 ? ' sprint__circle_active' : ''}`}></div>
-        <div className={`sprint__circle${answeredInRow >= 2 ? ' sprint__circle_active' : ''}`}></div>
-        <div className={`sprint__circle${answeredInRow === 3 ? ' sprint__circle_active' : ''}`}></div>
+        <div className={`sprint__circle${bonusProgress >= 1 ? ' sprint__circle_active' : ''}`}></div>
+        <div className={`sprint__circle${bonusProgress >= 2 ? ' sprint__circle_active' : ''}`}></div>
+        <div className={`sprint__circle${bonusProgress === 3 ? ' sprint__circle_active' : ''}`}></div>
       </div>
       <div className="sprint__container">
-        <div className="sprint__word">{words[currentWordIndex].word}</div>
+        <div className="sprint__word">{gameWords[wordIndex].word}</div>
         <div className="sprint__translation">{option}</div>
         <div className="sprint__buttons">
           <button className="sprint__button_right" onClick={() => checkAnswer('right')}>RIGHT</button>
           <button className="sprint__button_wrong" onClick={() => checkAnswer('wrong')}>WRONG</button>
         </div>
       </div>
-      <GameResults open={props.isEnd} setEnd={props.setEnd} setTimer={props.setTimer}/>
+      <GameResults open={props.isEnd} setEnd={props.setEnd} backToGame={backToGame}/>
     </div>
   );
 };

@@ -4,6 +4,10 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import GrassIcon from '@mui/icons-material/Grass';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { fetchHardWords, setCurrentGroup, setCurrentPage } from '../../../../store/bookSlice';
+import { useNavigate } from 'react-router-dom';
+import { fetchGameWords, resetGame, setGame, setGameGroup, setGamePage } from '../../../../store/gameSlice';
+import { GameType } from '../../../../types/type';
+import { getGameRoute } from '../../GamePage/common';
 
 
 type ControlsPropsType = {
@@ -16,7 +20,12 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
   const isLearnedPage = useAppSelector(state => state?.book?.words).filter(word => word.userWord?.difficulty === 'learned' || word.userWord?.difficulty === 'difficult').length === 20;
   const isFetching = useAppSelector(state => state.book.isFetching);
 
+  const currentGameGroup = useAppSelector(state => state.book.currentGroup);
+  const currentGamePage = useAppSelector(state => state.book.currentPage);
+
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const matches540 = useMediaQuery('(max-width:540px)');
   const matches370 = useMediaQuery('(max-width:370px)');
@@ -36,6 +45,15 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
       dispatch(setCurrentPage(value - 1))
   }
 
+  const startGame = (game: GameType) => {
+    dispatch(resetGame());
+    dispatch(setGame(game));
+    dispatch(setGameGroup(currentGameGroup));
+    dispatch(setGamePage(currentGamePage));
+    dispatch(fetchGameWords());
+    navigate(getGameRoute(game));
+  }
+
   return (
     <Grid
         container
@@ -52,12 +70,13 @@ const Controls: React.FC<ControlsPropsType> = ({isAuth, currentGroup, currentPag
               size={matches540 ? 'small' : 'large'}
               startIcon={<AudiotrackIcon />}
               disabled={!isAuth}
+              onClick={() => startGame('audioChallenge')}
             >
               Audio challenge
             </Button>
             </Tooltip>
             <Tooltip title="Start game" arrow placement="right">
-            <Button variant="outlined" size={matches540 ? 'small' : 'large'} disabled={!isAuth} startIcon={<GrassIcon />}>
+            <Button variant="outlined" size={matches540 ? 'small' : 'large'} disabled={!isAuth} startIcon={<GrassIcon />} onClick={() => startGame('sprint')}>
               Sprint
             </Button>
             </Tooltip>

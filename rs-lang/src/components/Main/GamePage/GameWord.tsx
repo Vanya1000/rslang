@@ -1,22 +1,15 @@
 import { WordType } from '../../../types/type';
 import volume from '../../../assets/images/volume.png';
+import { playAudio } from './common';
+
 const baseUrl = process.env.REACT_APP_API_URL;
 
 const AudioChallengeWord = (props: { answer: WordType }) => {
 
-  const playAudio = (path: string) => {
-    const audio = new Audio(path);
-    audio.play();
-  };
-
-  const playWordAudio = () => {
-    playAudio(`${baseUrl}${props.answer.audio}`);
-  };
-
   return (
     <div className="statistics__word">
       <img
-        onClick={() => playWordAudio()}
+        onClick={() => playAudio(`${baseUrl}${props.answer.audio}`)}
         className="statistics__img"
         src={volume}
         alt=""

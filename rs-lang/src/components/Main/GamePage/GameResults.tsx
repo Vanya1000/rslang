@@ -1,7 +1,7 @@
 import { Modal } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { playAgain, selectAnswers } from '../../../store/gameSlice';
-import { selectCurrentGame, selectGameWords, setWords } from '../../../store/gameSlice';
+import { useAppSelector } from '../../../hooks/hooks';
+import { selectAnswers } from '../../../store/gameSlice';
+import { selectGame, selectGameWords, setGameWords } from '../../../store/gameSlice';
 import { WordType } from '../../../types/type';
 import { useNavigate } from 'react-router-dom';
 import GameWord from './GameWord';
@@ -12,19 +12,12 @@ export type StatisticsType = {
   rightAnswersInRow: number;
 }
 
-const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, setTimer?: React.Dispatch<React.SetStateAction<number>> | null}) => {
+const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>, backToGame: () => void}) => {
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
-  const game = useAppSelector(selectCurrentGame);
-
-  const dispatch = useAppDispatch();
+  const currentGame = useAppSelector(selectGame);
 
   const navigate = useNavigate();
-
-  const shuffle = (array: WordType[]) => {
-    const shuffled = array.slice().sort(() => Math.random() - 0.5);
-    return shuffled;
-  };
 
   const calculateStatistics = () => {
     const statistics: StatisticsType = {
@@ -52,26 +45,13 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
     return statistics;
   }
 
-  const backToGame = () => {
-    if (game === 'audioChallenge') {
-      props.setEnd(false);
-      dispatch(playAgain());
-      dispatch(setWords(shuffle(words)));
-    } else {
-      // props.setTimer(60);
-      props.setEnd(false);
-    }
-  }
-
   const backToGames = () => {
     props.setEnd(false);
-    dispatch(playAgain());
     navigate('/game');
   }
 
   const backToTextbook = () => {
     props.setEnd(false);
-    dispatch(playAgain());
     navigate('/book');
   }
 
@@ -79,14 +59,14 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
     return (
         <Modal hideBackdrop={true} open={props.open}>
-          <div className="statistics">
+          <div className={`statistics${currentGame === 'sprint' ? ' sprint__statistics' : ' audio-challenge__statistics'}`}>
 
             <h2 className="statistics__title">RESULTS</h2>
 
             <div className="statistics__buttons">
-              <button className="statistics__button" onClick={() => backToGame()}>PLAY AGAIN</button>
-              <button className="statistics__button" onClick={() => backToGames()}>BACK TO GAMES</button>
-              <button className="statistics__button" onClick={() => backToTextbook()}>BACK TO TEXTBOOK</button>
+              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => props.backToGame()}>PLAY AGAIN</button>
+              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToGames()}>BACK TO GAMES</button>
+              <button className={`${currentGame === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToTextbook()}>BACK TO TEXTBOOK</button>
             </div>
 
             <div className="statistics__wrapper">
@@ -98,7 +78,7 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
               <div className="statistics__accuracy">
                 <p>ACCURACY</p>
-                <p className="accuracy__number">{statistics.rightAnswers.length / words.length * 100}%</p>
+                <p className={`${currentGame === 'sprint' ? ' accuracy__number_sprint' : ' accuracy__number'}`}>{Math.trunc(statistics.rightAnswers.length / words.length * 100)}%</p>
               </div>
             </div>
 
