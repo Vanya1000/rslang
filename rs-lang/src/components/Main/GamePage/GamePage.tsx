@@ -10,9 +10,14 @@ const GamePage = () => {
   const navigate = useNavigate();
 
   const startGame = (game: string) => {
-      dispatch(resetGame());
-      dispatch(setCurrentGame(game));
-      navigate(`/${game}`);
+    dispatch(resetGame());
+    if (game === 'sprint') {
+      dispatch(setCurrentGame('sprint'));
+      navigate('/sprint');
+    } else {
+      dispatch(setCurrentGame('audioChallenge'));
+      navigate('/audio-challenge');
+    }
   }
 
   return (

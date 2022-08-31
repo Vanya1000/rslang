@@ -6,7 +6,7 @@ import { RootState } from './store';
 export type GameState = {
   words: WordType[];
   currentGame: string | null;
-  currentGroup: number;
+  currentGameGroup: number;
   currentPage: number;
   isFetching: boolean;
   currentWordIndex: number;
@@ -16,7 +16,7 @@ export type GameState = {
 const initialState: GameState = {
   words: [],
   currentGame: null,
-  currentGroup: 0,
+  currentGameGroup: 0,
   currentPage: 0,
   isFetching: false,
   currentWordIndex: 0,
@@ -27,7 +27,7 @@ export const fetchGameWords = createAsyncThunk<WordType[] | undefined, void, { s
   'game/fetchGameWords',
   async (_, { getState }) => {
     try {
-      const { currentGroup, currentPage } = getState().game;
+      const { currentGameGroup: currentGroup, currentPage } = getState().game;
       const { status, data } = await wordsAPI.getWordsNoAuth(currentGroup, currentPage);
       if (status === 200) {
         return data;
@@ -46,10 +46,10 @@ export const gameSlice = createSlice({
     setCurrentGame(state, action: PayloadAction<string | null>) {
       state.currentGame = action.payload;
     },
-    setCurrentGroup(state, action: PayloadAction<number>) {
-      state.currentGroup = action.payload;
+    setCurrentGameGroup(state, action: PayloadAction<number>) {
+      state.currentGameGroup = action.payload;
     },
-    setCurrentPage(state, action: PayloadAction<number>) {
+    setCurrentGamePage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
     setWords(state, action: PayloadAction<WordType[]>) {
@@ -68,7 +68,7 @@ export const gameSlice = createSlice({
     resetGame(state) {
       state.words = [];
       state.currentGame = null;
-      state.currentGroup = 0;
+      state.currentGameGroup = 0;
       state.currentPage = 0;
       state.isFetching = false;
       state.currentWordIndex = 0;
@@ -88,7 +88,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setCurrentGame, setCurrentGroup, setCurrentPage, setWords, setCurrentWordIndex, addAnswer, playAgain, resetGame } = gameSlice.actions;
+export const { setCurrentGame, setCurrentGameGroup, setCurrentGamePage, setWords, setCurrentWordIndex, addAnswer, playAgain, resetGame } = gameSlice.actions;
 
 export default gameSlice.reducer;
 
@@ -96,7 +96,7 @@ export const selectGameWords = (state: RootState) => state.game.words;
 
 export const selectIsFetching = (state: RootState) => state.game.isFetching;
 
-export const selectCurrentGroup = (state: RootState) => state.game.currentGroup;
+export const selectCurrentGroup = (state: RootState) => state.game.currentGameGroup;
 
 export const selectCurrentPage = (state: RootState) => state.game.currentPage;
 

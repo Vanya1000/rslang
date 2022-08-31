@@ -79,10 +79,15 @@
 .sprint__title {
     font-size: 50px;
     margin: 80px 0 50px 0;
+    text-align: center;
 }
 
 .level-button__wrapper {
     margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .level-button {
@@ -579,8 +584,23 @@
 
 @media (max-width: 600px) {
     .audio-challenge__game,
-    .sprint__game {
+    .sprint__game,
+    .audio-challenge,
+    .sprint {
         min-height: calc(100vh - 55px);
+    }
+}
+
+@media(max-width: 540px) {
+    .audio-challenge__wrapper,
+    .sprint__wrapper {
+        width: 300px;
+        left: calc(50% - 150px);
+    }
+
+    .audio-challenge__description,
+    .sprint__description {
+        width: 300px;
     }
 }
 

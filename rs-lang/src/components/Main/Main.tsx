@@ -19,12 +19,12 @@ const Main = () => {
         <Route path="book" element={<BookPage />} />
         <Route path="game" element={<GamePage />} />
         <Route path="audio-challenge" element={<AudioChallenge />} />
+        <Route path="sprint" element={<Sprint/> }/>
         <Route path="stat" element={<StatPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="*" element={<NotFound />}/>
         <Route path="signup" element={<SignUp />}/>
         <Route path="signin" element={<SignIn />}/>
-        <Route path="sprint" element={<Sprint/> }/>
       </Routes>
   )
 }

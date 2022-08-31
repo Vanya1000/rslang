@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { addAnswer, playAgain, selectCurrentWordIndex, setCurrentWordIndex } from '../../../../store/gameSlice';
-import { fetchGameWords, selectCurrentPage, selectGameWords, setCurrentPage } from '../../../../store/gameSlice';
+import { fetchGameWords, selectCurrentPage, selectGameWords, setCurrentGamePage } from '../../../../store/gameSlice';
 import GameResults from '../GameResults';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
@@ -47,7 +47,7 @@ const SprintCard = (props: { isEnd: boolean, setEnd: React.Dispatch<React.SetSta
     let isNewPage = false;
     while (!isNewPage) {
       if (page !== currentPage) {
-        dispatch(setCurrentPage(page));
+        dispatch(setCurrentGamePage(page));
         dispatch(fetchGameWords());
         isNewPage = true;
       }
