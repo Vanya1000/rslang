@@ -153,3 +153,7 @@ export type AnswerType = {
 }
 
 export type GameType = 'sprint' | 'audioChallenge';
+
+export type StateTypeUseLocation = {
+  from: { pathname: string }
+}

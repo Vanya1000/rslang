@@ -7,12 +7,12 @@ import Header from './Header/Header';
 import { useAppSelector } from '../hooks/hooks';
 
 const Layout = () => {
-  const isLightTheme = true
+  const isLightTheme = useAppSelector(state => state.settings.isLightTheme);
   const location = useLocation();
   const isGamePath = location.pathname.substring(0,5) !== '/game';
   return (
     <>
-    <ThemeProvider theme={isLightTheme ? themeDark : themeLight}>
+    <ThemeProvider theme={isLightTheme ? themeLight : themeDark}>
     <CssBaseline />
       <Header />
       <div style={{ minHeight: 'calc(100vh - 125px)' }}>
