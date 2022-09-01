@@ -80,9 +80,11 @@ export const addOneWordAsLearnedOrNew = createAsyncThunk<void,  'learned' | 'new
           delete data.id;
           const dateNow = getCurrentDate();
           if (data.optional?.wordStatistics?.[path]?.[dateNow]) {
-            data.optional!.wordStatistics![path]![dateNow] = String(Number(data.optional?.wordStatistics?.[path]![dateNow]) + 1);
-          } else {
+            data.optional!.wordStatistics[path]![dateNow] = String(Number(data.optional?.wordStatistics?.[path]![dateNow]) + 1);
+          } else if (data.optional?.wordStatistics?.[path] === null) {
             data.optional!.wordStatistics![path] = {[dateNow]: '1'};
+          } else {
+            data.optional!.wordStatistics![path]![dateNow] = '1';
           }
           dispatch(upsertStatistics(data));
         }
@@ -119,8 +121,10 @@ export const sendAllStatistics = createAsyncThunk<void,  {type: 'learned' | 'new
             }
             if (data.optional?.wordStatistics?.[path]?.[dateNow]) {
               data.optional!.wordStatistics[path]![dateNow] = String(Number(data.optional?.wordStatistics?.[path]![dateNow]) + 1);
-            } else {
+            } else if (data.optional?.wordStatistics?.[path] === null) {
               data.optional!.wordStatistics![path] = {[dateNow]: '1'};
+            } else {
+              data.optional!.wordStatistics![path]![dateNow] = '1';
             }
             if (type === 'new') {
               data.optional.gamesStatistics?.[game]?.countNewWords

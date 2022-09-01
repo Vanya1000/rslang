@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Alert, Link, Stack } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { DataForRegistration, SignUpFormType } from '../../types/type';
@@ -20,7 +20,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 
 
 const SignUp = () => {
+	const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
 	const dispatch = useAppDispatch()
+	const navigate = useNavigate();
 
 	const isSuccessRegistration = useAppSelector((state) => state.user.isSuccessRegistration)
 	const regErrorMessage = useAppSelector((state) => state.user.regErrorMessage)
@@ -40,6 +42,12 @@ const SignUp = () => {
 		dispatch(registration(packData));
 		reset();
 	}
+
+	useEffect(() => {
+		if (isAuth ) {
+			navigate('/');
+		}
+		}, []);
 
 	return (
 		<Container maxWidth="xs">
@@ -131,7 +139,7 @@ const SignUp = () => {
 						</form>
 						<Grid container>
 							<Grid item xs>
-								<Link component={RouterLink} to="/signin" variant="body2">
+								<Link component={RouterLink} to="/signin" replace={true} variant="body2">
 								"Already have an account? Sign in"
 								</Link>
 							</Grid>

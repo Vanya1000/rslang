@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
-import { NavLink, Link as RLink, useNavigate } from 'react-router-dom'
+import { NavLink, Link as RLink, useNavigate, useLocation } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DrawerLayout from './DrawerLayout';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { logout, setIsSignin, setIsSuccessRegistration } from '../../store/userSlice';
+import { logout, setIsSuccessRegistration } from '../../store/userSlice';
 import Setting from '../Common/Setting';
 import { setCurrentGroup, setCurrentPage } from '../../store/bookSlice';
 
@@ -15,11 +15,9 @@ const underLine = (isActive: unknown) => (isActive ? 'underline' : 'none');
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const redirect = useNavigate();
   const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
-  const isSignIn = useAppSelector(state => state.user.isSignin);
   const userName = useAppSelector(state => state.user?.user?.name);
-
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const logoutCb = () => {
@@ -28,13 +26,6 @@ const Header = () => {
     dispatch(setCurrentGroup(0));
     dispatch(setIsSuccessRegistration(false));
   }
-
-  useEffect(() => {
-    if (isSignIn === true) {
-      redirect('/');
-      dispatch(setIsSignin(false));
-    }
-  }, [isSignIn])
 
   return (
     <>
@@ -85,7 +76,7 @@ const Header = () => {
             : <Box>
             <Setting />
             <Button color="inherit">
-            <RLink style={{ textDecoration: 'none', color: 'white' }} to='/signin'>Sign in</RLink>
+            <RLink style={{ textDecoration: 'none', color: 'white' }} to='/signin' state={{from: location.pathname}}>Sign in</RLink>
             </Button> 
             </Box>
             }

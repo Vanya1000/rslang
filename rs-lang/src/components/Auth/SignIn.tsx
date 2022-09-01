@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,24 +9,33 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { Alert, Link, Stack } from '@mui/material'
-import { SignInFormType } from '../../types/type';
+import { SignInFormType, StateTypeUseLocation } from '../../types/type';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { login } from '../../store/userSlice';
 
-
-
-
 const SignIn = () => {
+	const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
+	const navigate = useNavigate();
+	const { state } = useLocation();
+	const fromPage = (state as StateTypeUseLocation)?.from || '/';
+
 	const dispatch = useAppDispatch();
 	const loginErrorMessage = useAppSelector((state) => state.user.regErrorMessage);
 
 	const { register, handleSubmit, formState: { errors } } = useForm<SignInFormType>();
 
 	const onSubmit: SubmitHandler<SignInFormType> = data => {
-		dispatch(login(data));
+		dispatch(login({dataUser: data, cb: () => navigate( fromPage, { replace: true } )}));
 	}
+	
+	useEffect(() => {
+	if (isAuth) {
+		navigate('/');
+	}
+	}, []);
+
 
 	return (
 		<Container component="main" maxWidth="xs">

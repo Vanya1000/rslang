@@ -9,14 +9,12 @@ export type userState = {
   user: userType | null;
   isSuccessRegistration: boolean;
   regErrorMessage: string;
-  isSignin: boolean;
 }
 
 const initialState: userState = {
   user: null,
   isSuccessRegistration: false,
   regErrorMessage: '',
-  isSignin: false,
 };
 
 // below we write asynchronism
@@ -36,16 +34,16 @@ export const registration = createAsyncThunk<void, DataForRegistration, {state: 
   }
 );
 
-export const login = createAsyncThunk<void, SignInFormType, {state: RootState}>(
+export const login = createAsyncThunk<void, {dataUser: SignInFormType, cb: () => void}, {state: RootState}>(
   'user/login',
-  async (dataUser, {dispatch}) => {
+  async ({dataUser, cb}, {dispatch}) => {
     try {
       dispatch(setRegErrorMessage(''));
       const {data, status} = await AuthService.login(dataUser.email, dataUser.password);
       if (status === 200) {
         dispatch(setUserData(data));
         dispatch(createStatistics());
-        dispatch(setIsSignin(true));
+        cb();
       }
     } catch (error) {
       console.log(error.response.status)
@@ -92,9 +90,6 @@ export const userSlice = createSlice({
     updateToken: (state, action: PayloadAction<UpdateTokenType>) => {
       state.user!.token = action.payload.token;
       state.user!.refreshToken = action.payload.refreshToken;
-    },
-    setIsSignin: (state, action: PayloadAction<boolean>) => {
-      state.isSignin = action.payload;
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -105,7 +100,7 @@ export const userSlice = createSlice({
 });
 
 // below we export the actions
-export const { setIsSuccessRegistration, setRegErrorMessage, setUserData, logout, updateToken, setIsSignin } = userSlice.actions;
+export const { setIsSuccessRegistration, setRegErrorMessage, setUserData, logout, updateToken } = userSlice.actions;
 
 export default userSlice.reducer;
 

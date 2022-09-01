@@ -1,6 +1,6 @@
 import React from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { themeDark, themeLight } from '../theme/createTheme';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -8,15 +8,17 @@ import { useAppSelector } from '../hooks/hooks';
 
 const Layout = () => {
   const isLightTheme = useAppSelector(state => state.settings.isLightTheme);
+  const location = useLocation();
+  const isGamePath = location.pathname.substring(0,5) !== '/game';
   return (
     <>
-    <ThemeProvider theme={isLightTheme ? themeDark : themeLight}>
+    <ThemeProvider theme={isLightTheme ? themeLight : themeDark}>
     <CssBaseline />
       <Header />
       <div style={{ minHeight: 'calc(100vh - 125px)' }}>
         <Outlet />
       </div>
-      <Footer />
+      {isGamePath && <Footer />}
       </ThemeProvider>
     </>
   );
