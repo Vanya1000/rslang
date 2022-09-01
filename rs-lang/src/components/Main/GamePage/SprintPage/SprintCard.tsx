@@ -31,6 +31,21 @@ const SprintCard = (props: {
 
   const dispatch = useAppDispatch();
 
+  const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowRight') {
+      checkAnswer('wrong');
+    } else if (e.key === 'ArrowLeft') {
+      checkAnswer('right');
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeydown);
+    return () => {
+      document.removeEventListener('keydown', onKeydown);
+    };
+  }, [option]);
+
   useEffect(() => {
     const array: string[] = [];
     array.push(gameWords[wordIndex].wordTranslate);
@@ -46,10 +61,10 @@ const SprintCard = (props: {
     setTimeout(() => setAnimate(null), 700);
   }, [wordIndex]);
 
-  const checkAnswer = (button: string) => {
+  const checkAnswer = (choice: string) => {
       const wordId = gameWords[wordIndex].id!;
-      if (gameWords[wordIndex].wordTranslate === option && button === 'right' || 
-      gameWords[wordIndex].wordTranslate !== option && button === 'wrong') {
+      if (gameWords[wordIndex].wordTranslate === option && choice === 'right' || 
+      gameWords[wordIndex].wordTranslate !== option && choice === 'wrong') {
         setAnimate('green');
           dispatch(
             addAnswer({ wordId: wordId, status: 'right' })
@@ -69,7 +84,7 @@ const SprintCard = (props: {
       } else {
         setAnimate('red');
           dispatch(
-            addAnswer({ wordId: gameWords[wordIndex].id!, status: 'wrong' })
+            addAnswer({ wordId: wordId, status: 'wrong' })
           );
         if (user) {
           dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'sprint', series: 0}));
@@ -102,8 +117,8 @@ const SprintCard = (props: {
         <div className="sprint__word">{gameWords[wordIndex].word}</div>
         <div className="sprint__translation">{option}</div>
         <div className="sprint__buttons">
-          <button className="sprint__button_right" onClick={() => checkAnswer('right')}>RIGHT</button>
-          <button className="sprint__button_wrong" onClick={() => checkAnswer('wrong')}>WRONG</button>
+          <button className="sprint__button_right" onClick={() => checkAnswer('right')}>◄ RIGHT</button>
+          <button className="sprint__button_wrong" onClick={() => checkAnswer('wrong')}>WRONG ►</button>
         </div>
       </div>
     </div>

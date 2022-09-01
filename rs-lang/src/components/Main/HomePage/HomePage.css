@@ -24,22 +24,13 @@
     background-image: url(../../../assets/images/laptop.jpg);
 }
 
-.possibilities {
-    background-image: url(../../../assets/images/curvy-lines.png);
-}
-
-.advantages {
-    background-image: url(../../../assets/images/curvy-lines.png);
-    background-color: #d8d8d8;
-}
-
 .hero__container {
     position: absolute;
     width: 700px;
     top: 300px;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #F5F5F7;
+    color: #ffffff;
     text-shadow: #313131 1px 0 10px;
     background-color: #3131317e;
     border-radius: 5px;
@@ -130,7 +121,7 @@
 
 .possibilities,
 .advantages {
-    color: #313131;
+    color: inherit;
 }
 
 .possibilities__container {
@@ -157,6 +148,7 @@
 
 .possibilities__img {
     width: 50px;
+    filter: brightness(0) saturate(100%) invert(45%) sepia(93%) saturate(343%) hue-rotate(159deg) brightness(90%) contrast(87%);
 }
 
 .advantages__container {

@@ -95,16 +95,16 @@
     height: 60px;
     border: 1px solid #F5F5F7;
     font-size: 20px;
-    color:#313131d3;
+    color: inherit;
     transition: background-color 0.3s;
 }
 
 .level-button:nth-child(1) {
-    background-color: #ffef62;
+    background-color: #eee272;
 }
 
 .level-button:nth-child(1):hover {
-    background-color: #ffef62e9;
+    background-color: rgba(255, 239, 98, 0.699)
 }
 
 .level-button:nth-child(2) {
@@ -136,7 +136,7 @@
 }
 
 .level-button:nth-child(5):hover {
-    background-color: #6573c3d8;
+    background-color: #6573c3f2;
 }
 
 .level-button:nth-child(6) {
@@ -271,6 +271,7 @@
     overflow: hidden;
     position: relative;
     border-radius: 50%;
+    color: #000000;
 }
 
 .content__button:hover,
@@ -313,6 +314,7 @@
 .sprint__button_right,
 .sprint__button_wrong {
     margin: 10px;
+    color: inherit;
 }
 
 .sprint__button_right {
@@ -366,6 +368,7 @@
     left: calc(50% - 300px);
     border-radius: 5px;
     border: 2px solid #6573c3;
+    color: #000000;
 }
 
 .sprint__statistics {
