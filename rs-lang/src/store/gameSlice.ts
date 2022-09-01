@@ -82,7 +82,7 @@ export const gameSlice = createSlice({
         state.isFetching = true;
       })
       .addCase(fetchGameWords.fulfilled, (state, action) => {
-        state.words = action.payload!;
+        state.words = [...state.words, ...action.payload!];
         state.isFetching = false;
       });
   },

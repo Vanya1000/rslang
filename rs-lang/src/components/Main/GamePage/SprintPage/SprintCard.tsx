@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
-import { addAnswer, selectWordIndex, setGameWords, setWordIndex } from '../../../../store/gameSlice';
+import { addAnswer, selectWordIndex, setWordIndex } from '../../../../store/gameSlice';
 import { selectGameWords } from '../../../../store/gameSlice';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
@@ -78,11 +78,6 @@ const SprintCard = (props: {
         playAudio(mistakeAudioPath);
         props.setBonus(10);
         props.setBonusProgress(0);
-      }
-
-      if (wordIndex === gameWords.length - 1) {
-        const shuffledWords = shuffle(gameWords);
-        dispatch(setGameWords(gameWords.concat(shuffledWords)));
       }
       dispatch(setWordIndex());
   };

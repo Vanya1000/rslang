@@ -1,7 +1,7 @@
 import '../Game.css';
 import CircularProgressWithLabel from '../CircularProgressWithLabel';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
-import { playAgain, selectGameGroup, selectIsFetching } from '../../../../store/gameSlice';
+import { playAgain, selectGameGroup, selectIsFetching, selectAnswers } from '../../../../store/gameSlice';
 import { CircularProgress } from '@mui/material';
 import SprintCard from './SprintCard';
 import { useEffect, useState } from 'react';
