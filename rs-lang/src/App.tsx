@@ -21,8 +21,8 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="book" element={<BookPage />} />
         <Route path="game" element={<GamePage />} />
-        <Route path="audio-challenge" element={<AudioChallenge />} />
-        <Route path="sprint" element={<Sprint />} />
+        <Route path="game/audio-challenge" element={<AudioChallenge />} />
+        <Route path="game/sprint" element={<Sprint />} />
         <Route path="stat" element={
           <RequireAuth>
             <StatPage />

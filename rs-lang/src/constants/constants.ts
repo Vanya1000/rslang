@@ -1,6 +1,7 @@
 export const WORDS_PER_PAGE = 20;
 export const WORDS_PER_GAME = 20;
 export const SECONDS_PER_MINUTE = 60;
+export const PAGES_PER_GROUP = 30;
 
 export const LEVEL_COLORS: { [key: number]: string } = {
   0: '#ffef62',

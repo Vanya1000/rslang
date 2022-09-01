@@ -82,7 +82,7 @@ export const gameSlice = createSlice({
         state.isFetching = true;
       })
       .addCase(fetchGameWords.fulfilled, (state, action) => {
-        state.words = action.payload!;
+        state.words = [...state.words, ...action.payload!];
         state.isFetching = false;
       });
   },
@@ -106,4 +106,4 @@ export const selectWordIndex = (state: RootState) => state.game.wordIndex;
 
 export const selectAnswers = (state: RootState) => state.game.answers;
 
-export const selectProgress = (state: RootState) => state.game.answers.length * 5;
+export const selectProgress = (state: RootState) => Math.trunc(state.game.answers.length * (100 / state.game.words.length));

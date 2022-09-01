@@ -17,5 +17,5 @@ export const playWordAudio = (gameWords: WordType[], wordIndex: number) => {
 };
 
 export const getGameRoute = (game: GameType) => {
-  return game === 'sprint' ? '/sprint' : '/audio-challenge';
+  return game === 'sprint' ? '/game/sprint' : '/game/audio-challenge';
 }

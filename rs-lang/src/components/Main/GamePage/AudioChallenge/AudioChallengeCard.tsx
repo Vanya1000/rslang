@@ -4,28 +4,24 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   selectWordIndex,
   setWordIndex,
-  addAnswer,
-  playAgain,
-  setGameWords
+  addAnswer
 } from '../../../../store/gameSlice';
 import { selectGameWords } from '../../../../store/gameSlice';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
 import successAudioPath from '../../../../assets/audio/success.mp3';
-import GameResults from '../GameResults';
 import { sendStatistics } from '../../../../store/statisticsSlice';
 import { playAudio, playWordAudio, shuffle } from '../common';
 import { selectUser } from '../../../../store/userSlice';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction<boolean>>, series: number, setSeries: React.Dispatch<React.SetStateAction<number>>}) => {
   const [options, setOptions] = useState<string[]>([]);
   const [isAnswered, setIsAnswered] = useState(false);
   const [rightAnswer, setRightAnswer] = useState<number | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<number | null>(null);
   const [animate, setAnimate] = useState<string | null>('');
-  const [series, setSeries] = useState<number>(0);
 
   const gameWords = useAppSelector(selectGameWords);
   const wordIndex = useAppSelector(selectWordIndex);
@@ -70,9 +66,9 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
           addAnswer({ wordId: wordId, status: 'right' })
         );
         if (user) {
-          dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'audioChallenge', series: series + 1}));
+          dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'audioChallenge', series: props.series + 1}));
         }
-        setSeries((prev) => prev + 1);
+        props.setSeries((prev) => prev + 1);
         playAudio(rightAudioPath);
       } else {
         setWrongAnswer(optionIndex);
@@ -84,7 +80,7 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
         if (user) {
           dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0}));
         }
-        setSeries(0);
+        props.setSeries(0);
         playAudio(mistakeAudioPath);
       }
       setIsAnswered(true);
@@ -114,15 +110,8 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
     }
   };
 
-  const backToGame = () => {
-    setSeries(0);
-    props.setEnd(false);
-    dispatch(playAgain());
-    dispatch(setGameWords(shuffle(gameWords)));
-  }
-
   return (
-    <div className={`audio-challenge__content${props.isEnd ? ' invisible' : ''}${animate === 'red' ? ' background_red' : ' '}
+    <div className={`audio-challenge__content${animate === 'red' ? ' background_red' : ' '}
     ${animate === 'green' ? ' background_green' : ''}`}>
       <div className="content__container">
         <img
@@ -191,7 +180,6 @@ const AudioChallengeCard = (props: {isEnd: boolean, setEnd: React.Dispatch<React
       >
         NEXT
       </button>
-      <GameResults open={props.isEnd} setEnd={props.setEnd} backToGame={backToGame}/>
     </div>
   );
 };
