@@ -195,6 +195,16 @@
 .sprint__bonus {
     color:#ff000097;
     margin: 10px;
+    height: 20px;
+    animation: animate-color 1s infinite;
+}
+
+@keyframes animate-color {
+    0% {opacity: 1;}
+    20% {opacity: 0.5;}
+    40% {opacity: 1;}
+    60% {opacity: 0.5;}
+    80% {opacity: 1;}
 }
 
 .content__container {
@@ -346,8 +356,7 @@
     outline: none;
 }
 
-.audio-challenge__statistics,
-.sprint__statistics {
+.statistics {
     width: 600px;
     height: 520px;
     background-color: #f5f5f7a4;
