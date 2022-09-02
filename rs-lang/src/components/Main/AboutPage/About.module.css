@@ -22,7 +22,6 @@ h4 {
   display: flex;
   max-width: 700px;
   margin-bottom: 40px;
-
 }
 
 .imgWrapperLeft {
@@ -59,7 +58,7 @@ h4 {
 }
 
 .name img:hover {
-  width: 50px;
+  width: 38px;
 }
 
 .leftBlock {
