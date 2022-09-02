@@ -15,6 +15,7 @@ import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
 import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/hooks';
 
 
 type DrawerLayoutPropsType = {
@@ -25,11 +26,11 @@ type DrawerLayoutPropsType = {
 
 
 const DrawerLayout: React.FC<DrawerLayoutPropsType> = ({menuOpen, closeMenu}) => {
-
+  const isLightTheme = useAppSelector(state => state.settings.isLightTheme);
 
   const linkStyle = {
     textDecoration: 'none',
-    color: 'rgb(0,0,0,0.8)',
+    color: isLightTheme ? 'rgb(0,0,0,0.8)' : 'rgb(255,255,255,0.8)',
   };
 
   return (
