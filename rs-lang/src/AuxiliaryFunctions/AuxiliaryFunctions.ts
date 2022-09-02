@@ -53,7 +53,7 @@ export const calculateUserWordData = (game: 'audioChallenge' | 'sprint', type: '
       data.optional!.countRightAnswers = String(Number(countRightAnswers) - 1);
     }
   }
-  data.optional!.game![game]![type] ? data.optional!.game![game]![type] = String(Number(data.optional!.game![game]![type]) + 1) : data.optional!.game![game]![type] = '1';
+  data.optional?.game?.[game]?.[type] ? data.optional.game[game]![type] = String(Number(data.optional!.game![game]![type]) + 1) : data.optional!.game![game]![type] = '1';
   return data;
 }
 

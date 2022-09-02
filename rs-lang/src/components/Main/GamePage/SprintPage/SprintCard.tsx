@@ -8,7 +8,7 @@ import volume from '../../../../assets/images/volume.png';
 import { playAudio, playWordAudio, shuffle } from '../common';
 import { sendStatistics } from '../../../../store/statisticsSlice';
 import { selectUser } from '../../../../store/userSlice';
-
+import successAudioPath from '../../../../assets/audio/success.mp3';
 
 const SprintCard = (props: {
     setEnd: React.Dispatch<React.SetStateAction<boolean>>,
@@ -20,16 +20,28 @@ const SprintCard = (props: {
     bonus: number,
     setBonus: React.Dispatch<React.SetStateAction<number>>,
     bonusProgress: number,
-    setBonusProgress: React.Dispatch<React.SetStateAction<number>>
+    setBonusProgress: React.Dispatch<React.SetStateAction<number>>,
+    timer: number,
   }) => {
   const [option, setOption] = useState<string>('');
-  const [animate, setAnimate] = useState<string | null>('');
+  const [animate, setAnimate] = useState<string | null>(null);
 
   const gameWords = useAppSelector(selectGameWords);
   const wordIndex = useAppSelector(selectWordIndex);
   const user = useAppSelector(selectUser);
 
   const dispatch = useAppDispatch();
+
+    useEffect(() => {
+    if (props.timer === 0) {
+      props.setEnd(true);
+      playAudio(successAudioPath);
+    } else {
+      setTimeout(() => {
+        props.setTimer((prev) => prev - 1);
+      }, 1000);
+    }
+  }, [props.timer]);
 
   const onKeydown = (e: KeyboardEvent) => {
     if (e.key === 'ArrowRight') {
@@ -62,39 +74,49 @@ const SprintCard = (props: {
   }, [wordIndex]);
 
   const checkAnswer = (choice: string) => {
-      const wordId = gameWords[wordIndex].id!;
-      if (gameWords[wordIndex].wordTranslate === option && choice === 'right' || 
-      gameWords[wordIndex].wordTranslate !== option && choice === 'wrong') {
-        setAnimate('green');
-          dispatch(
-            addAnswer({ wordId: wordId, status: 'right' })
-          );
-        if (user) {
-          dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'sprint', series: props.series + 1}));
-        }
-        props.setSeries((prev) => prev + 1);
-        playAudio(rightAudioPath);
-        props.setPoints((prev) => prev + props.bonus);
-        if (props.bonusProgress === 3) {
-          props.setBonus((prev) => prev + 10);
-          props.setBonusProgress(0);
-        } else {
-          props.setBonusProgress((prev) => prev + 1);
-        }
-      } else {
-        setAnimate('red');
-          dispatch(
-            addAnswer({ wordId: wordId, status: 'wrong' })
-          );
-        if (user) {
-          dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'sprint', series: 0}));
-        }
-        props.setSeries(0);
-        playAudio(mistakeAudioPath);
-        props.setBonus(10);
-        props.setBonusProgress(0);
+    let wordId;
+    if (user) {
+      wordId = gameWords[wordIndex]._id!;
+    } else {
+      wordId = gameWords[wordIndex].id!;
+    }
+    if (gameWords[wordIndex].wordTranslate === option && choice === 'right' || 
+    gameWords[wordIndex].wordTranslate !== option && choice === 'wrong') {
+      setAnimate('green');
+        dispatch(
+          addAnswer({ wordId: wordId, status: 'right' })
+        );
+      if (user) {
+        dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'sprint', series: props.series + 1}));
       }
+      props.setSeries((prev) => prev + 1);
+      playAudio(rightAudioPath);
+      props.setPoints((prev) => prev + props.bonus);
+      if (props.bonusProgress === 3) {
+        props.setBonus((prev) => prev + 10);
+        props.setBonusProgress(0);
+      } else {
+        props.setBonusProgress((prev) => prev + 1);
+      }
+    } else {
+      setAnimate('red');
+        dispatch(
+          addAnswer({ wordId: wordId, status: 'wrong' })
+        );
+      if (user) {
+        dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'sprint', series: 0}));
+      }
+      props.setSeries(0);
+      playAudio(mistakeAudioPath);
+      props.setBonus(10);
+      props.setBonusProgress(0);
+    }
+    if (wordIndex === gameWords.length - 1) {
+      props.setEnd(true);
+      playAudio(successAudioPath);
+    } else {
       dispatch(setWordIndex());
+    }
   };
 
   return (

@@ -58,7 +58,12 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
 
   const checkAnswer = (optionIndex: number) => {
     if (!isAnswered) {
-      const wordId = gameWords[wordIndex].id!;
+      let wordId;
+      if (user) {
+        wordId = gameWords[wordIndex]._id!;
+      } else {
+        wordId = gameWords[wordIndex].id!;
+      }
       if (gameWords[wordIndex].wordTranslate === options[optionIndex]) {
         setRightAnswer(optionIndex);
         setAnimate('green');
@@ -88,10 +93,15 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
   };
 
   const skipAnswer = () => {
-    const wordId = gameWords[wordIndex].id!;
+    let wordId;
+    if (user) {
+      wordId = gameWords[wordIndex]._id!;
+    } else {
+      wordId = gameWords[wordIndex].id!;
+    }
     setAnimate('red');
     dispatch(
-      addAnswer({ wordId: gameWords[wordIndex].id!, status: 'wrong' })
+      addAnswer({ wordId: wordId, status: 'wrong' })
     );
     displayRightAnswer();
     if (user) {

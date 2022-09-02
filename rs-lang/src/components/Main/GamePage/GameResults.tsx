@@ -4,6 +4,7 @@ import { selectGame, selectGameWords } from '../../../store/gameSlice';
 import { WordType } from '../../../types/type';
 import { useNavigate } from 'react-router-dom';
 import GameWord from './GameWord';
+import { selectUser } from '../../../store/userSlice';
 
 export type StatisticsType = {
   rightAnswers: WordType[];
@@ -15,6 +16,7 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
   const words = useAppSelector(selectGameWords);
   const answers = useAppSelector(selectAnswers);
   const game = useAppSelector(selectGame);
+  const user = useAppSelector(selectUser);
 
   const navigate = useNavigate();
 
@@ -28,7 +30,12 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
     let rightAnswersInRow = 0;
 
     for (const answer of answers) {
-      const word = words.find((item) => item.id === answer.wordId)!;
+      let word;
+      if (user) {
+        word = words.find((item) => item._id === answer.wordId)!;
+      } else {
+        word = words.find((item) => item.id === answer.wordId)!;
+      }
       switch (answer.status) {
         case 'right':
           statistics.rightAnswers.push(word);
@@ -63,8 +70,8 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
           <div className="statistics__buttons">
             <button className={`${game === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => props.backToGame()}>PLAY AGAIN</button>
-            <button className={`${game === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToGames()}>BACK TO GAMES</button>
-            <button className={`${game === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToTextbook()}>BACK TO TEXTBOOK</button>
+            <button className={`${game === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToGames()}>GAMES</button>
+            <button className={`${game === 'sprint' ? ' statistics__button_sprint' : ' statistics__button'}`} onClick={() => backToTextbook()}>TEXTBOOK</button>
           </div>
 
           <div className="statistics__wrapper">
@@ -82,10 +89,10 @@ const AudioChallengeResults = (props: {open: boolean, setEnd: React.Dispatch<Rea
 
           <div className="statistics__words">
             <h3>{statistics.rightAnswers.length === 0 ? '' : 'REPEATED WORDS'}</h3>
-            {statistics.rightAnswers.map((answer) => <GameWord answer={answer} key={answer.id}/>)}
+            {statistics.rightAnswers.map((answer) => <GameWord answer={answer} key={answer.textExample}/>)}
 
               <h3>{statistics.wrongAnswers.length === 0 ? '' : 'MISTAKES'}</h3>
-            {statistics.wrongAnswers.map((answer) => <GameWord answer={answer} key={answer.id}/>)}
+            {statistics.wrongAnswers.map((answer) => <GameWord answer={answer} key={answer.textExample}/>)}
           </div>
 
         </div>
