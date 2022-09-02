@@ -4,8 +4,15 @@ import vanyaImg from '../../../assets/aboutImg/vanya.jpeg';
 import mariaImg from '../../../assets/aboutImg/maria.jpg';
 import alexImg from '../../../assets/aboutImg/alex.jpeg';
 import gitHubImg from '../../../assets/footerImg/github.png';
+import gitHubImgWhite from '../../../assets/footerImg/gitW.png';
+import { useAppSelector } from '../../../hooks/hooks';
 
 const AboutPage = () => {
+
+  const isLightTheme = useAppSelector(state => state.settings.isLightTheme);
+  console.log(isLightTheme);
+
+
   return (
     <div className={s.wrapper}>
       <h4>Our Team</h4>
@@ -18,7 +25,10 @@ const AboutPage = () => {
             <div className={s.name}>
               <div>Vanya Zaharenko</div>
               <a href="https://github.com/Vanya1000">
-                <img src={gitHubImg} alt="" />
+                {isLightTheme
+                  ? <img src={gitHubImg} alt="" />
+                  : <img src={gitHubImgWhite} alt="" />
+                }
               </a>
             </div>
             <div className={s.status}>Team leader, Full Stack developer</div>
@@ -36,7 +46,10 @@ const AboutPage = () => {
           <div className={s.info}>
             <div className={`${s.name} ${s.nameReverse}`}>
               <a href="https://github.com/sleepyMaryAlex">
-                <img src={gitHubImg} alt="" />
+                {isLightTheme
+                  ? <img src={gitHubImg} alt="" />
+                  : <img src={gitHubImgWhite} alt="" />
+                }
               </a>
               <div>Mary Huchkova</div>
             </div>
@@ -56,7 +69,10 @@ const AboutPage = () => {
             <div className={s.name}>
               <div>Alexander Nechaenkov</div>
               <a href="https://github.com/kettl96">
-                <img src={gitHubImg} alt="" />
+                {isLightTheme
+                  ? <img src={gitHubImg} alt="" />
+                  : <img src={gitHubImgWhite} alt="" />
+                }
               </a>
             </div>
             <div className={s.status}>Frontend developer</div>

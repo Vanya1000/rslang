@@ -53,8 +53,9 @@ h4 {
 
 .name img {
   cursor: pointer;
-  width: 45px;
+  width: 30px;
   transition: ease-in-out 0.2s;
+  margin: 0 10px;
 }
 
 .name img:hover {
