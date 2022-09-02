@@ -1,4 +1,4 @@
-import GameGroupButton from "../GameGroupButton";
+import GameGroupButton from '../GameGroupButton';
 import '../Game.css';
 
 const AudioChallengeGroup = () => {

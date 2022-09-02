@@ -16,18 +16,51 @@ import { selectUser } from '../../../../store/userSlice';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction<boolean>>, series: number, setSeries: React.Dispatch<React.SetStateAction<number>>}) => {
+const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction<boolean>>, series: number, setSeries: React.Dispatch<React.SetStateAction<number>> }) => {
   const [options, setOptions] = useState<string[]>([]);
   const [isAnswered, setIsAnswered] = useState(false);
   const [rightAnswer, setRightAnswer] = useState<number | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<number | null>(null);
   const [animate, setAnimate] = useState<string | null>('');
+  const [option, setOption] = useState('');
+
 
   const gameWords = useAppSelector(selectGameWords);
   const wordIndex = useAppSelector(selectWordIndex);
   const user = useAppSelector(selectUser);
 
   const dispatch = useAppDispatch();
+
+  const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === ' ') {
+      skipAnswer()
+
+    }
+    if (e.key === '1') {
+      console.log('rrr');
+
+    }
+    if (e.key === '2') {
+      console.log('lll');
+
+    }
+    if (e.key === '3') {
+      console.log('lll');
+
+    }
+    if (e.key === '4') {
+      console.log('lll');
+
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeydown);
+    return () => {
+      document.removeEventListener('keydown', onKeydown);
+    };
+  }, [option]);
+
 
   useEffect(() => {
     playWordAudio(gameWords, wordIndex);
@@ -66,7 +99,7 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
           addAnswer({ wordId: wordId, status: 'right' })
         );
         if (user) {
-          dispatch(sendStatistics({type: 'right', wordId: wordId, game: 'audioChallenge', series: props.series + 1}));
+          dispatch(sendStatistics({ type: 'right', wordId: wordId, game: 'audioChallenge', series: props.series + 1 }));
         }
         props.setSeries((prev) => prev + 1);
         playAudio(rightAudioPath);
@@ -78,7 +111,7 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
         );
         displayRightAnswer();
         if (user) {
-          dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0}));
+          dispatch(sendStatistics({ type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0 }));
         }
         props.setSeries(0);
         playAudio(mistakeAudioPath);
@@ -95,7 +128,7 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
     );
     displayRightAnswer();
     if (user) {
-      dispatch(sendStatistics({type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0}));
+      dispatch(sendStatistics({ type: 'wrong', wordId: wordId, game: 'audioChallenge', series: 0 }));
     }
     playAudio(mistakeAudioPath);
     setIsAnswered(true);
@@ -121,9 +154,8 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
         />
         <div className="content__wrapper">
           <img
-            className={`content__volume${
-              isAnswered ? '' : ' content__volume_active'
-            }`}
+            className={`content__volume${isAnswered ? '' : ' content__volume_active'
+              }`}
             src={volume}
             alt=""
             onClick={() => playWordAudio(gameWords, wordIndex)}
@@ -136,33 +168,29 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
 
       <ul className="content__list">
         <li
-          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
-            rightAnswer === 0 ? ' list__item_green' : ''
-          }${wrongAnswer === 0 ? ' list__item_red' : ''}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${rightAnswer === 0 ? ' list__item_green' : ''
+            }${wrongAnswer === 0 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(0)}
         >
           {options[0]}
         </li>
         <li
-          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
-            rightAnswer === 1 ? ' list__item_green' : ''
-          }${wrongAnswer === 1 ? ' list__item_red' : ''}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${rightAnswer === 1 ? ' list__item_green' : ''
+            }${wrongAnswer === 1 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(1)}
         >
           {options[1]}
         </li>
         <li
-          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
-            rightAnswer === 2 ? ' list__item_green' : ''
-          }${wrongAnswer === 2 ? ' list__item_red' : ''}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${rightAnswer === 2 ? ' list__item_green' : ''
+            }${wrongAnswer === 2 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(2)}
         >
           {options[2]}
         </li>
         <li
-          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${
-            rightAnswer === 3 ? ' list__item_green' : ''
-          }${wrongAnswer === 3 ? ' list__item_red' : ''}`}
+          className={`list__item${isAnswered ? ' list__item_inactive' : ''}${rightAnswer === 3 ? ' list__item_green' : ''
+            }${wrongAnswer === 3 ? ' list__item_red' : ''}`}
           onClick={() => checkAnswer(3)}
         >
           {options[3]}
