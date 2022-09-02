@@ -19,11 +19,14 @@ export const settingsSlice = createSlice({
   reducers: {
     setIsShowTranslation: (state, action) => {
       state.isShowTranslation = action.payload;
+    },
+    setIsLightTheme: (state, action) => {
+      state.isLightTheme = action.payload;
     }
   },
 });
 
 // below we export the actions
-export const { setIsShowTranslation } = settingsSlice.actions;
+export const { setIsShowTranslation, setIsLightTheme } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
