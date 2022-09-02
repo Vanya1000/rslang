@@ -22,8 +22,6 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
   const [rightAnswer, setRightAnswer] = useState<number | null>(null);
   const [wrongAnswer, setWrongAnswer] = useState<number | null>(null);
   const [animate, setAnimate] = useState<string | null>('');
-  const [option, setOption] = useState('');
-
 
   const gameWords = useAppSelector(selectGameWords);
   const wordIndex = useAppSelector(selectWordIndex);
@@ -31,35 +29,12 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
 
   const dispatch = useAppDispatch();
 
-  const onKeydown = (e: KeyboardEvent) => {
-    if (e.key === ' ') {
-      skipAnswer()
-
-    }
-    if (e.key === '1') {
-      console.log('rrr');
-
-    }
-    if (e.key === '2') {
-      console.log('lll');
-
-    }
-    if (e.key === '3') {
-      console.log('lll');
-
-    }
-    if (e.key === '4') {
-      console.log('lll');
-
-    }
-  }
-
   useEffect(() => {
     document.addEventListener('keydown', onKeydown);
     return () => {
       document.removeEventListener('keydown', onKeydown);
     };
-  }, [option]);
+  }, [options]);
 
 
   useEffect(() => {
@@ -152,6 +127,24 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
       props.setEnd(true);
     }
   };
+
+  let keyDownCount = 0
+  const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      playWordAudio(gameWords, wordIndex)
+      return
+    }
+    if (e.key === ' ') {
+      keyDownCount
+      ? `${displayNextWord(), keyDownCount = 0}`
+      : `${ skipAnswer(), keyDownCount = 1}`
+    }
+    if ([1, 2, 3, 4].includes(parseInt(e.key))) {
+      checkAnswer(parseInt(e.key) - 1)
+      keyDownCount = 1
+      return
+    }
+  }
 
   return (
     <div className={`audio-challenge__content${animate === 'red' ? ' background_red' : ' '}
