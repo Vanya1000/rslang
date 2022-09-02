@@ -4,6 +4,7 @@ import { GameType } from '../../../types/type';
 
 const CircularProgressWithLabel = (props: CircularProgressProps & { value: number, game: GameType }) => {
   const value = props.game === 'sprint' ? props.value * 100 / SECONDS_PER_MINUTE : props.value;
+
   return (
     <div className="diagram">
       <CircularProgress color="info" size="4rem" variant="determinate" value={value} thickness={2}
