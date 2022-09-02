@@ -11,6 +11,7 @@ export type GameState = {
   isFetching: boolean;
   wordIndex: number;
   answers: AnswerType[];
+  isFromBook: boolean | null;
 }
 
 const initialState: GameState = {
@@ -21,19 +22,123 @@ const initialState: GameState = {
   isFetching: false,
   wordIndex: 0,
   answers: [],
+  isFromBook: null,
 };
+
+const fetchWordsNoAuth = async (group: number, page: number): Promise<WordType[] | undefined> => {
+  try {
+    const { status, data } = await wordsAPI.getWordsNoAuth(group, page);
+    if (status === 200) {
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const fetchWordsAuth = async (group: number, page: number, userId: string): Promise<WordType[] | undefined> => {
+  try {
+    const { status, data } = await wordsAPI.getWordsAuth(group, page, userId);
+    if (status === 200) {
+      return data[0].paginatedResults;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const fetchSprintWordsFromBook = async (group: number, page: number, userId: string): Promise<WordType[]> => {
+  let currentPage = page;
+  const allWords: WordType[] = [];
+  while (currentPage >= 0 && allWords.length < 200) {
+    const words = await fetchWordsAuth(group, currentPage, userId);
+    if (words) {
+      allWords.push(...words.filter((word) => word.userWord?.difficulty !== 'learned'));
+    }
+    if (currentPage === 0) {
+      break;
+    }
+    currentPage -= 1;
+  }
+  return allWords;
+}
+
+const fetchSprintWordsFromGame = async (group: number, page: number, userId?: string): Promise<WordType[]> => {
+  let currentPage = page;
+  const allWords: WordType[] = [];
+  while (allWords.length < 200) {
+    const words = userId
+      ? await fetchWordsAuth(group, currentPage, userId!)
+      : await fetchWordsNoAuth(group, currentPage);
+    if (words) {
+      allWords.push(...words);
+    }
+    if (currentPage === 0) {
+      currentPage = 29;
+    } else {
+      currentPage -= 1;
+    }
+  }
+  return allWords;
+}
+
+const fetchAudioChallengeWordsFromBook = async (group: number, page: number, userId: string): Promise<WordType[]> => {
+  let currentPage = page;
+  const allWords: WordType[] = [];
+  while (currentPage >= 0) {
+    const words = await fetchWordsAuth(group, currentPage, userId);
+    if (words) {
+      allWords.push(...words.filter((word) => word.userWord?.difficulty !== 'learned'));
+    }
+    if (allWords.length >= 20) {
+      return allWords.slice(0, 20);
+    }
+    if (currentPage === 0) {
+      break;
+    }
+    currentPage -= 1;
+  }
+  return allWords;
+}
+
+const fetchAudioChallengeWordsFromGame = async (group: number, page: number, userId?: string): Promise<WordType[] | undefined> => {
+  const allWords: WordType[] = [];
+  const words = userId
+    ? await fetchWordsAuth(group, page, userId!)
+    : await fetchWordsNoAuth(group, page);
+  if (words) {
+    allWords.push(...words);
+  }
+  return allWords;
+}
 
 export const fetchGameWords = createAsyncThunk<WordType[] | undefined, void, { state: RootState }>(
   'game/fetchGameWords',
   async (_, { getState }) => {
     try {
-      const { gameGroup, gamePage } = getState().game;
-      const { status, data } = await wordsAPI.getWordsNoAuth(gameGroup!, gamePage!);
-      if (status === 200) {
-        return data;
+      const { game, gameGroup, gamePage, isFromBook } = getState().game;
+      const { user } = getState().user;
+      if (user) {
+        switch (game) {
+          case 'sprint':
+              return isFromBook
+                ? await fetchSprintWordsFromBook(gameGroup!, gamePage!, user!.userId)
+                : await fetchSprintWordsFromGame(gameGroup!, gamePage!, user!.userId);
+          case 'audioChallenge':
+              return isFromBook
+                ? await fetchAudioChallengeWordsFromBook(gameGroup!, gamePage!, user!.userId)
+                : await fetchAudioChallengeWordsFromGame(gameGroup!, gamePage!, user!.userId);
+        }
+      } else {
+        switch (game) {
+          case 'sprint':
+              return await fetchSprintWordsFromGame(gameGroup!, gamePage!);
+          case 'audioChallenge':
+              return await fetchAudioChallengeWordsFromGame(gameGroup!, gamePage!);
+        }
       }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
 );
@@ -43,8 +148,9 @@ export const gameSlice = createSlice({
   initialState,
 
   reducers: {
-    setGame(state, action: PayloadAction<GameType>) {
-      state.game = action.payload;
+    setGame(state, action: PayloadAction<{game: GameType, isFromBook: boolean}>) {
+      state.game = action.payload.game;
+      state.isFromBook = action.payload.isFromBook;
     },
     setGameGroup(state, action: PayloadAction<number>) {
       state.gameGroup = action.payload;
@@ -73,13 +179,14 @@ export const gameSlice = createSlice({
       state.isFetching = false;
       state.wordIndex = 0;
       state.answers = [];
+      state.isFromBook = null;
     },
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(fetchGameWords.pending, (state) => {
-        state.isFetching = true;
+        state.isFetching = state.words.length === 0;
       })
       .addCase(fetchGameWords.fulfilled, (state, action) => {
         state.words = [...state.words, ...action.payload!];

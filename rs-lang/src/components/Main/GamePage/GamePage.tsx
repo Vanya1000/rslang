@@ -13,7 +13,7 @@ const GamePage = () => {
 
   const startGame = (game: GameType) => {
     dispatch(resetGame());
-    dispatch(setGame(game));
+    dispatch(setGame({ game, isFromBook: false }));
     navigate(getGameRoute(game));
   }
 
