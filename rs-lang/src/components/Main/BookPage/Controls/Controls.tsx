@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -27,7 +26,6 @@ import {
 } from "../../../../store/gameSlice";
 import { GameType } from "../../../../types/type";
 import { getGameRoute } from "../../GamePage/common";
-import { PAGES_PER_GROUP } from '../../../../constants/constants';
 
 type ControlsPropsType = {
   isAuth: boolean;
@@ -78,21 +76,10 @@ const Controls: React.FC<ControlsPropsType> = ({
 
   const startGame = (game: GameType) => {
     dispatch(resetGame());
-    dispatch(setGame(game));
+    dispatch(setGame({ game, isFromBook: true }));
     dispatch(setGameGroup(currentGameGroup));
-    let page = currentGamePage;
-    if (game === 'sprint') {
-      for (let i = 0; i < PAGES_PER_GROUP; i++) {
-        if (page === 0) {
-          page = 29;
-        }
-        dispatch(setGamePage(page--));
-        dispatch(fetchGameWords());
-      }
-    } else {
-      dispatch(setGamePage(page));
-      dispatch(fetchGameWords());
-    }
+    dispatch(setGamePage(currentGamePage));
+    dispatch(fetchGameWords());
     navigate(getGameRoute(game));
   };
 
