@@ -5,7 +5,7 @@ import { selectGameWords } from '../../../../store/gameSlice';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
 import volume from '../../../../assets/images/volume.png';
-import { playAudio, playWordAudio, shuffle } from '../common';
+import { additionalWords, playAudio, playWordAudio, shuffle } from '../common';
 import { sendStatistics } from '../../../../store/statisticsSlice';
 import { selectUser } from '../../../../store/userSlice';
 import successAudioPath from '../../../../assets/audio/success.mp3';
@@ -62,9 +62,16 @@ const SprintCard = (props: {
     const array: string[] = [];
     array.push(gameWords[wordIndex].wordTranslate);
     while (array.length < 2) {
-      const index = Math.floor(Math.random() * gameWords.length);
-      if (!array.includes(gameWords[index].wordTranslate)) {
-        array.push(gameWords[index].wordTranslate);
+      if (gameWords.length < 2) {
+        const index = Math.floor(Math.random() * additionalWords.length);
+        if (!array.includes(additionalWords[index])) {
+          array.push(additionalWords[index]);
+        }
+      } else {
+        const index = Math.floor(Math.random() * gameWords.length);
+        if (!array.includes(gameWords[index].wordTranslate)) {
+          array.push(gameWords[index].wordTranslate);
+        }
       }
     }
     const shuffled = shuffle(array);
