@@ -9,7 +9,7 @@ const NoData = () => {
         <Card>
           <CardContent>
             <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
-            The difficult words section is still empty
+            The difficult words section is empty 
               <SentimentSatisfiedIcon
                 fontSize="large"
                 sx={{ mb: '-8px' }}
