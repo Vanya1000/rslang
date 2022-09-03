@@ -9,6 +9,7 @@ import { useState } from 'react';
 import AudioChallengeGroup from './AudioChallengeGroup';
 import GameResults from '../GameResults';
 import { shuffle } from '../common';
+import KeyboardFrame from './KeyboardFrame/KeyboardFrame';
 
 const AudioChallenge = () => {
   const [isEnd, setEnd] = useState(false);
@@ -31,7 +32,7 @@ const AudioChallenge = () => {
   if (isFetching) {
     return (
       <div className="audio-challenge__game">
-        <CircularProgress size="4rem" className="game__progress" color="info" thickness={2}/>
+        <CircularProgress size="4rem" className="game__progress" color="info" thickness={2} />
       </div>
     );
   } else if (gameGroup === null) {
@@ -42,22 +43,22 @@ const AudioChallenge = () => {
     if (isEnd) {
       return (
         <div className="audio-challenge__game">
-          <GameResults open={isEnd} setEnd={setEnd} backToGame={backToGame}/>
+          <GameResults open={isEnd} setEnd={setEnd} backToGame={backToGame} />
         </div>
       )
     } else {
       return (
         <div className="audio-challenge__game">
-  
+
           <div className='game__header'>
-            <CircularProgressWithLabel value={progress} game='audioChallenge'/>
+            <CircularProgressWithLabel value={progress} game='audioChallenge' />
             <h2 className="header__title">AUDIO CHALLENGE</h2>
           </div>
-  
+
           <div className="game__main">
-              <AudioChallengeCard setEnd={setEnd} series={series} setSeries={setSeries}/>
+            <AudioChallengeCard setEnd={setEnd} series={series} setSeries={setSeries} />
           </div>
-  
+            <KeyboardFrame />
         </div>
       );
     }
