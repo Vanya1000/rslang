@@ -12,7 +12,7 @@ const AudioChallengeGroup = () => {
           Be careful, as you just have one guess.
         </div>
         <div className='level-button__wrapper'>
-          {[0, 1, 2, 3, 4, 5].map((index) => <GameGroupButton group={index} key={index} />)}
+          {[0, 1, 2, 3, 4, 5].map((index) => <GameGroupButton game='audioChallenge' group={index} key={index} />)}
         </div>
       </div>
     </div>
