@@ -11,7 +11,7 @@ import rightAudioPath from '../../../../assets/audio/right.mp3';
 import mistakeAudioPath from '../../../../assets/audio/mistake.mp3';
 import successAudioPath from '../../../../assets/audio/success.mp3';
 import { sendStatistics } from '../../../../store/statisticsSlice';
-import { playAudio, playWordAudio, shuffle } from '../common';
+import { additionalWords, playAudio, playWordAudio, shuffle } from '../common';
 import { selectUser } from '../../../../store/userSlice';
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -43,9 +43,16 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
     const array: string[] = [];
     array.push(gameWords[wordIndex].wordTranslate);
     while (array.length < 4) {
-      const index = Math.floor(Math.random() * gameWords.length);
-      if (!array.includes(gameWords[index].wordTranslate)) {
-        array.push(gameWords[index].wordTranslate);
+      if (gameWords.length < 4) {
+        const index = Math.floor(Math.random() * additionalWords.length);
+        if (!array.includes(additionalWords[index])) {
+          array.push(additionalWords[index]);
+        }
+      } else {
+        const index = Math.floor(Math.random() * gameWords.length);
+        if (!array.includes(gameWords[index].wordTranslate)) {
+          array.push(gameWords[index].wordTranslate);
+        }
       }
     }
     const shuffled = shuffle(array);
