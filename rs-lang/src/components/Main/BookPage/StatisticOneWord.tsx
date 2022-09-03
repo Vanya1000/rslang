@@ -42,7 +42,7 @@ const StatisticOneWord: React.FC<StatisticOneWordPropsType> = ({isOpenStatistic,
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                Savannah
+                Sprint
               </TableCell>
               <TableCell align="right">{word.userWord?.optional?.game?.sprint?.right || '-'}</TableCell>
               <TableCell align="right">{word.userWord?.optional?.game?.sprint?.wrong || '-'}</TableCell>

@@ -22,7 +22,6 @@ h4 {
   display: flex;
   max-width: 700px;
   margin-bottom: 40px;
-
 }
 
 .imgWrapperLeft {
@@ -53,12 +52,13 @@ h4 {
 
 .name img {
   cursor: pointer;
-  width: 45px;
+  width: 30px;
   transition: ease-in-out 0.2s;
+  margin: 0 10px;
 }
 
 .name img:hover {
-  width: 50px;
+  width: 38px;
 }
 
 .leftBlock {
