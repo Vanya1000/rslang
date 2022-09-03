@@ -21,12 +21,14 @@ export const IncreaseStat = (data: Array<string>): Array<string> => {
 }
 
 export const createUserWordData = (game: 'audioChallenge' | 'sprint', type: 'right' | 'wrong', data: UserWordType = {}) => {
+  const secondGame = game === 'audioChallenge' ? 'sprint' : 'audioChallenge';
   const res: UserWordType = {
     'optional': {
       'isNew': 'false',
       'countRightAnswers': type === 'right' ? '1' : '0',
     'game': {
-      [game]: type === 'right' ? {'right': '1'} : {'wrong': '1'}
+      [game]: type === 'right' ? {'right': '1'} : {'wrong': '1'},
+      [secondGame]: {'right': null, 'wrong': null}
     }
     }}
     if (data.difficulty === 'learned' && type === 'wrong') {
@@ -50,7 +52,9 @@ export const calculateUserWordData = (game: 'audioChallenge' | 'sprint', type: '
       data.difficulty = 'none';
     }
     if (countRightAnswers) {
-      data.optional!.countRightAnswers = String(Number(countRightAnswers) - 1);
+      if (Number(countRightAnswers) > 0) {
+        data.optional!.countRightAnswers = String(Number(countRightAnswers) - 1);
+      }
     }
   }
   data.optional?.game?.[game]?.[type] ? data.optional.game[game]![type] = String(Number(data.optional!.game![game]![type]) + 1) : data.optional!.game![game]![type] = '1';
