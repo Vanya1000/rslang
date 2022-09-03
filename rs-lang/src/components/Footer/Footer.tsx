@@ -12,7 +12,6 @@ import { useAppSelector } from '../../hooks/hooks';
 const Footer = () => {
   const isLightTheme = useAppSelector(state => state.settings.isLightTheme);
   return (
-    <Container maxWidth={'xl'} sx={{pt: 1, pb: 1}}>
     <div className={s.wrapper}>
       <div className={s.linkWrapper}>
         <div className={s.imgGit}>
@@ -48,7 +47,6 @@ const Footer = () => {
         <img src={isLightTheme ? rsImg : rsImg_dark} alt="rs_course" className={s.rs} />
       </a>
     </div>
-    </Container>
   )
 }
 

@@ -147,6 +147,7 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
       : `${ skipAnswer(), keyDownCount = 1}`
     }
     if ([1, 2, 3, 4].includes(parseInt(e.key))) {
+      if (keyDownCount) return
       checkAnswer(parseInt(e.key) - 1)
       keyDownCount = 1
       return

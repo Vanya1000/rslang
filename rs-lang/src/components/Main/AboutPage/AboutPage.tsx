@@ -8,7 +8,6 @@ import gitHubImgWhite from '../../../assets/footerImg/gitW.png';
 import { useAppSelector } from '../../../hooks/hooks';
 
 const AboutPage = () => {
-
   const isLightTheme = useAppSelector(state => state.settings.isLightTheme);
 
   return (
