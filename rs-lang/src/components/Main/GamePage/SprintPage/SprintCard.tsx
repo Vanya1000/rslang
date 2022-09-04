@@ -31,7 +31,6 @@ const SprintCard = (props: {
   const gameWords = useAppSelector(selectGameWords);
   const wordIndex = useAppSelector(selectWordIndex);
   const user = useAppSelector(selectUser);
-  const isLightTheme = useAppSelector((state) => state.settings.isLightTheme);
 
   const dispatch = useAppDispatch();
 
