@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
+import { setCurrentPlayId } from '../../../../store/bookSlice';
 
 type audioDataType = {
   word: string;
   firstSent: string;
   secondSent: string;
+  wordId: string;
 }
 
 type PlayAudioPropsType = {
@@ -13,9 +16,11 @@ type PlayAudioPropsType = {
 }
 
 const PlayAudio: React.FC<PlayAudioPropsType> = ({audioData}) => {
+  const dispatch = useAppDispatch();
+  const currentPlayId = useAppSelector(state => state.book.currentPlayId);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { word, firstSent, secondSent } = audioData;
+  const { word, firstSent, secondSent, wordId } = audioData;
   const [audio, setAudio] = useState<HTMLAudioElement[] | null>(null);
 
 useEffect(() => {
@@ -46,12 +51,19 @@ useEffect(() => {
   useEffect(() => {
     if (isPlaying) {
       setAudio([new Audio(word), new Audio(firstSent), new Audio(secondSent)]);
+      dispatch(setCurrentPlayId(wordId));
     }
     if (!isPlaying) {
       setAudio(null);
       setIsPlaying(false);
     }
   }, [isPlaying]);
+
+  useEffect(() => {
+    if (currentPlayId !== wordId) {
+      setIsPlaying(false);
+    }
+  }, [currentPlayId]);
 
   return (
     <span>

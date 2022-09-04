@@ -39,7 +39,12 @@ const GraphStat:React.FC<GraphStatPropsType> = ({title, color, dataForGraph, isF
   let labels = ['0'];
   let dataGr = ['0'];
   if (dataForGraph) {
-    labels = Object.keys(dataForGraph);
+    labels = Object.keys(dataForGraph).map((item) => {
+        const reverseArr = item.split('.').reverse();
+        reverseArr[1] = reverseArr[1].length === 1 ? `0${reverseArr[1]}` : reverseArr[1];
+        reverseArr[0] = reverseArr[0].length === 1 ? `0${reverseArr[0]}` : reverseArr[0];
+        return reverseArr.join('.');
+    });
     dataGr = Object.values(dataForGraph)
     if (title === 'Increase learned words') {
       dataGr = IncreaseStat(dataGr);
@@ -66,9 +71,6 @@ const GraphStat:React.FC<GraphStatPropsType> = ({title, color, dataForGraph, isF
     }
   };
   
-
-  
-
   const data = {
     labels,
     datasets: [
