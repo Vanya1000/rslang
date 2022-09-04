@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -17,6 +17,7 @@ import { login } from '../../store/userSlice';
 
 const SignIn = () => {
 	const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
+	const isFetcing = useAppSelector(state => state.user.isFetching);
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const fromPage = (state as StateTypeUseLocation)?.from || '/';
@@ -92,14 +93,16 @@ const SignIn = () => {
 								}
 							})}
 						/>
-						<Button
+						<LoadingButton
+							loading={isFetcing}
+							loadingPosition="end"
 							type="submit"
 							fullWidth
 							variant="contained"
 							sx={{ mt: 3, mb: 2 }}
 						>
 							Sign In
-						</Button>
+						</LoadingButton>
 					</form>
 					<Grid container>
 						<Grid item xs>

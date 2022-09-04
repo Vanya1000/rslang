@@ -5,6 +5,7 @@ import {
   Button,
   IconButton,
   Toolbar,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from '@mui/material';
@@ -136,9 +137,11 @@ const Header = () => {
                   {userNameSlice}
                 </Typography>
                 <Setting />
-                <IconButton aria-label="delete" size="large" onClick={logoutCb}>
-                  <LogoutIcon sx={{ color: '#FFFFFF' }} />
-                </IconButton>
+                <Tooltip arrow  title={'Signout'}>
+                  <IconButton aria-label="delete" size="large" onClick={logoutCb}>
+                    <LogoutIcon sx={{ color: '#FFFFFF' }} />
+                  </IconButton>
+                </Tooltip>
               </span>
             </Box>
           ) : (
