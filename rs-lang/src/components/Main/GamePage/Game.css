@@ -1,16 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
-
 .audio-challenge__game,
 .sprint__game,
 .audio-challenge,
 .sprint {
     width: 100%;
     min-height: calc(100vh - 64px);
-    font-family: 'Work Sans', sans-serif;
+    font-family: inherit;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 0;
+    overflow: hidden;
 }
 
 .audio-challenge__game {
@@ -31,8 +29,8 @@
 .diagram {
     position: absolute;
     display: inline-flex;
-    top: 35px;
-    left: 30px;
+    top: 10px;
+    left: 10px;
 }
 
 .process {
@@ -51,13 +49,29 @@
     font-weight: 500;
 }
 
-.game__header {
-    position: relative;
-    height: 140px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.game__title {
+    font-size: 30px;
+}
+
+.dropdown__button {
+    padding: 5px;
+    border: none;
+    outline: none;
+    background-color: #f5f5f74c;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: inherit;
+    color: inherit;
+}
+
+.dropdown__title {
+    border-bottom: 1px solid;
+    margin: 5px 0 10px 0;
+}
+
+.dropdown__key {
+    margin-bottom: 5px;
 }
 
 .audio-challenge {
@@ -71,7 +85,6 @@
 .header__title,
 .audio-challenge__title,
 .sprint__title {
-    font-family: 'Roboto Condensed', sans-serif;
     margin: 20px 0;
 }
 
@@ -167,7 +180,7 @@
 .audio-challenge__content,
 .sprint__content {
     margin: 0 auto;
-    margin-top: calc(50vh - 370px);
+    margin-top: calc(50vh - 285px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,6 +196,7 @@
 
 .sprint__content {
     width: 500px;
+    margin-top: calc(50vh - 235px);
     border: 2px solid #01A1BB;
 }
 
@@ -242,14 +256,24 @@
     background-color: #5c6dcfc5;
 }
 
-.content__word,
-.sprint__word {
+.content__word {
     font-size: 30px;
     padding: 0 10px;
 }
 
+.sprint__img {
+    height: 30px;
+    background-color: #f5f5f74c;
+    padding: 3px;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    top: 50px;
+    transition: background-color 0.5s;
+}
+
 .sprint__word {
-    margin: 10px;
+    font-size: 30px;
 }
 
 .content__list {
@@ -264,14 +288,13 @@
 .list__item {
     list-style: none;
     background-color: #f5f5f77b;
-    padding: 15px;
-    margin: 5px 10px;
+    padding: 12px;
+    margin: 5px 5px;
     cursor: pointer;
     transition: background-color 0.2s;
     overflow: hidden;
     position: relative;
     border-radius: 50%;
-    color: #000000;
 }
 
 .content__button:hover,
@@ -360,11 +383,11 @@
 
 .statistics {
     width: 600px;
-    height: 520px;
+    height: 50vh;
     background-color: #f5f5f7a4;
-    position: absolute;
+    position: relative;
     overflow-y: auto;
-    top: calc(50% - 250px);
+    top: 18vh;
     left: calc(50% - 300px);
     border-radius: 5px;
     border: 2px solid #6573c3;
@@ -386,8 +409,7 @@
 .statistics__title,
 .statistics__words h3 {
     text-align: center;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .statistics__words h3 {
@@ -465,7 +487,8 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 18px;
+    margin-left: 10px;
 }
 
 .statistics__answers li span {
@@ -512,14 +535,7 @@
     transition: filter 0.4s;
 }
 
-.sprint__img {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.statistics__img:hover,
-.sprint__img:hover {
+.statistics__img:hover {
     filter: brightness(0) saturate(100%) invert(48%) sepia(85%) saturate(1633%) hue-rotate(209deg) brightness(83%) contrast(79%);
 }
 
@@ -560,6 +576,15 @@
     .content__list {
         flex-direction: column;
         text-align: center;
+    }
+
+    .game__title {
+        font-size: 20px;
+        width: 100px;
+        word-wrap: break-word;
+        text-align: center;
+        position: relative;
+        bottom: 10px;
     }
 }
 
@@ -614,17 +639,6 @@
     .audio-challenge__description,
     .sprint__description {
         width: 300px;
-    }
-}
-
-@media(max-width: 500px) {
-    .diagram {
-        top: 70px;
-        left: calc(50% - 32px);
-    }
-
-    .game__header {
-        align-items: flex-start;
     }
 }
 

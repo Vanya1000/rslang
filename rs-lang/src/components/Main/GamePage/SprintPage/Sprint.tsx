@@ -1,5 +1,4 @@
 import '../Game.css';
-import CircularProgressWithLabel from '../CircularProgressWithLabel';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { playAgain, selectGameGroup, selectIsFetching } from '../../../../store/gameSlice';
 import { CircularProgress } from '@mui/material';
@@ -7,6 +6,7 @@ import SprintCard from './SprintCard';
 import SprintGroup from './SprintGroup';
 import GameResults from '../GameResults';
 import { useState } from 'react';
+import KeyboardFrame from '../AudioChallenge/KeyboardFrame/KeyboardFrame';
 
 const Sprint = () => {
   const [isEnd, setEnd] = useState(false);
@@ -51,10 +51,6 @@ const Sprint = () => {
     } else {
       return (
         <div className="sprint__game">
-          <div className='game__header'>
-            <CircularProgressWithLabel value={timer} game="sprint" />
-            <h2 className="header__title">SPRINT</h2>
-          </div>
           <div className="game__main">
             <SprintCard
               setEnd={setEnd}
@@ -70,11 +66,7 @@ const Sprint = () => {
               timer={timer}
             />
           </div>
-          <div className='sprint__keyboard'>
-            <div>You can use keyboard:</div>
-            <div>&nbsp;&nbsp;&larr; <span>- right</span></div>
-            <div>&nbsp;&nbsp;&rarr; <span>- wrong</span></div>
-          </div>
+          <KeyboardFrame />
         </div>
       );
     }

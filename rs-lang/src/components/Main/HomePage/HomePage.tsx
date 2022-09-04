@@ -5,6 +5,7 @@ import dictionary from '../../../assets/images/dictionary.png';
 import games from '../../../assets/images/games.png';
 import statistics from '../../../assets/images/statistics.png';
 import Advantage from './Advantage';
+import { useAppSelector } from '../../../hooks/hooks';
 
 const HomePage = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -13,6 +14,12 @@ const HomePage = () => {
   const [isHeroVisible, setIsHeroVisible] = useState(false);
   const [isPossibilitiesVisible, setIsPossibilitiesVisible] = useState(false);
   const [isAdvantagesVisible, setIsAdvantagesVisible] = useState(false);
+
+  const isLightTheme = useAppSelector(state => state.settings.isLightTheme);
+
+  const style = {
+    backgroundColor: isLightTheme ? '#c9c9cd' : '#3131317e'
+  }
 
   const advantages = [
     {id: 1, title: 'learn anytime'},
@@ -140,11 +147,11 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className='advantages' ref={advantagesRef}>
+      <div className='advantages' ref={advantagesRef} style={style}>
         <h2 className={`title advantages__title${isAdvantagesVisible ? ' title-animation' : ''}`}>ADVANTAGES</h2>
         <div className='advantages__container'>
-          {advantages.map((item) => (
-            <Advantage id={item.id} title={item.title} key={item.id}/>
+          {advantages.map((item, i) => (
+            <Advantage id={item.id} title={item.title} key={item.id} timer={i * 500}/>
           ))}
         </div>
       </div>
