@@ -1,6 +1,6 @@
-import { Box, Button, Card, CardContent, CardMedia, Chip, Grid, IconButton, Tooltip, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardMedia, Chip, Grid, IconButton, Tooltip, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { UserWordType, WordType } from '../../../../types/type'
+import {  WordType } from '../../../../types/type'
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import HardwareIcon from '@mui/icons-material/Hardware';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
@@ -10,27 +10,10 @@ import PlayAudio from './PlayAudio';
 import StatisticOneWord from '../StatisticOneWord';
 import { useAppDispatch } from '../../../../hooks/hooks';
 import { createUserWord, deleteDifficultUserWord, updateExistUserWord } from '../../../../store/bookSlice';
-import { addOneWordAsLearnedOrNew, deleteOneWordAsLearned, sendStatistics } from '../../../../store/statisticsSlice';
+import { addOneWordAsLearnedOrNew, deleteOneWordAsLearned } from '../../../../store/statisticsSlice';
+import { LEVEL_COLORS, LIGHT_GREEN, LIGHT_RED } from '../../../../constants/constants';
+import { dataPayload } from '../../../../AuxiliaryFunctions/AuxiliaryFunctions';
 const baseUrl = process.env.REACT_APP_API_URL;
-const level: {[key: number]: string} = {
-  0: '#ffef62',
-  1: '#ffcd38',
-  2: '#a2cf6e',
-  3: '#33ab9f',
-  4: '#6573c3',
-  5: '#af52bf',
-  6: '#f6685e',
-}
-
-const dataPayload: UserWordType = {
-  'difficulty': 'difficult',
-  'optional': {
-    'countRightAnswers': '0'
-  }
-}
-
-const lightGreen = '#00ff000e';
-const lightRed = '#ff00000e';
 
 type CardItemProps = {
   word: WordType;
@@ -46,7 +29,7 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
     const isDifficult = word.userWord?.difficulty === 'difficult'
     const isLearned = word.userWord?.difficulty === 'learned';
     const isDifficultGroup = currentGroup === 6;
-    const bgColor = isDifficult ? lightRed : isLearned ? lightGreen : 'none' ;
+    const bgColor = isDifficult ? LIGHT_RED : isLearned ? LIGHT_GREEN : 'none' ;
     const isStatistics = word.userWord?.optional?.isNew === 'false';
 
     const handleToDifficult = () => {
@@ -89,11 +72,11 @@ const CardItem: React.FC<CardItemProps> = ({word, isAuth, isShowTranslate, curre
 
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <CardContent >
-          <Chip label={`Lvl ${word.group + 1}`} sx={{ bgcolor: `${level[word.group]}`}}/>
+          <Chip label={`Lvl ${word.group + 1}`} sx={{ bgcolor: `${LEVEL_COLORS[word.group]}`}}/>
           <Typography component="h5" variant="h5">
             {word.word} - {word.transcription}
             <span>
-              <PlayAudio audioData={{word: baseUrl + word.audio, firstSent: baseUrl + word.audioMeaning, secondSent: baseUrl + word.audioExample}}/>
+              <PlayAudio audioData={{wordId: word.id! || word._id!, word: baseUrl + word.audio, firstSent: baseUrl + word.audioMeaning, secondSent: baseUrl + word.audioExample}}/>
             </span>
           </Typography>
           {isShowTranslate && <Typography variant="subtitle1"  color="textSecondary">
