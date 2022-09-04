@@ -1,5 +1,5 @@
-import { Box, Card, Grid, Skeleton } from '@mui/material';
 import React from 'react';
+import { Box, Card, Grid, Skeleton } from '@mui/material';
 
 const CardSceleton = () => {
   return (
@@ -30,7 +30,6 @@ const CardSceleton = () => {
         </Box>
       </Box>
       </Card>
-      
     </Grid>
   );
 };

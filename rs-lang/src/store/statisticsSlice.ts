@@ -5,6 +5,7 @@ import { calculateUserWordData, createUserWordData, getCurrentDate, initialStati
 import { StatisticsType } from '../types/type';
 import { createUserWord, updateExistUserWord } from './bookSlice';
 import { RootState } from './store';
+import { setSomethingWrong } from './userSlice';
 
 type statisticsState = {
 data: StatisticsType;
@@ -28,21 +29,21 @@ export const fetchStatistics = createAsyncThunk<void,  void , {state: RootState}
         }
       }
     } catch (error) {
-      console.log(error);
+      dispatch(setSomethingWrong('Something wrong with get statistics'));
     }
   }
 );
 
 export const upsertStatistics = createAsyncThunk<void,  StatisticsType , {state: RootState}>(
   'statistics/upsertStatistics',
-  async (payload, { getState }) => {
+  async (payload, { getState, dispatch }) => {
     const { user } = getState().user;
     try {
       if (user) {
         await StatisticsAPI.upsertStatistics(user.userId, payload);
       }
     } catch (error) {
-      console.log(error);
+      dispatch(setSomethingWrong('Something wrong with upsert statistics'));
     }
   }
 );
@@ -90,7 +91,7 @@ export const addOneWordAsLearnedOrNew = createAsyncThunk<void,  'learned' | 'new
         }
       }
     } catch (error) {
-      console.log(error);
+      dispatch(setSomethingWrong('Something wrong with add word as learned or new'));
     }
   }
 );
@@ -160,7 +161,7 @@ export const sendAllStatistics = createAsyncThunk<void,  {type: 'learned' | 'new
         }
       }
     } catch (error) {
-      console.log(error);
+      dispatch(setSomethingWrong('Something wrong with send all statistics'));
       
     }
   }
@@ -186,7 +187,7 @@ export const deleteOneWordAsLearned = createAsyncThunk<void,  void , {state: Roo
         }
       }
     } catch (error) {
-      console.log(error);
+      dispatch(setSomethingWrong('Something wrong with delete one word as learned'));
     }
   }
 );
@@ -240,7 +241,7 @@ export const sendStatistics = createAsyncThunk<void,  {type: 'right' | 'wrong', 
         }
       }
     } catch (error) {
-      console.log(error);
+      dispatch(setSomethingWrong('Something wrong with send statistics'));
     }
   }
 )

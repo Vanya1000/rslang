@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, FormControlLabel, Switch } from '@mui/material';
+import { Switch } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { useAppSelector } from '../../../hooks/hooks';
 import { setIsLightTheme } from '../../../store/settingsSlice';
 
@@ -32,7 +32,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 32,
     height: 32,
     '&:before': {
-      content: "''",
+      content: '\'\'',
       position: 'absolute',
       width: '100%',
       height: '100%',
