@@ -645,3 +645,14 @@
 .invisible {
     display: none;
 }
+.sprint__keyboard {
+    color: rgba(240, 240, 240, 0.884);
+    position: absolute;
+    bottom: 0;
+    margin: 8px;
+}
+@media(max-width: 681px) {
+   .sprint__keyboard {
+    display: none;
+   }
+}

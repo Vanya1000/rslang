@@ -34,7 +34,7 @@ const Sprint = () => {
   if (isFetching) {
     return (
       <div className="sprint__game">
-        <CircularProgress size="4rem" className="game__progress" color="info" thickness={2}/>
+        <CircularProgress size="4rem" className="game__progress" color="info" thickness={2} />
       </div>
     );
   } else if (gameGroup === null) {
@@ -45,14 +45,14 @@ const Sprint = () => {
     if (isEnd) {
       return (
         <div className="sprint__game">
-          <GameResults open={isEnd} setEnd={setEnd} backToGame={backToGame}/>
+          <GameResults open={isEnd} setEnd={setEnd} backToGame={backToGame} />
         </div>
       )
     } else {
       return (
         <div className="sprint__game">
           <div className="game__main">
-            <SprintCard 
+            <SprintCard
               setEnd={setEnd}
               setTimer={setTimer}
               series={series}
