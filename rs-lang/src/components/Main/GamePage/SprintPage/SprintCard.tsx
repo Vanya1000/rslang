@@ -9,6 +9,8 @@ import { additionalWords, playAudio, playWordAudio, shuffle } from '../common';
 import { sendStatistics } from '../../../../store/statisticsSlice';
 import { selectUser } from '../../../../store/userSlice';
 import successAudioPath from '../../../../assets/audio/success.mp3';
+import CircularProgressWithLabel from '../CircularProgressWithLabel';
+import KeyboardFrame from '../AudioChallenge/KeyboardFrame/KeyboardFrame';
 
 const SprintCard = (props: {
     setEnd: React.Dispatch<React.SetStateAction<boolean>>,
@@ -29,6 +31,7 @@ const SprintCard = (props: {
   const gameWords = useAppSelector(selectGameWords);
   const wordIndex = useAppSelector(selectWordIndex);
   const user = useAppSelector(selectUser);
+  const isLightTheme = useAppSelector((state) => state.settings.isLightTheme);
 
   const dispatch = useAppDispatch();
 
@@ -129,7 +132,12 @@ const SprintCard = (props: {
   return (
     <div className={`sprint__content${animate === 'red' ? ' background_red' : ' '}
     ${animate === 'green' ? ' background_green' : ''}`}>
-        <img
+      <CircularProgressWithLabel value={props.timer} game="sprint" />
+      <p className='game__title'>
+        Sprint
+      </p>
+      <KeyboardFrame />
+      <img
         onClick={() => playWordAudio(gameWords, wordIndex)}
         className="sprint__img"
         src={volume}
