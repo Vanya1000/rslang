@@ -33,11 +33,7 @@ type ControlsPropsType = {
   currentPage: number;
 };
 
-const Controls: React.FC<ControlsPropsType> = ({
-  isAuth,
-  currentGroup,
-  currentPage,
-}) => {
+const Controls: React.FC<ControlsPropsType> = ({ isAuth, currentGroup, currentPage }) => {
   const isLearnedPage =
     useAppSelector((state) => state?.book?.words).filter(
       (word) =>

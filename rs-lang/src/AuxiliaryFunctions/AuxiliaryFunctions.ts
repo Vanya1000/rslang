@@ -86,3 +86,10 @@ export const initialStatistics = {
       }
   }
 }
+
+export const dataPayload: UserWordType = {
+  'difficulty': 'difficult',
+  'optional': {
+    'countRightAnswers': '0'
+  }
+}

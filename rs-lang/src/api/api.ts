@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { StoreType } from '../store/store';
-import { logout, updateToken } from '../store/userSlice';
+import { logout, setSomethingWrong, updateToken } from '../store/userSlice';
 
 
 
@@ -35,7 +35,7 @@ instance.interceptors.response.use(
         store.dispatch(updateToken(rs.data));
         return instance.request(originalRequest);
       } catch (e) {
-        console.log('user is not authorized');
+        store.dispatch(setSomethingWrong('User is not authorized'));
         store.dispatch(logout());
       }
     }

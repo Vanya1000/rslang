@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -21,6 +22,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 
 const SignUp = () => {
 	const isAuth = useAppSelector(state => state.user?.user?.message === 'Authenticated');
+	const isFetcing = useAppSelector(state => state.user.isFetching);
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate();
 
@@ -128,14 +130,16 @@ const SignUp = () => {
 								{...register('confirmPassword', { validate: value => value === password.current || 'The passwords do not match' })}
 							/>
 							
-							<Button
+							<LoadingButton
+								loading={isFetcing}
+								loadingPosition="end"
 								type="submit"
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
 							>
 								Sign Up
-							</Button>
+							</LoadingButton>
 						</form>
 						<Grid container>
 							<Grid item xs>
