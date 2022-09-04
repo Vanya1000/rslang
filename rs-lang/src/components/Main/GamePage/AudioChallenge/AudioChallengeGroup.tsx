@@ -1,11 +1,14 @@
 import GameGroupButton from '../GameGroupButton';
 import '../Game.css';
+import { Typography } from '@mui/material';
 
 const AudioChallengeGroup = () => {
   return (
     <div className='audio-challenge'>
       <div className='audio-challenge__wrapper'>
-        <h2 className='audio-challenge__title'>Audio challenge</h2>
+        <Typography variant="h4" component="h2" align='center' sx={{margin: '80px 0 50px 0'}}>
+          Audio challenge
+        </Typography>
         <div className='audio-challenge__description' >
           Check your listening skills, trying to pick the right
           meaning after hearing a word.

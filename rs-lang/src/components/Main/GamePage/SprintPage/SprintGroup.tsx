@@ -1,11 +1,14 @@
 import GameGroupButton from "../GameGroupButton";
 import '../Game.css';
+import { Typography } from "@mui/material";
 
 const SprintGroup = () => {
   return (
     <div className='sprint'>
       <div className='sprint__wrapper'>
-        <h2 className='sprint__title'>Sprint</h2>
+        <Typography variant="h4" component="h2" align='center' sx={{margin: '80px 0 50px 0'}}>
+          Sprint
+        </Typography>
         <div className='sprint__description' >
           Check how much points you can get in one minute,
           making educated guesses about what is right and what is wrong.

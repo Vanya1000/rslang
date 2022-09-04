@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   selectWordIndex,
   setWordIndex,
-  addAnswer
+  addAnswer,
+  selectProgress
 } from '../../../../store/gameSlice';
 import { selectGameWords } from '../../../../store/gameSlice';
 import rightAudioPath from '../../../../assets/audio/right.mp3';
@@ -13,6 +14,8 @@ import successAudioPath from '../../../../assets/audio/success.mp3';
 import { sendStatistics } from '../../../../store/statisticsSlice';
 import { additionalWords, playAudio, playWordAudio, shuffle } from '../common';
 import { selectUser } from '../../../../store/userSlice';
+import KeyboardFrame from './KeyboardFrame/KeyboardFrame';
+import CircularProgressWithLabel from '../CircularProgressWithLabel';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -26,6 +29,7 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
   const gameWords = useAppSelector(selectGameWords);
   const wordIndex = useAppSelector(selectWordIndex);
   const user = useAppSelector(selectUser);
+  const progress = useAppSelector(selectProgress);
 
   const dispatch = useAppDispatch();
 
@@ -135,11 +139,11 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
     }
   };
 
-  let keyDownCount = 0
+  let keyDownCount = 0;
   const onKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       playWordAudio(gameWords, wordIndex)
-      return
+      return;
     }
     if (e.key === ' ') {
       keyDownCount
@@ -147,16 +151,21 @@ const AudioChallengeCard = (props: { setEnd: React.Dispatch<React.SetStateAction
       : `${ skipAnswer(), keyDownCount = 1}`
     }
     if ([1, 2, 3, 4].includes(parseInt(e.key))) {
-      if (keyDownCount) return
+      if (keyDownCount) return;
       checkAnswer(parseInt(e.key) - 1)
       keyDownCount = 1
-      return
+      return;
     }
   }
 
   return (
     <div className={`audio-challenge__content${animate === 'red' ? ' background_red' : ' '}
     ${animate === 'green' ? ' background_green' : ''}`}>
+      <CircularProgressWithLabel value={progress} game='audioChallenge' />
+      <p className='game__title'>
+        Audio challenge
+      </p>
+      <KeyboardFrame />
       <div className="content__container">
         <img
           className={`content__image${isAnswered ? '' : ' invisible'}`}
