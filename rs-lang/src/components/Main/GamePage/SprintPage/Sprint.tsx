@@ -34,7 +34,7 @@ const Sprint = () => {
   if (isFetching) {
     return (
       <div className="sprint__game">
-        <CircularProgress size="4rem" className="game__progress" color="info" thickness={2}/>
+        <CircularProgress size="4rem" className="game__progress" color="info" thickness={2} />
       </div>
     );
   } else if (gameGroup === null) {
@@ -45,7 +45,7 @@ const Sprint = () => {
     if (isEnd) {
       return (
         <div className="sprint__game">
-          <GameResults open={isEnd} setEnd={setEnd} backToGame={backToGame}/>
+          <GameResults open={isEnd} setEnd={setEnd} backToGame={backToGame} />
         </div>
       )
     } else {
@@ -56,7 +56,7 @@ const Sprint = () => {
             <h2 className="header__title">SPRINT</h2>
           </div>
           <div className="game__main">
-            <SprintCard 
+            <SprintCard
               setEnd={setEnd}
               setTimer={setTimer}
               series={series}
@@ -69,6 +69,11 @@ const Sprint = () => {
               setBonusProgress={setBonusProgress}
               timer={timer}
             />
+          </div>
+          <div className='sprint__keyboard'>
+            <div>You can use keyboard:</div>
+            <div>&nbsp;&nbsp;&larr; <span>- right</span></div>
+            <div>&nbsp;&nbsp;&rarr; <span>- wrong</span></div>
           </div>
         </div>
       );

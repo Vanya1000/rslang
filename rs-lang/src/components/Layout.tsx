@@ -17,7 +17,7 @@ const Layout = () => {
     <ThemeProvider theme={isLightTheme ? themeLight : themeDark}>
     <CssBaseline />
       <Header />
-      <div style={{ minHeight: 'calc(100vh - 125px)' }}>
+      <div style={{ minHeight: 'calc(100vh - 142px)' }}>
         <Outlet />
       </div>
       <AlertSnackbar msg={somethingWrong} />
