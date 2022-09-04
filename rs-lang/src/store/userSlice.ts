@@ -10,6 +10,7 @@ export type userState = {
   isSuccessRegistration: boolean;
   regErrorMessage: string;
   somethingWrong: string;
+  isFetching: boolean;
 }
 
 const initialState: userState = {
@@ -17,6 +18,7 @@ const initialState: userState = {
   isSuccessRegistration: false,
   regErrorMessage: '',
   somethingWrong: '',
+  isFetching: false,
 };
 
 export const registration = createAsyncThunk<void, DataForRegistration, {state: RootState}>(
@@ -85,8 +87,29 @@ export const userSlice = createSlice({
     setSomethingWrong: (state, action: PayloadAction<string>) => {
       state.somethingWrong = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(registration.pending, (state) => {
+        state.isFetching = true;
+      })
+      .addCase(registration.fulfilled, (state) => {
+        state.isFetching = false;
+      })
+      .addCase(registration.rejected, (state) => {
+        state.isFetching = false;
+      })
+      .addCase(login.pending, (state) => {
+        state.isFetching = true;
+      })
+      .addCase(login.fulfilled, (state) => {
+        state.isFetching = false;
+      })
+      .addCase(login.rejected, (state) => {
+        state.isFetching = false;
+      })
   }
-});
+  });
 
 export const { setIsSuccessRegistration, setRegErrorMessage, setUserData, logout, updateToken, setSomethingWrong } = userSlice.actions;
 
