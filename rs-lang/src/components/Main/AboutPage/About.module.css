@@ -1,0 +1,119 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* min-height: calc(100vh - 109px) */
+}
+
+h4 {
+  font-size: 30px;
+  margin: 20px 0 35px 0;
+  width: 100%;
+  border-bottom: 1px solid rgb(185, 185, 185);
+  display: flex;
+  justify-content: center;
+}
+
+.teamMateWrapper {
+  margin-bottom: 20px;
+}
+
+.teamMate {
+  display: flex;
+  max-width: 700px;
+  margin-bottom: 40px;
+}
+
+.imgWrapperLeft {
+  margin: 0 40px 0 0;
+}
+
+.imgWrapperRight {
+  margin: 0 0 0 40px;
+}
+
+.imgWrapper img {
+  border-radius: 50%;
+  width: 220px;
+  cursor: default;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.name div {
+  font-size: 24px;
+  cursor: default;
+}
+
+.name img {
+  cursor: pointer;
+  width: 30px;
+  transition: ease-in-out 0.2s;
+  margin: 0 10px;
+}
+
+.name img:hover {
+  width: 38px;
+}
+
+.leftBlock {
+  margin-left: -260px;
+}
+
+.rightBlock {
+  flex-direction: row-reverse;
+  margin-right: -260px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status {
+  margin-bottom: 12px;
+  align-items: center;
+  color: rgb(129, 129, 129);
+  cursor: default;
+}
+.description {
+  cursor: default;
+}
+
+@media (max-width: 1050px) {
+  .teamMate {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 950px) {
+  .leftBlock {
+    margin-left: 0;
+  }
+
+  .rightBlock {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  .teamMate {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nameReverse {
+    flex-direction: row-reverse;
+  }
+
+  .description {
+    margin: 0 30px;
+  }
+}

@@ -1,0 +1,84 @@
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.game__wrapper {
+  min-height: calc(100vh - 64px);
+  background-image: url(../../../assets/gameImg/deer.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.game__content {
+  position: relative;
+  top: 80px;
+  left: calc(50% - 300px);
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game__buttons {
+  margin: 100px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 90px;
+}
+
+.game__button {
+  border: none;
+  border-radius: 50%;
+  box-shadow: 3px 3px 15px #6573c3;
+  width: 200px;
+  height: 200px;
+  transition: background-color 0.4s ease-in-out;
+  font-size: 20px;
+  color: #F5F5F7;
+  background-color: #f5f5f739;
+  animation: bounce-down 1.6s linear infinite;
+}
+
+.game__button:hover {
+  background-color: #f5f5f75a;
+}
+
+@keyframes bounce-down {
+  25% {
+       transform: translateY(-4px);
+  }
+  50%, 100% {
+       transform: translateY(0);
+  }
+  75% {
+       transform: translateY(4px);
+  }
+}
+
+@media(max-width: 640px) {
+  .game__content {
+    left: calc(50% - 150px);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game__buttons {
+    margin: 100px 0;
+    gap: 30px;
+  }
+
+  .game__button {
+    width: 120px;
+    height: 120px;
+  }
+
+  .game__wrapper {
+    min-height: calc(100vh - 58px);
+  }
+}
