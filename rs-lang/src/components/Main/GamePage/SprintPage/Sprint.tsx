@@ -6,7 +6,6 @@ import SprintCard from './SprintCard';
 import SprintGroup from './SprintGroup';
 import GameResults from '../GameResults';
 import { useState } from 'react';
-import KeyboardFrame from '../AudioChallenge/KeyboardFrame/KeyboardFrame';
 
 const Sprint = () => {
   const [isEnd, setEnd] = useState(false);

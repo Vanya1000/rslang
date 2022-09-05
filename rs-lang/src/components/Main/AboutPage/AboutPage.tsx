@@ -28,11 +28,11 @@ const AboutPage = () => {
                 }
               </a>
             </div>
-            <div className={s.status}>Team leader, Full Stack developer</div>
+            <div className={s.status}>Team leader, Frontend developer</div>
             <div className={s.description}>
-              Did basic project settings, initial layout, redux setup,
-              router setup, login form, part of the TextBook page,
-              "Audio Challenge" game, "Savannah" game, backend
+            Coordinated the team, developed the application architecture, made the basic project settings, 
+            set up routing, set up receiving data from the backend to redux, implemented the menu, 
+            textbook page, statistics page, authorization and user registration
             </div>
           </div>
         </div>
@@ -52,9 +52,8 @@ const AboutPage = () => {
             </div>
             <div className={s.status}>Frontend developer</div>
             <div className={s.description}>
-              Did basic project settings, initial layout, redux setup,
-              router setup, login form, part of the TextBook page,
-              "Audio Challenge" game, "Savannah" game, backend
+              Created the main page, implemented the functionality and design of mini-games "Sprint" and "Audio Challenge", 
+              navigation through the pages of games
             </div>
           </div>
         </div>
@@ -74,9 +73,8 @@ const AboutPage = () => {
             </div>
             <div className={s.status}>Frontend developer</div>
             <div className={s.description}>
-              Did basic project settings, initial layout, redux setup,
-              router setup, login form, part of the TextBook page,
-              "Audio Challenge" game, "Savannah" game, backend
+              Created the "About us" page, footer, made part of the "Sprint" game, 
+              implemented the keyboard control for the "Audio Challenge" game, tested the application
             </div>
           </div>
         </div>
