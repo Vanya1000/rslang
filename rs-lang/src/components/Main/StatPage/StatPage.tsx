@@ -66,7 +66,7 @@ const StatPage = () => {
       >
         <Grid sx={{ p: 2 }} container direction="column" component={Paper}>
           <Grid item>
-            <Typography variant="h6">Daily statistics on mini-games</Typography>
+            <Typography variant="h6">Daily statistics for mini-games</Typography>
             {!isChangeTodaySprint && !isChangeTodayAudioChall  && !isFetching && <Alert severity="info">You haven't played a single game today</Alert>}
           </Grid>
           <Grid item sx={{ pl: 2, pr: 2 }}>

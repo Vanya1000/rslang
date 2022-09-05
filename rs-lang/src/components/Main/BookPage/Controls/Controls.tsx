@@ -87,7 +87,7 @@ const Controls: React.FC<ControlsPropsType> = ({ isAuth, currentGroup, currentPa
       alignItems="center"
     >
       <Grid item xs={12}>
-        { isAuth && <Card sx={{ p: 1, mt: 1, display: 'flex' }}>
+        { currentGameGroup !== 6 && <Card sx={{ p: 1, mt: 1, display: 'flex' }}>
           <Tooltip title="Start game" arrow placement="left">
             <>
               <Button
