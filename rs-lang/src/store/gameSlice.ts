@@ -70,6 +70,22 @@ const fetchSprintWordsFromBook = async (group: number, page: number, userId: str
   return allWords;
 }
 
+const fetchSprintWordsFromBookNoAuth = async (group: number, page: number, logErrorMessage?: (message: string) => void): Promise<WordType[]> => {
+  let currentPage = page;
+  const allWords: WordType[] = [];
+  while (currentPage >= 0 && allWords.length < 200) {
+    const words = await fetchWordsNoAuth(group, currentPage, logErrorMessage);
+    if (words) {
+      allWords.push(...words);
+    }
+    if (currentPage === 0) {
+      break;
+    }
+    currentPage -= 1;
+  }
+  return allWords;
+}
+
 const fetchSprintWordsFromGame = async (group: number, page: number, userId?: string, logErrorMessage?: (message: string) => void): Promise<WordType[]> => {
   let currentPage = page;
   const allWords: WordType[] = [];
@@ -108,7 +124,7 @@ const fetchAudioChallengeWordsFromBook = async (group: number, page: number, use
   return allWords;
 }
 
-const fetchAudioChallengeWordsFromGame = async (group: number, page: number, userId?: string, logErrorMessage?: (message: string) => void): Promise<WordType[] | undefined> => {
+const fetchAudioChallengeWords = async (group: number, page: number, userId?: string, logErrorMessage?: (message: string) => void): Promise<WordType[] | undefined> => {
   const allWords: WordType[] = [];
   const words = userId
     ? await fetchWordsAuth(group, page, userId!, logErrorMessage)
@@ -137,14 +153,16 @@ export const fetchGameWords = createAsyncThunk<WordType[] | undefined, void, { s
           case 'audioChallenge':
               return isFromBook
                 ? await fetchAudioChallengeWordsFromBook(gameGroup!, gamePage!, user!.userId, logErrorMessage)
-                : await fetchAudioChallengeWordsFromGame(gameGroup!, gamePage!, user!.userId, logErrorMessage);
+                : await fetchAudioChallengeWords(gameGroup!, gamePage!, user!.userId, logErrorMessage);
         }
       } else {
         switch (game) {
           case 'sprint':
-              return await fetchSprintWordsFromGame(gameGroup!, gamePage!, undefined, logErrorMessage);
+              return isFromBook 
+              ? await fetchSprintWordsFromBookNoAuth(gameGroup!, gamePage!, logErrorMessage)
+              : await fetchSprintWordsFromGame(gameGroup!, gamePage!, undefined, logErrorMessage);
           case 'audioChallenge':
-              return await fetchAudioChallengeWordsFromGame(gameGroup!, gamePage!, undefined, logErrorMessage);
+              return await fetchAudioChallengeWords(gameGroup!, gamePage!, undefined, logErrorMessage);
         }
       }
     } catch (error) {
