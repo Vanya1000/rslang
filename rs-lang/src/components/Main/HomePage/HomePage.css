@@ -434,7 +434,7 @@
     }
 
     .possibilities {
-        height: 1450px;
+        height: 1500px;
     }
 
     .advantages {
@@ -455,6 +455,10 @@
     .hero__container {
         width: 250px;
         left: 50%;
+    }
+
+    .possibilities {
+        height: 1550px;
     }
 
     .possibilities__title,
