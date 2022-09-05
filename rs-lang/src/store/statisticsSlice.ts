@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+
 import StatisticsAPI from '../api/statistics';
 import wordsAPI from '../api/words';
 import { calculateUserWordData, createUserWordData, getCurrentDate, initialStatistics } from '../AuxiliaryFunctions/AuxiliaryFunctions';
 import { StatisticsType } from '../types/type';
+
 import { createUserWord, updateExistUserWord } from './bookSlice';
 import { RootState } from './store';
 import { setSomethingWrong } from './userSlice';

@@ -1,7 +1,9 @@
-import { DataForRegistration, SignInFormType, UpdateTokenType, userType } from './../types/type';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
+
 import AuthService from '../api/auth';
+
+import { DataForRegistration, SignInFormType, UpdateTokenType, userType } from './../types/type';
+import { RootState } from './store';
 import { createStatistics } from './statisticsSlice';
 
 

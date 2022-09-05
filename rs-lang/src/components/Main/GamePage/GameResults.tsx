@@ -1,10 +1,14 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useAppSelector } from '../../../hooks/hooks';
 import { selectAnswers } from '../../../store/gameSlice';
 import { selectGame, selectGameWords } from '../../../store/gameSlice';
 import { WordType } from '../../../types/type';
-import { useNavigate } from 'react-router-dom';
-import GameWord from './GameWord';
 import { selectUser } from '../../../store/userSlice';
+
+import GameWord from './GameWord';
+
 
 export type StatisticsType = {
   rightAnswers: WordType[];

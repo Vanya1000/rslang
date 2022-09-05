@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
+
 import { DataForRegistration, LoginResponseType, RegistrationResponseType } from '../types/type';
+
 import instance from './api';
 
 

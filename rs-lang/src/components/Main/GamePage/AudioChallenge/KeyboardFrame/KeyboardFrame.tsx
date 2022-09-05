@@ -1,7 +1,8 @@
-import { useAppSelector } from "../../../../../hooks/hooks";
-import { selectGame } from "../../../../../store/gameSlice";
-import { Box, ClickAwayListener, SxProps } from "@mui/material";
-import { useState } from "react";
+import { Box, ClickAwayListener, SxProps } from '@mui/material';
+import { useState } from 'react';
+
+import { useAppSelector } from '../../../../../hooks/hooks';
+import { selectGame } from '../../../../../store/gameSlice';
 
 const KeyboardFrame = () => {
   const isLightTheme = useAppSelector((state) => state.settings.isLightTheme);
@@ -18,7 +19,7 @@ const KeyboardFrame = () => {
   };
 
   const styles: SxProps = {
-    position: "absolute",
+    position: 'absolute',
     top: 20,
     right: 20,
     width: '250px',
@@ -39,13 +40,13 @@ const KeyboardFrame = () => {
       touchEvent="onTouchStart"
       onClickAway={handleClickAway}
     >
-      <Box sx={{ position: "absolute", right: 15, top: 15 }}>
+      <Box sx={{ position: 'absolute', right: 15, top: 15 }}>
         <button className="dropdown__button" type="button" onClick={handleClick}>
           ?
         </button>
         {IsDropdownOpen ? (
           <Box sx={styles}>
-            {game === "audioChallenge" ? (
+            {game === 'audioChallenge' ? (
               <div>
                 <p className="dropdown__title" style={style}>You can use keyboard</p>
                 <div className="dropdown__key">

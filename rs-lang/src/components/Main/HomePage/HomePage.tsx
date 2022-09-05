@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+
 import './HomePage.css';
 import textbook from '../../../assets/images/textbook.png';
 import dictionary from '../../../assets/images/dictionary.png';
 import games from '../../../assets/images/games.png';
 import statistics from '../../../assets/images/statistics.png';
-import Advantage from './Advantage';
 import { useAppSelector } from '../../../hooks/hooks';
+
+import Advantage from './Advantage';
 
 const HomePage = () => {
   const heroRef = useRef<HTMLDivElement>(null);

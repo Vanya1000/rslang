@@ -1,18 +1,20 @@
-import { Box, Card, CardContent, CardMedia, Chip, Grid, IconButton, Tooltip, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import {  WordType } from '../../../../types/type'
+import { Box, Card, CardContent, CardMedia, Chip, Grid, IconButton, Tooltip, Typography } from '@mui/material'
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import HardwareIcon from '@mui/icons-material/Hardware';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import ClearIcon from '@mui/icons-material/Clear';
-import PlayAudio from './PlayAudio';
+
+import {  WordType } from '../../../../types/type'
 import StatisticOneWord from '../StatisticOneWord';
 import { useAppDispatch } from '../../../../hooks/hooks';
 import { createUserWord, deleteDifficultUserWord, updateExistUserWord } from '../../../../store/bookSlice';
 import { addOneWordAsLearnedOrNew, deleteOneWordAsLearned } from '../../../../store/statisticsSlice';
 import { LEVEL_COLORS, LIGHT_GREEN, LIGHT_RED } from '../../../../constants/constants';
 import { dataPayload } from '../../../../AuxiliaryFunctions/AuxiliaryFunctions';
+
+import PlayAudio from './PlayAudio';
 const baseUrl = process.env.REACT_APP_API_URL;
 
 type CardItemProps = {

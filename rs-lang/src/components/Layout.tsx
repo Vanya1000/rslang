@@ -1,10 +1,12 @@
 import React from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Outlet, useLocation } from 'react-router-dom';
+
 import { themeDark, themeLight } from '../theme/createTheme';
+import { useAppSelector } from '../hooks/hooks';
+
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-import { useAppSelector } from '../hooks/hooks';
 import AlertSnackbar from './Common/AlertSnackbar';
 
 const Layout = () => {

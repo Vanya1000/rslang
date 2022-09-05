@@ -12,6 +12,7 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
+
 import { StatisticsType } from '../../../../types/type';
 
 type TableStatPropsType = {

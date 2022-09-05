@@ -1,4 +1,5 @@
 import { CircularProgress, CircularProgressProps } from '@mui/material';
+
 import { SECONDS_PER_MINUTE } from '../../../constants/constants';
 import { useAppSelector } from '../../../hooks/hooks';
 import { GameType } from '../../../types/type';

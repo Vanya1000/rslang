@@ -1,5 +1,6 @@
-import volume from '../../../../assets/images/volume.png';
 import { useEffect, useState } from 'react';
+
+import volume from '../../../../assets/images/volume.png';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   selectWordIndex,
@@ -14,8 +15,9 @@ import successAudioPath from '../../../../assets/audio/success.mp3';
 import { sendStatistics } from '../../../../store/statisticsSlice';
 import { additionalWords, playAudio, playWordAudio, shuffle } from '../common';
 import { selectUser } from '../../../../store/userSlice';
-import KeyboardFrame from './KeyboardFrame/KeyboardFrame';
 import CircularProgressWithLabel from '../CircularProgressWithLabel';
+
+import KeyboardFrame from './KeyboardFrame/KeyboardFrame';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 

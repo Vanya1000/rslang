@@ -1,5 +1,6 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import React from 'react'
+
 import { WordType } from '../../../types/type';
 
 type StatisticOneWordPropsType = {

@@ -1,11 +1,15 @@
-import './GamePage.css';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Typography } from '@mui/material';
 
 import { resetGame } from '../../../store/gameSlice';
 import { useAppDispatch } from '../../../hooks/hooks';
-import { useNavigate } from 'react-router-dom';
 import { GameType } from '../../../types/type';
+
 import { getGameRoute } from './common';
-import { Typography } from '@mui/material';
+
+import './GamePage.css';
+
 
 const GamePage = () => {
   const dispatch = useAppDispatch();

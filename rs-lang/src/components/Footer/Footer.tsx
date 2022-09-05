@@ -1,11 +1,12 @@
-import { Container } from '@mui/system'
 import React from 'react'
-import s from './Footer.module.css'
+import { Link } from '@mui/material';
+
 import gitHub from '../../assets/footerImg/github.png';
 import rsImg from '../../assets/footerImg/rs_school_js.svg';
 import rsImg_dark from '../../assets/footerImg/rs_school_js_dark.svg';
-import { Link } from '@mui/material';
 import { useAppSelector } from '../../hooks/hooks';
+
+import s from './Footer.module.css'
 
 
 

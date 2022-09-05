@@ -16,11 +16,13 @@ import {
 } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
-import DrawerLayout from './DrawerLayout';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { logout, setIsSuccessRegistration } from '../../store/userSlice';
 import Setting from '../Common/Setting';
 import { setCurrentGroup, setCurrentPage } from '../../store/bookSlice';
+
+import DrawerLayout from './DrawerLayout';
 import SwitchTheme from './SwitchTheme/SwitchTheme';
 
 const linkColor = (isActive: unknown) => (isActive ? '#FFFFFF' : '#b0b0b0');

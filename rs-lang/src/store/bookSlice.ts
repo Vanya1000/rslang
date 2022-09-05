@@ -1,7 +1,9 @@
-import { RootState } from './store';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+
 import { CreateUserWordType, UserWordType, WordType } from '../types/type';
 import wordsAPI from '../api/words';
+
+import { RootState } from './store';
 import { setSomethingWrong } from './userSlice';
 
 export type bookState = {
