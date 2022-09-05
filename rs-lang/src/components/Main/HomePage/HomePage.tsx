@@ -22,12 +22,12 @@ const HomePage = () => {
   }
 
   const advantages = [
-    {id: 1, title: 'learn anytime'},
-    {id: 2, title: 'learn from anywhere'},
-    {id: 3, title: 'study at your own pace'},
-    {id: 4, title: 'enjoy the learning experience'},
-    {id: 5, title: 'speak from beginning'},
-    {id: 6, title: 'easy access'},
+    {id: 1, title: 'mini games'},
+    {id: 2, title: '3600 popular words'},
+    {id: 3, title: 'daily statistics'},
+    {id: 4, title: 'long-term statistics'},
+    {id: 5, title: 'for computer and mobile'},
+    {id: 6, title: 'dark and light themes'},
     {id: 7, title: 'RS Lang is incredibly versatile'},];
 
   const setHeroVisibility = (entries: IntersectionObserverEntry[]) => {
@@ -118,10 +118,11 @@ const HomePage = () => {
 
           <div className='possibilities__item'>
             <img src={dictionary} className='possibilities__img' alt='dictionary'/>
-              <h3 className='title'>DICTIONARY</h3>
+              <h3 className='title'>DIFFICULT WORDS</h3>
               <p>
-                  The dictionary contains lists of studied words, words that do not need to be learned, as well as those that cause difficulties.
-                  The dictionary reflects statistics for each section and student progress.
+                The section "Difficult words" is available for registered users and contains words that cause difficulties. 
+                Such words are marked in red. You can add and remove words from this section.
+                A word is removed from difficult words if you answer 5 times in a row correctly.
               </p>
           </div>
 
@@ -130,7 +131,8 @@ const HomePage = () => {
               <h3 className='title'>GAMES</h3>
               <p>
                 For learning words and reinforcing memorization, 
-                the application has 2 games: Savannah and Audio challenge, which will help you to "pump" your vocabulary in a playful way.
+                the application has 2 games: "Sprint" and "Audio challenge", which will help you to "pump" your vocabulary in a playful way.
+                A word is considered learned if you answer 3 times in a row correctly.
               </p>
           </div>
 
