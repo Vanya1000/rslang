@@ -66,7 +66,6 @@ const Sprint = () => {
               timer={timer}
             />
           </div>
-          <KeyboardFrame />
         </div>
       );
     }
