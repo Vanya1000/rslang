@@ -12,6 +12,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Alert, Link, Stack } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+
 import { DataForRegistration, SignUpFormType } from '../../types/type';
 import { registration } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';

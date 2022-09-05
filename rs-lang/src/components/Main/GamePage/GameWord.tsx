@@ -1,5 +1,8 @@
+import React from 'react';
+
 import { WordType } from '../../../types/type';
 import volume from '../../../assets/images/volume.png';
+
 import { playAudio } from './common';
 
 const baseUrl = process.env.REACT_APP_API_URL;

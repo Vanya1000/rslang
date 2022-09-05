@@ -1,7 +1,7 @@
-import { PAGES_PER_GROUP } from "../../../constants/constants";
-import { useAppDispatch } from "../../../hooks/hooks";
-import { fetchGameWords, setGame, setGameGroup, setGamePage } from "../../../store/gameSlice";
-import { GameType } from "../../../types/type";
+import { PAGES_PER_GROUP } from '../../../constants/constants';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { fetchGameWords, setGame, setGameGroup, setGamePage } from '../../../store/gameSlice';
+import { GameType } from '../../../types/type';
 
 const GameGroupButton = (props: { game: GameType, group: number }) => {
 

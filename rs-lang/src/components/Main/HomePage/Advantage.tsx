@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Advantage = (props: {id: number, title: string, timer: number}) => {
   const [isActive, setIsActive] = useState(false);

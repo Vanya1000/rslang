@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+
 import SignIn from './components/Auth/SignIn';
 import SignUp from './components/Auth/SignUp';
 import NoAuth from './components/Common/NoAuth';

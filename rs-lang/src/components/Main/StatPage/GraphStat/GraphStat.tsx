@@ -12,6 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+
 import { IncreaseStat } from '../../../../AuxiliaryFunctions/AuxiliaryFunctions';
 
 ChartJS.register(

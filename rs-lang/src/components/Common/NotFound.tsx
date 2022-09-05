@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import returnImg from '../../assets/images/prev-arrow.svg'
 import { useAppSelector } from '../../hooks/hooks'
+
 import s from './NotFound.module.css'
 
 

@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
+
 import { StatisticsType } from '../types/type';
+
 import instance from './api';
 
 export default class StatisticsAPI {

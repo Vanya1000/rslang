@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
+
 import { CreateUserWordType, ResponseOneAggregatedWord, ResponseWordTypeWithAuth, UserWordType, WordType } from '../types/type';
+
 import instance from './api';
 
 

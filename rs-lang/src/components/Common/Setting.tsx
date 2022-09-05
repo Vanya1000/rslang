@@ -3,6 +3,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Checkbox, IconButton } from '@mui/material';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { setIsShowTranslation } from '../../store/settingsSlice';
 

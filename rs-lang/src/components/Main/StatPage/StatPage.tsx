@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Alert, Grid, Paper, Typography } from '@mui/material';
 import { Box, Container } from '@mui/system';
-import GraphStat from './GraphStat/GraphStat';
-import TableStat from './TableStat/TableStat';
+
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchStatistics } from '../../../store/statisticsSlice';
 import { getCurrentDate } from '../../../AuxiliaryFunctions/AuxiliaryFunctions';
 import NoAuth from '../../Common/NoAuth';
+
+import TableStat from './TableStat/TableStat';
+import GraphStat from './GraphStat/GraphStat';
 
 const StatPage = () => {
   const dataStatistics = useAppSelector(state => state.statistics.data);

@@ -1,12 +1,15 @@
 import '../Game.css';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
-import { playAgain, selectGameGroup, selectGameWords, selectIsFetching, setGameWords } from '../../../../store/gameSlice';
-import AudioChallengeCard from './AudioChallengeCard';
 import { CircularProgress } from '@mui/material';
 import { useState } from 'react';
-import AudioChallengeGroup from './AudioChallengeGroup';
+
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
+import { playAgain, selectGameGroup, selectGameWords, selectIsFetching, setGameWords } from '../../../../store/gameSlice';
 import GameResults from '../GameResults';
 import { shuffle } from '../common';
+
+import AudioChallengeCard from './AudioChallengeCard';
+import AudioChallengeGroup from './AudioChallengeGroup';
+
 
 const AudioChallenge = () => {
   const [isEnd, setEnd] = useState(false);

@@ -1,11 +1,17 @@
-import '../Game.css';
+import React from 'react';
+import { CircularProgress } from '@mui/material';
+import { useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { playAgain, selectGameGroup, selectIsFetching } from '../../../../store/gameSlice';
-import { CircularProgress } from '@mui/material';
+import GameResults from '../GameResults';
+
 import SprintCard from './SprintCard';
 import SprintGroup from './SprintGroup';
-import GameResults from '../GameResults';
-import { useState } from 'react';
+
+import '../Game.css';
+
+
 
 const Sprint = () => {
   const [isEnd, setEnd] = useState(false);

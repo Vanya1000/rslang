@@ -1,6 +1,10 @@
-import GameGroupButton from "../GameGroupButton";
+import { Typography } from '@mui/material';
+
+import GameGroupButton from '../GameGroupButton';
+
 import '../Game.css';
-import { Typography } from "@mui/material";
+
+
 
 const SprintGroup = () => {
   return (

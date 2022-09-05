@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import wordsAPI from '../api/words';
 import { AnswerType, GameType, WordType } from '../types/type';
+
 import { RootState } from './store';
 import { setSomethingWrong } from './userSlice';
 

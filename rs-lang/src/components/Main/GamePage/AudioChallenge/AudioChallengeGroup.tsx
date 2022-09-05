@@ -1,6 +1,10 @@
-import GameGroupButton from '../GameGroupButton';
-import '../Game.css';
+import React from 'react';
 import { Typography } from '@mui/material';
+
+import GameGroupButton from '../GameGroupButton';
+
+import '../Game.css';
+
 
 const AudioChallengeGroup = () => {
   return (

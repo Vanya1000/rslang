@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { addAnswer, selectWordIndex, setWordIndex } from '../../../../store/gameSlice';
 import { selectGameWords } from '../../../../store/gameSlice';

@@ -1,7 +1,8 @@
-import { Grid, Card, CardContent, Typography, Button, Container } from '@mui/material';
 import React, { useEffect } from 'react';
+import { Grid, Card, CardContent, Typography, Button, Container } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LockIcon from '@mui/icons-material/Lock';
+
 import { StateTypeUseLocation } from '../../types/type';
 import { useAppSelector } from '../../hooks/hooks';
 

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
-import Controls from './Controls/Controls';
-import Cards from './Cards/Cards';
+
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchHardWords, fetchWords } from '../../../store/bookSlice';
+
+import Controls from './Controls/Controls';
+import Cards from './Cards/Cards';
 
 const BookPage = () => {
   const isAuth = useAppSelector((state) => !!state.user.user?.userId);
